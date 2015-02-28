@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ice="http://www.icesoft.com/icefaces/components">
+<h:head>
+	<title><ui:insert name="title">Tipsbolag - Stryktips Måltips</ui:insert>
+	</title>
+	<h:outputStylesheet library="css" name="style.css" />
+	<META NAME="Description"
+		CONTENT="Stryktipsbolag tipsbolag måltipset administrera gratis andelsbolag" />
+	<meta name="keywords"
+		content="Stryktipsbolag, tipsbolag, måltipset, gratis, administrera, hantera, andelsbolag" />
+
+</h:head>
+
+<h:body>
+	<div id="header"><ui:insert name="header">
+		<ui:include src="/header.xhtml" />
+	</ui:insert></div>
+	<ui:insert name="body">Default Body</ui:insert>
+
+	<div id="footer"><ui:insert name="footer">
+		<ui:include src="/footer.xhtml" />
+	</ui:insert></div>
+</h:body>
+</html>

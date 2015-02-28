@@ -1,0 +1,16 @@
+﻿<Resource id="SpelbolagDS" type="DataSource">
+		JdbcDriver org.apache.derby.jdbc.ClientDataSource40
+		JdbcUrl jdbc:derby://localhost:1527/spelbolag_db;create=true
+		UserName spelbolaguser
+		Password user
+		databaseName spelbolag_db
+		JtaManaged true
+</Resource>
+
+
+Kopiera över eclipselink-2.2.0 till TOMCAT_HOME/lib
+
+Lägg på patchen: openejb-core-4.5.0.jar
+Pathen består av: AsmParameterNamesLoad.java och DataSourceFactory.java
+
+deploya war-filen.

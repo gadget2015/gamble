@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core">
+<body>
+ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
+<ui:composition template="/template.xhtml">
+	<ui:define name="body">
+	<h:outputText value="#{spelbolagenViewModel.init}"></h:outputText>
+		<div class="infobox"><h:form>
+			<table>
+				<tr>
+					<td class="headerLabel">Alla spelbolagen:</td>
+				</tr>
+				<tr>
+					<td><h:dataTable id="allaSpelbolag"
+						value="#{spelbolagenViewModel.spelbolagModel}" var="item"
+						cellpadding="3" cellspacing="0" width="525px" dir="LTR"
+						summary="Konto transaktioner" styleClass="system-table"
+						headerClass="system-table-header"
+						rowClasses="system-table-odd-row,system-table-even-row"
+						columnClasses="column1_spelbolagen, column2_spelbolagen">
+						<f:facet name="header">
+						</f:facet>
+						<h:column>
+							<f:facet name="header">Namn</f:facet>
+
+							<h:commandLink value="#{item.namn}"
+								class="spelbolag_table_select_hole"
+								action="#{spelbolagenViewModel.valjEttSpelbolag}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Antal spelare</f:facet>
+							<h:outputText value="#{item.antalSpelare}"></h:outputText>
+						</h:column>
+					</h:dataTable></td>
+				</tr>
+				<tr>
+					<td><br />
+					</td>
+				</tr>
+				<tr>
+					<td><h:panelGroup
+						rendered="#{spelbolagenViewModel.renderSpelbolagInformation}">
+						<table class="spelbolag_infobox">
+							<tr>
+								<td class="headerLabel" colspan="2"><h:outputText
+									value="Visa information om Spelbolaget:" /></td>
+							</tr>
+							<tr>
+								<td style="width: 120px">Namn:</td>
+								<td><h:outputText
+									value="#{spelbolagenViewModel.valtSpelbolag.namn}." /></td>
+							</tr>
+							<tr>
+								<td>Antal spelare:</td>
+								<td><h:outputText
+									value="#{spelbolagenViewModel.valtSpelbolag.antalSpelare} st." /></td>
+							</tr>
+							<tr>
+								<td>Insats per omgång:</td>
+								<td><h:outputText
+									value="#{spelbolagenViewModel.valtSpelbolag.insatsPerOmgang} kr." /></td>
+							</tr>
+						</table>
+					</h:panelGroup></td>
+				</tr>
+				<tr>
+					<td>
+					<div class="headerLabel"><h:outputText
+						value="Transaktioner för sepelbolaget:"
+						rendered="#{spelbolagenViewModel.renderSpelbolagInformation}" /></div>
+					<ace:dataTable id="transaktionerTabell"
+						value="#{spelbolagenViewModel.valtSpelbolag.konto.summeratransaktion}"
+						var="transaktion" paginator="true" paginatorPosition="bottom"
+						rows="20" style="font-size: 10px;"
+						rendered="#{spelbolagenViewModel.renderSpelbolagInformation}">
+						<ace:column id="datum" headerText="Datum">
+							<h:outputText value="#{transaktion.transaktionsTid}">
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</h:outputText>
+						</ace:column>
+						<ace:column headerText="Beskrivning">
+							<h:outputText value="#{transaktion.beskrivning}"></h:outputText>
+						</ace:column>
+						<ace:column headerText="Debit">
+							<h:outputText value="#{transaktion.debit}"></h:outputText>
+						</ace:column>
+						<ace:column headerText="Kredit">
+							<h:outputText value="#{transaktion.kredit}"></h:outputText>
+						</ace:column>
+						<ace:column headerText="Saldo">
+							<h:outputText value="#{transaktion.saldo}"></h:outputText>
+						</ace:column>
+					</ace:dataTable></td>
+				</tr>
+			</table>
+		</h:form></div>
+	</ui:define>
+</ui:composition>
+ALL TAGS BELOW THIS LINE WILL BE REMOVED BY JSF
+
+</body>
+</html>

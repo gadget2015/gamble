@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
+<ui:composition>
+	<h:form>
+		<ul class="menu_ul">
+			<li class="menu_li"><a href="startdialog.xhtml">Hem</a></li>
+			<li class="menu_li"><a href="mittsaldo.xhtml">Mitt tipssaldo</a></li>
+			<li class="menu_li"><a href="tipsbolagen.xhtml">Tipsbolagen</a></li>
+			<li class="menu_li"><a href="tipsprogram.xhtml">Tipsprogram</a></li>
+			<li class="menu_li"><a href="tipsbolagadministration.xhtml">Administration</a></li>
+			<li class="menu_li"><h:commandLink value="Logga in"
+				action="#{headerViewModel.loggaInMedAOuth2TillGoogle}" target="_top">
+				<img src="images/google.png"
+					style="width: 15px; height: 15px; border: 0;" />
+			</h:commandLink></li>
+		</ul>
+	</h:form>
+	<div class="inloggadLabel"><h:outputText
+		value="Inloggad som: #{headerViewModel.model.email}"
+		rendered="#{headerViewModel.renderAnvandarIdLabel}" /></div>
+</ui:composition>
+ALL TAGS BELOW THIS LINE WILL BE REMOVED BY JSF
+</body>
+</html>

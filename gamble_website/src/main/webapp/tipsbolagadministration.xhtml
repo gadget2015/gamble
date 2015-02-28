@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core">
+<body>
+ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
+<ui:composition template="/template.xhtml">
+	<ui:define name="body">
+		<div class="infobox"><h:outputText
+			value="#{administreraSpelbolagViewModel.init}" />
+		<table>
+			<tr>
+				<td><h:outputText
+					value="Du måste logga in för att se vilket bolag du är administratör för, om du nu är det...?"
+					rendered="#{administreraSpelbolagViewModel.renderAuthenticationRequired}" /></td>
+			</tr>
+			<tr>
+				<td><h:panelGroup
+					rendered="#{!administreraSpelbolagViewModel.renderAuthenticationRequired}">
+					<h:outputText value="Du är inte administratör för något spelbolag."
+						rendered="#{!administreraSpelbolagViewModel.authenticatedAsAdmin}" />
+				</h:panelGroup></td>
+			</tr>
+			<tr>
+				<td><h:form id="spelbolag_transaktion">
+					<h:panelGroup
+						rendered="#{administreraSpelbolagViewModel.authenticatedAsAdmin}">
+						<table class="spelbolag_infobox">
+							<tr>
+								<td class="headerLabel" colspan="2"><h:outputText
+									value="Visa information om Spelbolaget:" /></td>
+							</tr>
+							<tr>
+								<td style="width: 120px">Namn:</td>
+								<td><h:outputText
+									value="#{administreraSpelbolagViewModel.model.spelare.administratorForSpelbolag.namn}." /></td>
+							</tr>
+							<tr>
+								<td>Antal spelare:</td>
+								<td><h:outputText
+									value="#{administreraSpelbolagViewModel.model.spelare.administratorForSpelbolag.antalSpelare} st." /></td>
+							</tr>
+							<tr>
+								<td>Insats per omgång:</td>
+								<td><h:outputText
+									value="#{administreraSpelbolagViewModel.model.spelare.administratorForSpelbolag.insatsPerOmgang} kr." /></td>
+							</tr>
+							<tr>
+								<td>Saldo:</td>
+								<td><h:outputText
+									value="#{administreraSpelbolagViewModel.model.spelare.administratorForSpelbolag.konto.saldo} kr." /></td>
+							</tr>
+							<tr>
+								<td class="headerLabel" colspan="2"><h:outputText
+									value="Lägg till en transaktion för #{administreraSpelbolagViewModel.model.spelare.administratorForSpelbolag.namn}" /></td>
+							</tr>
+							<tr>
+								<td>Datum:</td>
+								<td><h:inputText id="spelbolag_transaktionsdatum" size="23"
+									required="true"
+									requiredMessage="Du måste ange ett datum för transaktionen."
+									value="#{administreraSpelbolagViewModel.transaktionTid}">
+									<f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+								</h:inputText>yyyy-MM-dd HH:mm:ss<h:message
+									errorStyle="color:red; display:block"
+									for="spelbolag_transaktionsdatum" /></td>
+							</tr>
+							<tr>
+								<td>Beskrivning:</td>
+								<td><h:inputText id="spelbolag_transaktionsbeskrivning"
+									size="30" required="true"
+									requiredMessage="Du måste ange en beskrivning för transaktionen."
+									value="#{administreraSpelbolagViewModel.beskrivning}" /><h:message
+									errorStyle="color:red; display:block"
+									for="spelbolag_transaktionsbeskrivning" /></td>
+							</tr>
+							<tr>
+								<td>Debit:</td>
+								<td><h:inputText size="4"
+									value="#{administreraSpelbolagViewModel.debit}" /></td>
+							</tr>
+							<tr>
+								<td>Kredit:</td>
+								<td><h:inputText size="4"
+									value="#{administreraSpelbolagViewModel.kredit}" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="right"><h:commandButton
+									value="Lägg till transaktionen"
+									action="#{administreraSpelbolagViewModel.laggTilEnNyTransaktionForValtSpelbolag}" />
+								</td>
+							</tr>
+
+						</table>
+					</h:panelGroup>
+				</h:form></td>
+			</tr>
+			<tr>
+				<td colspan="2"><h:panelGroup
+					rendered="#{administreraSpelbolagViewModel.authenticatedAsAdmin}">
+					<h:form>Datum:<h:inputText id="tabetalt_transaktionsdatum"
+							size="23" required="true"
+							requiredMessage="Du måste ange ett datum för transaktionen."
+							value="#{administreraSpelbolagViewModel.transaktionTid}">
+							<f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+						</h:inputText>yyyy-MM-dd HH:mm:ss<h:message
+							errorStyle="color:red; display:block"
+							for="tabetalt_transaktionsdatum" />
+						<h:commandButton value="Ta betalt av alla spelare"
+							action="#{administreraSpelbolagViewModel.taBetaltAvAllaSpelare}" />
+					</h:form>
+				</h:panelGroup></td>
+			</tr>
+			<tr>
+				<td><h:form id="spelare_i_spelbolaget">
+					<h:panelGroup
+						rendered="#{administreraSpelbolagViewModel.authenticatedAsAdmin}">
+						<h:dataTable id="allaSpelare"
+							value="#{administreraSpelbolagViewModel.spelareUIModel}"
+							var="item" cellpadding="3" cellspacing="0" width="525px"
+							dir="LTR" summary="Alla spelare i spelbolaget"
+							styleClass="system-table" headerClass="system-table-header"
+							rowClasses="system-table-odd-row,system-table-even-row"
+							columnClasses="column1_spelbolagen, column2_spelbolagen">
+							<f:facet name="header">
+							</f:facet>
+							<h:column>
+								<f:facet name="header">Namn</f:facet>
+
+								<h:commandLink value="#{item.userId.userId}"
+									class="spelbolag_table_select_hole"
+									action="#{administreraSpelbolagViewModel.valjEnSpelare}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Saldo</f:facet>
+								<h:outputText value="#{item.konto.saldo}"></h:outputText>
+							</h:column>
+						</h:dataTable>
+					</h:panelGroup>
+				</h:form></td>
+			</tr>
+			<tr>
+				<td><h:form id="transaktionerForValdSpelare">
+					<h:panelGroup
+						rendered="#{administreraSpelbolagViewModel.renderValdSpelaresAllaTransaktioner}">
+						<table class="spelbolag_infobox">
+							<tr>
+								<td><h:panelGroup
+									rendered="#{administreraSpelbolagViewModel.renderValdSpelaresAllaTransaktioner}">
+									<table style="width: 100%;">
+										<tr>
+											<td class="headerLabel" colspan="2"><h:outputText
+												value="Lägg till en transaktion för #{administreraSpelbolagViewModel.valdSpelare.userId.userId}" /></td>
+										</tr>
+										<tr>
+											<td>Datum:</td>
+											<td><h:inputText id="transaktionsdatum" size="23"
+												required="true"
+												requiredMessage="Du måste ange ett datum för transaktionen."
+												value="#{administreraSpelbolagViewModel.transaktionTid}">
+												<f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+											</h:inputText>yyyy-MM-dd HH:mm:ss<h:message
+												errorStyle="color:red; display:block"
+												for="transaktionsdatum" /></td>
+										</tr>
+										<tr>
+											<td>Beskrivning:</td>
+											<td><h:inputText id="transaktionsbeskrivning" size="30"
+												required="true"
+												requiredMessage="Du måste ange en beskrivning för transaktionen."
+												value="#{administreraSpelbolagViewModel.beskrivning}" /><h:message
+												errorStyle="color:red; display:block"
+												for="transaktionsbeskrivning" /></td>
+										</tr>
+										<tr>
+											<td>Debit:</td>
+											<td><h:inputText size="4"
+												value="#{administreraSpelbolagViewModel.debit}" /></td>
+										</tr>
+										<tr>
+											<td>Kredit:</td>
+											<td><h:inputText size="4"
+												value="#{administreraSpelbolagViewModel.kredit}" /></td>
+										</tr>
+										<tr>
+											<td></td>
+											<td align="right"><h:commandButton
+												value="Lägg till transaktionen"
+												action="#{administreraSpelbolagViewModel.laggTillEnNyTransaktionForValdSpelare}"
+												rendered="#{administreraSpelbolagViewModel.renderValdSpelaresAllaTransaktioner}" />
+											</td>
+										</tr>
+									</table>
+								</h:panelGroup></td>
+							</tr>
+							<tr>
+								<td><ace:dataTable id="transaktionerTabell"
+									value="#{administreraSpelbolagViewModel.valdSpelare.konto.summeratransaktion}"
+									var="transaktion" paginator="true" paginatorPosition="bottom"
+									rows="20" style="font-size: 10px;"
+									rendered="#{administreraSpelbolagViewModel.renderValdSpelaresAllaTransaktioner}">
+									<ace:column id="datum" headerText="Datum">
+										<h:outputText value="#{transaktion.transaktionsTid}">
+											<f:convertDateTime pattern="yyyy-MM-dd" />
+										</h:outputText>
+									</ace:column>
+									<ace:column headerText="Beskrivning">
+										<h:outputText value="#{transaktion.beskrivning}"></h:outputText>
+									</ace:column>
+									<ace:column headerText="Debit">
+										<h:outputText value="#{transaktion.debit}"></h:outputText>
+									</ace:column>
+									<ace:column headerText="Kredit">
+										<h:outputText value="#{transaktion.kredit}"></h:outputText>
+									</ace:column>
+									<ace:column headerText="Saldo">
+										<h:outputText value="#{transaktion.saldo}"></h:outputText>
+									</ace:column>
+								</ace:dataTable></td>
+							</tr>
+							<tr>
+								<td align="right"><h:commandButton
+									value="Stäng transaktionlistan"
+									action="#{administreraSpelbolagViewModel.stangTransaktionlistan}"
+									rendered="#{administreraSpelbolagViewModel.renderValdSpelaresAllaTransaktioner}"
+									immediate="true" /></td>
+							</tr>
+						</table>
+					</h:panelGroup>
+				</h:form></td>
+			</tr>
+		</table>
+		</div>
+	</ui:define>
+</ui:composition>
+ALL TAGS BELOW THIS LINE WILL BE REMOVED BY JSF
+
+</body>
+</html>
