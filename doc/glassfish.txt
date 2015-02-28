@@ -1,0 +1,21 @@
+JDBC Connection Pools
+========================
+Pool Name: StryktipsfinderPool
+Resource Type: javax.sql.DataSource
+Datasource Classname: org.apache.derby.jdbc.ClientDataSource
+
+User=stryktipsuser
+ServerName=localhost
+PortNumber=1527
+DatabaseName=stryktipsfinder_db
+Password=user
+connectionAttributes=;create=true
+
+
+JDB Resources
+==============
+JNDI Name:  jdbc/stryktipsfinder 
+
+Admin credentials:
+admin/GOLFproffset2012
+grouplist:asadmin

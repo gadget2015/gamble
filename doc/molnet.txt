@@ -1,0 +1,13 @@
+Account Number 9957-2744-6081 
+Usr:ec2-user
+Root access: sudo su
+KamelerBarare12
+
+/usr/local/tomee
+/var/local/tomee_instance1 = noterepo.com taanalys
+/var/local/tomee_instance2 = stryktipsbolag.se
+
+
+GitHub
+gadget2015
+kamel2015
