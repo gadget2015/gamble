@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="" xmlns:fx="http://javafx.com/fxml" fx:controller="org.robert.taanalys.ria.LineChartController">
+  <children>
+    <LineChart fx:id="graph" animated="false" createSymbols="true" layoutX="17.0" layoutY="14.0" legendVisible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" style="" title="OMXS30">
+      <xAxis>
+        <NumberAxis label="Tid" lowerBound="9.0" prefWidth="442.0" style="" tickLabelGap="3.0" tickLength="18.0" tickUnit="1.0" upperBound="630.0" />
+      </xAxis>
+      <yAxis>
+        <NumberAxis label="Procent" lowerBound="-2.0" minorTickCount="1" style="" tickLabelGap="1.0" tickLength="2.0" tickMarkVisible="true" tickUnit="1.0E-4" upperBound="2.0" />
+      </yAxis>
+    </LineChart>
+    <Button fx:id="hamta20senaste" layoutX="14.0" layoutY="559.0" mnemonicParsing="false" onAction="#hamta20senasteDagarna" text="Hämta senast 20 dagar" />
+  </children>
+</AnchorPane>

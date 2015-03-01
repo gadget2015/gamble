@@ -1,0 +1,1 @@
+java -cp target\tips-1.0.jar org.robert.tips.Main

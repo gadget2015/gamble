@@ -1,0 +1,101 @@
+.errorMessage {
+	color: red;
+	font-size: 14px
+}
+
+html {
+	height: 100%
+}
+
+body {
+	height: 100%;
+	margin: 5px;
+	padding: 5px;
+	background: #FFFFF2;
+}
+
+.system-table {
+	border-collapse: collapse;
+}
+
+.system-table-header {
+	text-align: center;
+	border: 1px solid #BBBBBB;
+	padding: 8px;
+	background: #6897BD;
+}
+
+.system-table-odd-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #F9F9F9;
+	border: 1px solid #BBBBBB;
+}
+.system-table-odd-row:hover {
+	background: #C7E2F9;
+}
+
+.system-table-even-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #F9F9F9;
+	border: 1px solid #BBBBBB;
+}
+
+.system-table-even-row:hover {
+	background: #C7E2F9;
+}
+
+.column1 {
+	width: 200px;
+}
+
+.column2 {
+	width: 500px;
+}
+
+.circle {
+	display: block;
+	display: block;
+	width: 40px;
+	height: 40px;
+	background: #FFD700;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.header1 {
+	color: blue;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.noteBox {
+	background-color: #ffffcc;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	width: 840px;
+	height: auto;
+	height: 400px;
+	min-height: 400px;
+	border-spacing: 25px;
+	-moz-box-shadow: 10px 10px 5px #888;
+	-webkit-box-shadow: 10px 10px 5px #888;
+	box-shadow: 10px 10px 5px #888;
+}
+
+.versionLabel {
+	color: darkblue;
+	font-size: 9px;
+	font-style: italic;
+}
+
+.menuLink {
+	color: darkblue;
+	font-size: 9px;
+	text-align: right;
+}
+
+.menuFont {
+	color: darkblue;
+	font-size: 9px;
+}

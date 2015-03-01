@@ -1,0 +1,34 @@
+JDBC Connection Pools
+========================
+Pool Name: TA_AnalysPool
+Resource Type: javax.sql.DataSource
+Datasource Classname: org.apache.derby.jdbc.ClientDataSource40
+
+User=taanalysuser
+ServerName=localhost
+PortNumber=1527
+DatabaseName=ta_analys_db
+Password=user
+connectionAttributes=;create=true
+IP:54.246.158.243
+
+JDBC Resources
+==============
+JNDI Name:  java:openejb/Resource/jdbc/ta_analys
+
+
+tomee.xml
+===================================================
+<Resource id="jdbc/ta_analys" type="DataSource">
+		JdbcDriver org.apache.derby.jdbc.ClientDataSource40
+		JdbcUrl jdbc:derby://localhost:1527/ta_analys_db;create=true
+		UserName taanalysuser
+		Password user
+		databaseName ta_analys_db
+		JtaManaged true
+</Resource>
+
+
+
+
+select * from INSTRUMENTEVENT event where event.time>'2013-04-02 01:01:01' and event.time <'2013-04-02 10:00:00'; 

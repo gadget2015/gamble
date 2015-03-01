@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for Gamble Application -->
+<jnlp spec="1.0+" codebase="http://localhost:8080/stryktipsfinder" href="stryktipsfinder-desktop.jnlp">
+    <information>
+        <title>Find Stryktips systems</title>
+        <vendor>Robert Georen Siwerz</vendor>
+        <homepager href="docs/help.html"/>
+        <description>Gamble Application - Stryktipsfinder</description>
+        <description kind="short">Stryktips system finder</description>
+        <offline-allowed/>
+    </information>
+    <security>
+        <all-permissions/>
+    </security>
+    <resources>
+        <j2se version="1.6"/>
+        <jar href="stryktipsfinder-desktop-client-1.0.jar"/>
+        <jar href="tips-1.0.jar"/>
+    </resources>
+    <application-desc main-class="org.robert.tips.stryktips.finder.desktopclient.Main"/>
+</jnlp>
+

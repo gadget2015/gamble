@@ -1,0 +1,52 @@
+<mockup version="1.0" skin="sketch" measuredW="757" measuredH="476" mockupW="450" mockupH="436">
+  <controls>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::TitleWindow" x="307" y="40" w="450" h="436" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Stryktips%20finder</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::MenuBar" x="307" y="63" w="450" h="29" measuredW="109" measuredH="29" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>File%2C%20Help</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::TextArea" x="348" y="247" w="333" h="140" measuredW="200" measuredH="140" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Searched%20another%201%20000%20systems%20in%2012%20sek.%0ASearched%20another%201%20000%20systems%20in%2011%20sek.%0ASearched%20another%201%20000%20systems%20in%2018%20sek.</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::FieldSet" x="348" y="99" w="333" h="91" measuredW="200" measuredH="170" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>System%20Info</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Label" x="348" y="218" w="-1" h="-1" measuredW="39" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Log%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::Label" x="361" y="121" w="-1" h="-1" measuredW="129" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>System%20name%3A%20R-4-4</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Label" x="363" y="150" w="-1" h="-1" measuredW="237" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Number%20of%20rows%20system%20consists%20of%3A%20146.</text>
+      </controlProperties>
+    </control>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::Button" x="348" y="411" w="-1" h="-1" measuredW="111" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Start%20searching</text>
+      </controlProperties>
+    </control>
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::Button" x="459" y="410" w="-1" h="-1" measuredW="109" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Stop%20searching</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::VerticalScrollBar" x="663" y="249" w="-1" h="136" measuredW="16" measuredH="100" zOrder="9" locked="false" isInGroup="-1"/>
+  </controls>
+</mockup>

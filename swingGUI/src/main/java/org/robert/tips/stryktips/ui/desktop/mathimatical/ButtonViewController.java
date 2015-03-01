@@ -1,0 +1,64 @@
+package org.robert.tips.stryktips.ui.desktop.mathimatical;
+
+import javax.swing.JPanel;
+import java.awt.GridLayout;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import org.robert.tips.stryktips.StryktipsDocument;
+import org.robert.tips.stryktips.types.StryktipsConstants;
+import org.robert.tips.types.TipsButton;
+
+/**
+ * This is where the mathimatical system are defined.
+ * Uses the MVC pattern.
+ * @author Robert Siwerz.
+ */
+class ButtonViewController extends JPanel implements StryktipsConstants,
+                                                     ChangeListener
+ {
+    private StryktipsDocument stryktipsDocument;
+    private TipsButton[] stryktipsButtons = new TipsButton[ NUMBER_OF_GAMES * NUMBER_OF_GAMEOPTIONS ];
+    
+    
+    public ButtonViewController( StryktipsDocument stryktipsDocument )
+    {
+        this.stryktipsDocument = stryktipsDocument;
+        setLayout( new GridLayout( NUMBER_OF_GAMES, NUMBER_OF_GAMEOPTIONS ) );
+        MathimaticalSystemButtonViewControllerHandler mathimaticalSystemButtonViewControllerHandler = new MathimaticalSystemButtonViewControllerHandler( stryktipsDocument );
+        
+        for ( int i = 0; i < NUMBER_OF_GAMES; i++ )
+        {
+            stryktipsButtons[ i * NUMBER_OF_GAMEOPTIONS ] = new TipsButton( GAMEVALUE_ONE, i );
+            stryktipsButtons[ i * NUMBER_OF_GAMEOPTIONS ].addActionListener( mathimaticalSystemButtonViewControllerHandler );
+            add( stryktipsButtons[ i * NUMBER_OF_GAMEOPTIONS ] );
+            
+            stryktipsButtons[ i * NUMBER_OF_GAMEOPTIONS + 1 ] = new TipsButton( GAMEVALUE_TIE, i );
+            stryktipsButtons[ i * NUMBER_OF_GAMEOPTIONS + 1 ].addActionListener( mathimaticalSystemButtonViewControllerHandler );
+            add( stryktipsButtons[ i * NUMBER_OF_GAMEOPTIONS + 1 ] );
+            
+            stryktipsButtons[ i * NUMBER_OF_GAMEOPTIONS + 2] = new TipsButton( GAMEVALUE_TWO, i );
+            stryktipsButtons[ i * NUMBER_OF_GAMEOPTIONS + 2].addActionListener( mathimaticalSystemButtonViewControllerHandler );
+            add( stryktipsButtons[ i * NUMBER_OF_GAMEOPTIONS + 2 ] );
+        }
+        
+        stryktipsDocument.addChangeListener( this );    
+    }
+    
+    /**
+     * Implemented method from ChangeListener interface.
+     */
+    public void stateChanged( ChangeEvent event )
+    {
+        // Update the view with data from the mathimatical system.
+        
+        for ( int i = 0; i < ( NUMBER_OF_GAMEOPTIONS * NUMBER_OF_GAMES ); i++ )
+        {
+            char value = stryktipsDocument.getStryktipsSystem().getMathimatical().getMathimaticalRow( i );
+            
+            if ( value != 0 )
+            {
+                stryktipsButtons[ i ].setState( true );
+            }
+        }
+    }    
+ }

@@ -1,0 +1,19 @@
+Bygga applikationen:
+Skriv mvn clean install i root katalogen.
+
+
+För att skapa eclipse project för alla projekt skriv:
+> mvn eclipse:eclipse
+
+Därefter behöver du skapa Webprojekt av Web GUI och media reader:
+> mvn eclipse:eclipse -Dwtpversion=2.0
+
+
+För att enklet utveckla så körs med fördel en Tomcat 7.0 i Eclipse.
+1. Välj fliken 'Servers' och lägg till din server.
+2. Drag-drop:a webGUI projektet i din tillagda server.
+3. Välj 'Start' och skriv sedan http://localhost:1967/stryktipsfinder
+   Obs, port 1967 byts ut mot din port i Tomcaten.
+
+
+

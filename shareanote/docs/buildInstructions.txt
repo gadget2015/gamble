@@ -1,0 +1,20 @@
+Bygga applikationen:
+Skriv mvn clean install i root katalogen.
+
+
+
+D�refter beh�ver du skapa Webprojekt av Web GUI och media reader:
+> mvn eclipse:eclipse -Dwtpversion=2.0
+
+
+F�r att enklet utveckla s� k�rs med f�rdel en Tomcat 7.0 i Eclipse.
+1. V�lj fliken 'Servers' och l�gg till din server.
+2. Drag-drop:a webGUI projektet i din tillagda server.
+3. V�lj 'Start' och skriv sedan http://localhost:1967/webGUI
+   Obs, port 1967 byts ut mot din port i Tomcaten.
+   
+   
+deploya war-filen.
+
+
+

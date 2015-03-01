@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="903.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.robert.taanalys.ria.USAOpeningEffectGraphAnalysController">
+  <children>
+    <Button layoutX="647.0" layoutY="653.0" mnemonicParsing="false" onAction="#hamtaUppgangarSenaste20Dagarna" text="Uppgångar" />
+    <LineChart fx:id="graph" createSymbols="false" layoutX="22.0" layoutY="9.0" legendVisible="false" prefHeight="647.0" prefWidth="859.0" title="OMXS30">
+      <xAxis>
+        <NumberAxis label="minut på intradag" side="BOTTOM" upperBound="550.0" />
+      </xAxis>
+      <yAxis>
+        <NumberAxis label="Procent" lowerBound="-2.0" side="LEFT" upperBound="2.0" />
+      </yAxis>
+    </LineChart>
+    <Button layoutX="727.0" layoutY="653.0" mnemonicParsing="false" onAction="#hamtaNedgangarSenaste20Dagarna" text="Nedgångar" />
+    <Button layoutX="807.0" layoutY="653.0" mnemonicParsing="false" onAction="#hamtaIngenRorelseSenasteDagarna" text="Ingen rörelse" />
+    <Label layoutX="75.0" layoutY="649.0" text="Från datum:" />
+    <TextField fx:id="franDatum" layoutX="139.0" layoutY="649.0" prefWidth="112.0" />
+    <Label layoutX="262.0" layoutY="652.0" text="Till datum:" />
+    <TextField fx:id="tillDatum" layoutX="319.0" layoutY="652.0" prefWidth="116.0" />
+  </children>
+</AnchorPane>

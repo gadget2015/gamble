@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# Derby        
+#
+# chkconfig: 
+# description: 	Start up the Derby database.
+
+# Source function library.
+. /etc/init.d/functions
+
+
+RETVAL=$?
+CATALINA_HOME="/usr/local/db-derby/db-derby-10.9.1.0-bin"
+
+case "$1" in
+ start)
+        if [ -f $CATALINA_HOME/bin/startNetworkServer ];
+          then
+	    echo $"Starting Derby database"
+cd $CATALINA_HOME/bin/
+            ./startNetworkServer&
+        fi
+	;;
+ stop)
+        if [ -f $CATALINA_HOME/bin/stopNetworkServer ];
+          then
+	    echo $"Stopping Derby database"
+            $CATALINA_HOME/bin/stopNetworkServer
+        fi
+ 	;;
+ *)
+ 	echo $"Usage: $0 {start|stop}"
+	exit 1
+	;;
+esac
+
+exit $RETVAL
+

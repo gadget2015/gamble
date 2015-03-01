@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0000999999975" prefWidth="919.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.robert.taanalys.ria.DeltaIgenkanningGraphController">
+  <children>
+    <StackPane layoutX="0.0" layoutY="0.0" prefHeight="618.0" prefWidth="828.0">
+      <children>
+        <LineChart fx:id="graph" createSymbols="false" legendVisible="false" prefHeight="625.0" prefWidth="870.0" title="OMXS30">
+          <xAxis>
+            <NumberAxis label="minut på intradag" side="BOTTOM" upperBound="550.0" />
+          </xAxis>
+          <yAxis>
+            <NumberAxis label="Procent" lowerBound="-2.0" side="LEFT" upperBound="2.0" />
+          </yAxis>
+        </LineChart>
+        <ProgressBar fx:id="progressbar" prefHeight="36.0" prefWidth="395.0" progress="0.0" visible="false" StackPane.alignment="BASELINE_CENTER">
+          <effect>
+            <SepiaTone />
+          </effect>
+        </ProgressBar>
+      </children>
+    </StackPane>
+    <Button layoutX="519.0" layoutY="633.0" mnemonicParsing="false" onAction="#sokEfterLiknandeDagar" text="Sök efter liknande grafer" />
+    <Label layoutX="93.0" layoutY="631.0" text="Från datum:" />
+    <TextField fx:id="franDatum" layoutX="157.0" layoutY="631.0" prefWidth="112.0" />
+    <Label layoutX="280.0" layoutY="634.0" text="Jämför med (datum):" />
+    <TextField fx:id="jamforDatum" layoutX="391.0" layoutY="632.0" prefWidth="116.0" />
+  </children>
+</AnchorPane>

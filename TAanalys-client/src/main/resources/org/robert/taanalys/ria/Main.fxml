@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet style.css?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color:         #000000,        linear-gradient(#7ebcea, #2f4b8f),        linear-gradient(#426ab7, #263e75),        linear-gradient(#395cab, #223768);" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.robert.taanalys.ria.MainController">
+  <children>
+    <Button layoutX="36.0" layoutY="82.0" mnemonicParsing="false" onAction="#visaDeltaalgoritm" onMouseEntered="#mouseOverDeltaalgoritm" onMouseExited="#mouseExitedDeltaalgoritm" prefHeight="49.0" prefWidth="264.0" style="" text="Liknande Intradays deltaalgoritm">
+      <textFill>
+        <Color blue="0.161" green="0.161" red="0.161" fx:id="x1" />
+      </textFill>
+    </Button>
+    <Button layoutX="36.0" layoutY="151.0" mnemonicParsing="false" onAction="#visaUSAOppningeffect" onMouseEntered="#mouseOverUSAOppningeffect" onMouseExited="#mouseExitedUSAOppningeffect" prefHeight="49.0" prefWidth="264.0" style="" text="USA öppningseffekt" textFill="$x1" />
+    <Button layoutX="36.0" layoutY="213.0" mnemonicParsing="false" onAction="#visaGraphAnalys" onMouseEntered="#mouseOverGrafanalys" onMouseExited="#mouseExitedGrafanalys" prefHeight="49.0" prefWidth="264.0" style="" text="Liknande Indradays manuellt" textFill="#292929" />
+    <Label layoutX="36.0" layoutY="36.0" text="Teknisk analys" textFill="#390066">
+      <font>
+        <Font name="Times New Roman Bold" size="24.0" />
+      </font>
+    </Label>
+    <Label layoutX="36.0" layoutY="372.0" text="(C) Copyright by Robert Georén 2014, version 1.0.">
+      <font>
+        <Font name="System Italic" size="9.0" />
+      </font>
+    </Label>
+    <ImageView fx:id="previewMenuchoice" fitHeight="179.0" fitWidth="238.66666666666666" layoutX="330.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
+</AnchorPane>

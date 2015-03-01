@@ -1,0 +1,61 @@
+.errorMessage {
+	color: red;
+	font-size: 14px
+}
+
+html {
+	height: 100%
+}
+
+body {
+	height: 100%;
+	margin: 5px;
+	padding: 5px
+}
+
+.system-table {
+	border-collapse: collapse;
+}
+
+.system-table-header {
+	text-align: center;
+	background: none repeat scroll 0 0 #E5E5E5;
+	border-bottom: 1px solid #BBBBBB;
+	padding: 16px;
+}
+
+.system-table-odd-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #FFFFFFF;
+	border-top: 1px solid #BBBBBB;
+}
+
+.system-table-even-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #F9F9F9;
+	border-top: 1px solid #BBBBBB;
+}
+
+.circle {
+	display: block;
+	display: block;
+	width: 40px;
+	height: 40px;
+	background: #FFD700;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.header1 {
+	color: blue;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.infoGroup {
+	background: #D5DFE4;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+}

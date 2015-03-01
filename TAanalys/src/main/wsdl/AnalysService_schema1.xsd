@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://service.taanalys.robert.org/" xmlns:tns="http://service.taanalys.robert.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="hamtaForLitenRorelsedagarPgaUSAOppningMedDatumintervall" type="tns:hamtaForLitenRorelsedagarPgaUSAOppningMedDatumintervall"/>
+
+  <xs:element name="hamtaForLitenRorelsedagarPgaUSAOppningMedDatumintervallResponse" type="tns:hamtaForLitenRorelsedagarPgaUSAOppningMedDatumintervallResponse"/>
+
+  <xs:element name="hamtaMestLikaGraferMedDeltaAlgoritm" type="tns:hamtaMestLikaGraferMedDeltaAlgoritm"/>
+
+  <xs:element name="hamtaMestLikaGraferMedDeltaAlgoritmResponse" type="tns:hamtaMestLikaGraferMedDeltaAlgoritmResponse"/>
+
+  <xs:element name="hamtaNedgangsdagarPgaUSAOppningMedDatumerintervall" type="tns:hamtaNedgangsdagarPgaUSAOppningMedDatumerintervall"/>
+
+  <xs:element name="hamtaNedgangsdagarPgaUSAOppningMedDatumerintervallResponse" type="tns:hamtaNedgangsdagarPgaUSAOppningMedDatumerintervallResponse"/>
+
+  <xs:element name="hamtaProcentIntradag" type="tns:hamtaProcentIntradag"/>
+
+  <xs:element name="hamtaProcentIntradagResponse" type="tns:hamtaProcentIntradagResponse"/>
+
+  <xs:element name="hamtaTAProcentIntradag" type="tns:hamtaTAProcentIntradag"/>
+
+  <xs:element name="hamtaTAProcentIntradagResponse" type="tns:hamtaTAProcentIntradagResponse"/>
+
+  <xs:element name="hamtaUSAOppningseffektFranDatum" type="tns:hamtaUSAOppningseffektFranDatum"/>
+
+  <xs:element name="hamtaUSAOppningseffektFranDatumResponse" type="tns:hamtaUSAOppningseffektFranDatumResponse"/>
+
+  <xs:element name="hamtaUppgangsdagarPgaUSAOppningMedDatumintervall" type="tns:hamtaUppgangsdagarPgaUSAOppningMedDatumintervall"/>
+
+  <xs:element name="hamtaUppgangsdagarPgaUSAOppningMedDatumintervallResponse" type="tns:hamtaUppgangsdagarPgaUSAOppningMedDatumintervallResponse"/>
+
+  <xs:complexType name="hamtaForLitenRorelsedagarPgaUSAOppningMedDatumintervall">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="arg1" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaForLitenRorelsedagarPgaUSAOppningMedDatumintervallResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:procentIntradag" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="procentIntradag">
+    <xs:sequence>
+      <xs:element name="percentEvents" type="tns:percentEvent" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="startQuote" type="xs:float"/>
+      <xs:element name="endQuote" type="xs:float"/>
+      <xs:element name="time" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="percentEvent">
+    <xs:sequence>
+      <xs:element name="minuteOfIntraday" type="xs:int"/>
+      <xs:element name="percent" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaMestLikaGraferMedDeltaAlgoritm">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+      <xs:element name="arg1" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="arg2" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaMestLikaGraferMedDeltaAlgoritmResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:grafDelta" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="grafDelta">
+    <xs:sequence>
+      <xs:element name="delta" type="xs:double"/>
+      <xs:element name="intraDag" type="tns:procentIntradag" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaTAProcentIntradag">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="arg1" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaTAProcentIntradagResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:procentIntradag" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaUSAOppningseffektFranDatum">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaUSAOppningseffektFranDatumResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:usaOppningseffekt" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="usaOppningseffekt">
+    <xs:sequence>
+      <xs:element name="uppgang" type="xs:int"/>
+      <xs:element name="nedgang" type="xs:int"/>
+      <xs:element name="ingenRorlese" type="xs:int"/>
+      <xs:element name="antalDagar" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaProcentIntradag">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaProcentIntradagResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:procentIntradag" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaNedgangsdagarPgaUSAOppningMedDatumerintervall">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="arg1" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaNedgangsdagarPgaUSAOppningMedDatumerintervallResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:procentIntradag" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaUppgangsdagarPgaUSAOppningMedDatumintervall">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="arg1" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="hamtaUppgangsdagarPgaUSAOppningMedDatumintervallResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:procentIntradag" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

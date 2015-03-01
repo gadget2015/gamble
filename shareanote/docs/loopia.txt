@@ -1,0 +1,7 @@
+Kundnummer: FA11-28-06-81
+Anv�ndarnamn: seeuslajv.com
+L�senord: 7pzoadgm
+
+DNS:
+Type of record: A
+Target: Amazon IP 46.137.165.190

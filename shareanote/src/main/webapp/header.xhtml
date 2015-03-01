@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
+<ui:composition>
+	<h:outputText value="User Id: " class="menuFont"
+		rendered="#{headerManagedBean.showLoginId}" />
+	<h:outputText value="#{headerManagedBean.email}" class="menuFont"
+		rendered="#{headerManagedBean.showLoginId}" />
+	<table style="width: 835px;">
+		<tr>
+			<td><h:form id="headerForm">
+				<div class="menuLink"><h:commandLink
+					value="Login with Google account"
+					action="#{headerManagedBean.authenticateWithGoogleAccount}"
+					rendered="#{headerManagedBean.showLoginControl}"
+					target="_top"
+					 /></div>
+			</h:form></td>
+		</tr>
+	</table>
+</ui:composition>
+ALL TAGS BELOW THIS LINE WILL BE REMOVED BY JSF
+</body>
+</html>

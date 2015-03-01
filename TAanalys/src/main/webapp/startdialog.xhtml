@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
+<ui:composition template="/template.xhtml">
+	<ui:define name="body">
+		<table class="noteBox">
+			<tr>
+				<td><h:dataTable id="schemaResult"
+					value="#{schemalagdaJobbViewModel.taskExecutionInfos}" var="item"
+					cellpadding="3" cellspacing="0" width="825px" dir="LTR"
+					summary="Schemalagda jobb" styleClass="system-table"
+					headerClass="system-table-header"
+					rowClasses="system-table-odd-row,system-table-even-row"
+					columnClasses="column1, column2">
+					<f:facet name="header">
+					</f:facet>
+					<h:column>
+						<f:facet name="header">Datum</f:facet>
+						<h:outputText value="#{item.executionTime}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Meddelande</f:facet>
+						<h:outputText value="#{item.message}"></h:outputText>
+					</h:column>
+				</h:dataTable></td>
+			</tr>
+		</table>
+	</ui:define>
+</ui:composition>
+ALL TAGS BELOW THIS LINE WILL BE REMOVED BY JSF
+
+</body>
+</html>

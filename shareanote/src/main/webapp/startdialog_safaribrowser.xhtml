@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
+<ui:composition template="/template.xhtml">
+	<ui:define name="body">
+		<h:outputText value="#{startDialogManagedBean.init}" />
+
+		<table class="noteBox">
+			<tr>
+				<td>
+
+				<table>
+					<tr>
+						<td><h:form id="menuForm">
+							<table style="width: 100%; border-spacing: 0;">
+								<tr>
+									<td align="right"><h:commandLink value="Search"
+										action="#{startDialogManagedBean.gotoSearchDialog}"
+										class="menuLink" /></td>
+								</tr>
+							</table>
+						</h:form></td>
+					</tr>
+					<tr>
+						<td><h:form id="inputTextForm">
+							<h:panelGrid id="infoPanel2" border="0" columns="1">
+								<h:inputTextarea value="#{startDialogManagedBean.text}"
+									rows="20" cols="80" />
+								<h:panelGrid id="actions" border="0" columns="4">
+									<h:selectBooleanCheckbox
+										value="#{startDialogManagedBean.model.note.privateAccess}"
+										rendered="#{startDialogManagedBean.adminAccess}">
+										<f:ajax event="click" render="@this" />
+									</h:selectBooleanCheckbox>
+									<h:outputText value="Private access" class="menuFont"
+										rendered="#{startDialogManagedBean.adminAccess}" />
+									<h:commandButton value="Save"
+										action="#{startDialogManagedBean.saveNote}" />
+									<h:outputLink value="#{startDialogManagedBean.permalinkView}"
+										class="menuFont">Permalink (view)</h:outputLink>
+									<h:outputLink value="#{startDialogManagedBean.permalink}"
+										class="menuFont">Permalink (edit)
+					</h:outputLink> <h:outputText value="Last saved #{startDialogManagedBean.model.note.lastSaved}." class="menuFont"/>
+								</h:panelGrid>
+							</h:panelGrid>
+						</h:form></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+	</ui:define>
+</ui:composition>
+ALL TAGS BELOW THIS LINE WILL BE REMOVED BY JSF
+
+</body>
+</html>

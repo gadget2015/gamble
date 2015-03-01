@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
+<ui:composition template="/template.xhtml">
+	<ui:define name="body">
+
+		<h:outputText value="#{startDialogManagedBean.init}" />
+
+		<h:form id="systemsForm">
+			<h:dataTable id="dataTableForSystems"
+				value="#{startDialogManagedBean.systems}" var="item" cellpadding="3"
+				cellspacing="0" width="300px" dir="LTR" summary="All active systems"
+				styleClass="system-table" headerClass="system-table-header"
+				rowClasses="system-table-odd-row,system-table-even-row">
+				<f:facet name="header">
+				</f:facet>
+				<h:column>
+					<f:facet name="header">Systemtyp</f:facet>
+					<h:commandLink>
+						<h:outputText value="#{item.name}"></h:outputText>
+						<f:param name="systemName" value="#{item.name}" />
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Antal rader</f:facet>
+					<h:outputText value="#{item.numberOfRows}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Algoritm</f:facet>
+					<h:outputText value="#{item.typeOfAlgorithm}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Status</f:facet>
+					<h:outputText value="#{item.status}"></h:outputText>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+		<br />
+		<br />
+		<table>
+			<tr>
+				<td><b>Beskrivning</b></td>
+			</tr>
+			<tr>
+				<td>Syftet med programmet är att söka fram nya reducerade
+				stryktipssystem med hjälp av olika sökalgoritmer. Framsökningen görs
+				genom att flera datorer samarbetar. Det gör då att det går fortare
+				att hitta nya reducerade stryktipssystem vilket är nödvändigt
+				eftersom det finns jätte många kombinationer att testa. Figur 1
+				illustrerar hur fyra datorer tillsammans söker fram ett reducerat
+				system. All data lagras centralt i molnet, dvs nästa gång du
+				påbörjar en sökning så fortsätter du där du var sist.</td>
+			</tr>
+			<tr>
+				<td><h:graphicImage library="images"
+					name="stryktipsfinder_topologi.jpg" /><br />
+				<i>* Figur 1</i></td>
+			</tr>
+			<tr>
+				<td>Det finns några olika sökalgoritmer som beskrivs nedan.</td>
+			</tr>
+			<tr>
+				<td><b>Svenskaspel</b><br />
+				Svenskaspel har en/flera algoritmer som dom har använt för att ta
+				fram sina system. <br />
+				Denna algoritm hittar system med reduceringsgrad = 8 till 9 gånger.</td>
+			</tr>
+			<tr>
+				<td><b>Random</b><br />
+				Detta är en mycket enkel algoritm som endast slumpar fram nya
+				system. <br />
+				Denna algoritm hittar system med reduceringsgrad = 3 gånger.</td>
+			</tr>
+			<tr>
+				<td><b>Iterativ</b><br />
+				Denna algoritm är mycket mer sofistikerad. Den utgår ifrån ett
+				system som den sedan förfinar iterativt. När datorn försökt
+				tillräckligt länge med ett system så slumpar den 20% nya rader,
+				vilket ger ny kraft åt sökningen.<br />
+				Denna algoritm hittar system med reduceringsgrad = 6 till 9 gånger.
+				</td>
+			</tr>
+			<tr>
+				<td><b>StepThrough</b><br />
+				Denna algoritm är mycket enkel och stegar igenom alla möjliga
+				kombinationer som finns för ett system. Denna algoritm fungerar bara
+				att köra på små system eftersom annars tar den får lång tid att komma
+				i mål. Denna algoritm <i>förväntas</i> hitta system med
+				reduceringsgrad = 9 till 12 gånger.</td>
+			</tr>
+		</table>
+		<br />
+		<br />
+	</ui:define>
+</ui:composition>
+ALL TAGS BELOW THIS LINE WILL BE REMOVED BY JSF
+
+</body>
+</html>

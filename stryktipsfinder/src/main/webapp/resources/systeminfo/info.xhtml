@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<h:head>
+	<title>This will not be present in rendered output</title>
+</h:head>
+
+<h:body>
+
+	<composite:interface>
+		<composite:attribute name="systemId" />
+	</composite:interface>
+
+	<composite:implementation>
+		<h:outputText value="#{systemInfoManagedBean.init}" />
+
+		<h:panelGrid id="infoPanel" border="1" columns="2" class="infoGroup">
+			<h:panelGrid columns="2">Algoritm: <h:outputText
+					value="#{systemInfoManagedBean.selectedInfo.typeOfAlgorithm}" />		Systemnamn:
+		<h:outputText value="#{systemInfoManagedBean.selectedInfo.name}" />
+		Matematisktsystem: <h:outputText
+					value="#{systemInfoManagedBean.selectedInfo.numberOfRowsInMathematicalSystem} rader." />
+		Reduceringsgrad: <h:outputText
+					value="#{systemInfoManagedBean.selectedInfo.reducingGrade} gånger." /> 
+		Antal systemrader: <h:outputText
+					value="#{systemInfoManagedBean.selectedInfo.numberOfRows} st." />
+					Totalt # testade rader: <h:outputText
+					value="#{systemInfoManagedBean.selectedInfo.speed}">
+					<f:convertNumber groupingUsed="true"/>
+				</h:outputText>
+					Status: <h:outputText
+					value="#{systemInfoManagedBean.selectedInfo.status}." />
+			</h:panelGrid>
+		</h:panelGrid>
+
+		<h:form id="systemSearchPathForm">
+			<h:commandLink value="Tillbaka"
+				action="#{systemInfoManagedBean.backToStartDialog}"></h:commandLink>
+
+			<h:dataTable id="dataTableForSystemSearchPath"
+				value="#{systemInfoManagedBean.selectedInfo.systems}" var="item"
+				cellpadding="0" cellspacing="0" width="300px" dir="LTR"
+				summary="System search path">
+				<f:facet name="header">Systemsökväg
+				</f:facet>
+				<h:column>
+					<h:outputText value="#{item.numberOfRows}" class="circle"></h:outputText>
+					<h:graphicImage library="images" name="arrow.jpg" />
+				</h:column>
+			</h:dataTable>
+			<a
+				href="/stryktipsfinder-launch/jnlp?systemname=#{systemInfoManagedBean.selectedInfo.id}">Hjälp
+			till att söka fram system</a>
+		</h:form>
+	</composite:implementation>
+
+</h:body>
+
+</html>
+
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.robert.taanalys.ria.USAOpeningEffectController">
+  <children>
+    <BarChart fx:id="graph" layoutX="0.0" layoutY="0.0">
+      <xAxis>
+        <CategoryAxis minHeight="-Infinity" side="BOTTOM" />
+      </xAxis>
+      <yAxis>
+        <NumberAxis side="LEFT" upperBound="100.0" />
+      </yAxis>
+    </BarChart>
+    <Button layoutX="169.0" layoutY="410.0" mnemonicParsing="false" onAction="#hamta20senasteDagarnasStatistik" text="Hämta statistik" />
+    <ComboBox fx:id="antalDagar" layoutX="46.0" layoutY="410.0" prefHeight="21.0" prefWidth="116.0" promptText="Välj antal dagar">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+  </children>
+</AnchorPane>

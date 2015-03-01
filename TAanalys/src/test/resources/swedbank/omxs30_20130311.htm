@@ -1,0 +1,1291 @@
+
+
+
+
+<html>
+<head>
+<title>Marknadsinformation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link href="/fsb.public/site/public/css/fsb.css" rel="stylesheet" type="text/css"/>
+<link href="/fsb.public/site/public/css/fsb2.css" rel="stylesheet" type="text/css"/>
+
+<script language="JavaScript" src="/fsb.public/site/public/include/common.js" type="text/javascript"></script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+//var strRootFolder = '/';
+//var g_blnCentered = true;
+//var g_intToolbarTotalWidth = 232;
+//-->
+</script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+
+function newImage(arg) {
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function swapImage(imageName, stateTo) {
+	if (document.images) {
+		if (stateTo=='on') {
+			document.images[imageName].src = eval(imageName + '_on.src')
+		}
+		else {
+			document.images[imageName].src = eval(imageName + '.src')
+		}
+	}
+}
+
+function swapPic(whichPic, whichSrc, blnIsObject){
+	if (document.images) {
+		if(blnIsObject == "True") {
+		document.images[whichPic].src = eval(whichSrc + '.src')
+			} else {
+		document.images[whichPic].src = whichSrc
+		}
+		}
+}
+
+function show() {
+var args = show.arguments;
+	swapImage('b_' + args[0], 'on');
+layerVisibility(args[0],'on');
+}
+function hide() {
+var args = hide.arguments;
+if (!layerVisibility(args[0],'off')) swapImage('b_' + args[0], 'off');
+}
+
+function checkForm(frm) {
+  var s = frm.query.value;
+  if(s.length < 2){
+    alert("Du måste ange ett sökord på minst två bokstäver.");
+    return false;
+  } else if((s.charAt(0)=="?")||(s.charAt(0)=="*")||(s.charAt(0)=="~")||(s.charAt(0)=="-")){
+    alert("Söksträngen får ej inledas med specialtecken.");
+    return false;
+  }
+  return;
+}
+
+function cancelallevents(){
+window.event.cancelBubble = true;
+}
+
+//-->
+
+</script>
+</head>
+
+<body>
+
+<div class="sidinnehall" style="padding-bottom: 10px">
+  <table style="width : 100%" cellspacing="0">
+    <tr>
+      <td class="sidhuvud-toppinfo">2013-03-11 21:27:32</td>
+      <td class="sidhuvud-toppfunktioner">
+        <a class=uppdatera href="/fsb.public/site/public/index/indexdetail.page?magic=(cc (detail (id OMXS30) (src OM)))" title="Uppdatera innehållet i sidan">Uppdatera</a>
+        <span class="avskiljare">|</span>
+        <a class="avsluta" href="javascript:window.close()" title="Stäng fönster">Stäng</a>
+      </td>
+    </tr>
+    <tr>
+      <td class="sidhuvud-toppinfo-border" colspan="2"><img width="216" height="22" src="/fsb.public/site/public/images/logo_marknadsinformation.png" alt="Marknadsinformation"></td>
+    </tr>
+  </table>
+
+  <div>
+    <script type="text/javascript" src="/fsb.public/site/public/include/milonic_src.js"></script>
+    <script	type="text/javascript">
+      if(ns4)_d.write("<scr"+"ipt language=JavaScript src=/fsb.public/site/public/include/mmenuns4.js><\/scr"+"ipt>");
+      else _d.write("<scr"+"ipt language=JavaScript src=/fsb.public/site/public/include/mmenudom.js><\/scr"+"ipt>");
+    </script>
+    <script type="text/javascript" src="/fsb.public/site/public/include/menu_data.page"></script>
+  </div>
+
+  <div style="text-align: right; padding-top: 3px">
+    <form action="/fsb.public/site/public/entries/search.page" method="GET" name=frmSearch onsubmit=javascript:return(checkForm(this))>
+      <input type="hidden" name="type" value="a">
+      <input class=textruta type=text maxlength=20 size=15 name=query>
+      <input class=knapp type=submit value=Sök></nobr>
+    </form>
+  </div>
+
+</div>
+
+<!-- Content -->
+<div class="sidinnehall">
+  <table class="tabell2" cellspacing="0" width="100%">
+      <tbody>
+        <tr>
+          <td class="sidnavigering-sidrubrik" colspan="11"><h2 class="sidrubrik">OMX Stockholm 30</h2></td>
+		</tr>
+        <tr>
+          <td class="sidnavigering-sidfunktioner" colspan="6">&nbsp;</td>
+          <td class="sidnavigering-sidfunktioner-h"></td>
+		</tr>
+		<tr><td colspan="11"><img src="../images/transparent.gif" height="5"></td></tr>
+        <tr>
+          <th class="tabell-kolumnrubrik-aktielista-h" id="ch"><nobr>&nbsp;+/-</nobr></th>
+          <th class="tabell-kolumnrubrik-aktielista-h" id="chpc"><nobr>&nbsp;+/-%</nobr></th>
+          <th class="tabell-kolumnrubrik-aktielista" id="nm">Namn&nbsp;</th>
+          <th class="tabell-kolumnrubrik-aktielista-h" id="pd">Senast</th>
+          <th class="tabell-kolumnrubrik-aktielista-h" id="hi">Högst</th>
+          <th class="tabell-kolumnrubrik-aktielista-h" id="lo">Lägst</th>
+          <th class="tabell-kolumnrubrik-aktielista-h" id="tm">Tid</th>
+		</tr>
+	  <tr>
+	    <td class="tbl-aktie-h-u" headers="ch"><nobr>&nbsp;2,94</nobr></td>
+	    <td class="tbl-aktie-h-u" headers="chpc"><nobr>&nbsp;0,24</nobr></td>
+	    <td class="tbl-aktie" headers="nm"><nobr>OMX Stockholm 30</nobr></td>
+	    <td class="tbl-aktie-h" headers="pd">&nbsp;1218,0770</td>
+	    <td class="tbl-aktie-h" headers="hi">&nbsp;1218,2845</td>
+	    <td class="tbl-aktie-h" headers="lo">&nbsp;1212,0961</td>
+	    <td class="tbl-aktie-h" headers="tm">&nbsp;17:30</td>
+	  </tr>
+  </tbody>
+</table>
+<table class="tabell" cellspacing="0" width="100%">
+  <tbody>
+  <tr>
+
+  	<td valign="top">
+    <table class="tabell2" cellspacing="0" width="100%">
+      <tbody>
+	  <tr>
+	    <td colspan="3">
+	      <div class="sektion"><div class="sektion-huvud-direkt"><h3 class="sektion-rubrik">
+		  Historik
+		  </h3></div></div>
+		</td>
+	  </tr>
+	  <tr>
+	    <th class="tabell-huvud" id="p" align="left"><span class="tabell-kolumnrubrik">Tidpunkt</span></th>
+	    <th class="tabell-huvud" id="pd" align="right"><span class="tabell-kolumnrubrik">Kurs</span></th>
+	    <th class="tabell-huvud" id="ch" align="right"><span class="tabell-kolumnrubrik">Förändring</span></th>
+	  </tr>
+	  <tr>
+	    <td class="tabell-divider" colspan="3"><img height="1" src="../images/transparent.gif" width="100%"></td>
+	  </tr>
+	  <tr>
+	    <td class="tbl-aktie" headers="p">Igår</td>
+	    <td class="tbl-aktie-h" headers="pd">&nbsp;1215,140</td>
+	    <td class="tbl-aktie-h-u" headers="ch">&nbsp;0,24%</td>
+	  </tr>
+	  <tr>
+	    <td class="tbl-aktie" headers="p">1 vecka</td>
+	    <td class="tbl-aktie-h" headers="pd">&nbsp;1203,470</td>
+	    <td class="tbl-aktie-h-u" headers="ch">&nbsp;1,21%</td>
+	  </tr>
+	  <tr>
+	    <td class="tbl-aktie" headers="p">1 mån</td>
+	    <td class="tbl-aktie-h" headers="pd">&nbsp;1171,010</td>
+	    <td class="tbl-aktie-h-u" headers="ch">&nbsp;4,02%</td>
+	  </tr>
+	  <tr>
+	    <td class="tbl-aktie" headers="p">3 mån</td>
+	    <td class="tbl-aktie-h" headers="pd">&nbsp;1108,960</td>
+	    <td class="tbl-aktie-h-u" headers="ch">&nbsp;9,84%</td>
+	  </tr>
+	  <tr>
+	    <td class="tbl-aktie" headers="p">1 år</td>
+	    <td class="tbl-aktie-h" headers="pd">&nbsp;1089,800</td>
+	    <td class="tbl-aktie-h-u" headers="ch">&nbsp;11,77%</td>
+	  </tr>
+	  <tr>
+	    <td class="tbl-aktie" headers="p"><nobr>Sedan 31/12</nobr></td>
+	    <td class="tbl-aktie-h" headers="pd">&nbsp;1104,730</td>
+	    <td class="tbl-aktie-h-u" headers="ch">&nbsp;10,26%</td>
+	  </tr>
+	  </tbody>
+	</table>
+	</td>
+	<td><img height="1" src="../images/transparent.gif" width="10"></td>
+
+  	<td valign="top">
+		<table class="tabell2" cellspacing="0" width="100%">
+	      <tbody>
+		  <tr>
+		    <td colspan="3">
+		      <div class="sektion"><div class="sektion-huvud-direkt"><h3 class="sektion-rubrik">
+			  Kursdiagram
+			  </h3></div></div>
+			</td>
+		  </tr>
+		  <tr>
+		    <td valign="top">
+                                              
+
+
+
+
+<form name="iForm">
+
+
+<table class="tabell" border="0">
+  <tr>
+    <td><div style="font-size:0.1em;width:7px;height:7px;background:#cc6633;">&nbsp;</div></td><td colspan="8">&nbsp;<b>OMX Stockholm 30</b></td>
+  <tr>
+  <tr>
+           </tr>
+</table>
+
+
+
+
+
+
+
+
+<IMG src="http://iserver2.solutions.six.se/iserver2/iserver?f=tpng&t=fsbpub_advidx1p_hist&p=commonGroupX.intervalPeriod/3*month&p=main.tickercode/15055&p=main.market/sse" alt="OMX Stockholm 30" width="425" height="320" style="margin-top:3px;">
+
+<table class="tabell" border="0" width="100%">
+  <tr><td class="mellanrubrik" colspan="2">&nbsp;</td></tr>
+  <tr><td class="mellanrubrik" colspan="2">Välj diagramtyp</td></tr>
+  <tr>
+    <td class="form-felt2">Intervall</td>
+    <td class="form-felt2">
+      <select name="PERIOD" class="listruta">
+        <option value="1D" >Dagens utveckling
+        <option value="1M" >1 Månad
+        <option value="3M" selected>3 Månader
+        <option value="1Y" >1 år
+        <option value="5Y" >5 år
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="form-felt2">Jämför med aktie</td>
+    <td class="form-felt2">
+        <select name="STO">
+          <option value="">Välj</option>
+          <option value="">-- Stockholm --</option>
+                                                  <option value="531814">&nbsp;&nbsp;203 Web Group</option>
+                            <option value="422239">&nbsp;&nbsp;24h Technologies</option>
+                            <option value="47851">&nbsp;&nbsp;2E Group</option>
+                            <option value="170651">&nbsp;&nbsp;AarhusKarlshamn</option>
+                            <option value="23223">&nbsp;&nbsp;ABB Ltd</option>
+                            <option value="702021">&nbsp;&nbsp;Abelco</option>
+                            <option value="4714">&nbsp;&nbsp;Acando B</option>
+                            <option value="91443">&nbsp;&nbsp;ACAP Invest A</option>
+                            <option value="91444">&nbsp;&nbsp;ACAP Invest B</option>
+                            <option value="5689">&nbsp;&nbsp;Accelerator B</option>
+                            <option value="3505">&nbsp;&nbsp;Active Biotech</option>
+                            <option value="22904">&nbsp;&nbsp;Addnode B</option>
+                            <option value="64388">&nbsp;&nbsp;Addtech B</option>
+                            <option value="5574">&nbsp;&nbsp;ADDvise Lab Solutions</option>
+                            <option value="310186">&nbsp;&nbsp;Aerocrine B</option>
+                            <option value="675839">&nbsp;&nbsp;Africa Oil Corp.</option>
+                            <option value="355885">&nbsp;&nbsp;Agellis Group</option>
+                            <option value="145716">&nbsp;&nbsp;AIK Fotboll B</option>
+                            <option value="323896">&nbsp;&nbsp;Albin Metals</option>
+                            <option value="80032">&nbsp;&nbsp;Alfa Laval</option>
+                            <option value="243451">&nbsp;&nbsp;Allenex</option>
+                            <option value="54886">&nbsp;&nbsp;Alliance Oil Company</option>
+                            <option value="924188">&nbsp;&nbsp;Alliance Oil SDB Pref</option>
+                            <option value="268563">&nbsp;&nbsp;Alltele</option>
+                            <option value="863076">&nbsp;&nbsp;ALM Equity</option>
+                            <option value="863077">&nbsp;&nbsp;ALM Equity Pref</option>
+                            <option value="525786">&nbsp;&nbsp;Alpcot Agro</option>
+                            <option value="222015">&nbsp;&nbsp;Alpha Helix</option>
+                            <option value="130269">&nbsp;&nbsp;Altero B</option>
+                            <option value="54833">&nbsp;&nbsp;Amasten Holding</option>
+                            <option value="158716">&nbsp;&nbsp;Amhult 2 B</option>
+                            <option value="873166">&nbsp;&nbsp;Angler Gaming</option>
+                            <option value="42949">&nbsp;&nbsp;Anoto Group</option>
+                            <option value="157086">&nbsp;&nbsp;Aqeri Holding</option>
+                            <option value="61478">&nbsp;&nbsp;AQ Group</option>
+                            <option value="5819">&nbsp;&nbsp;Aqua Terrena</option>
+                            <option value="21896">&nbsp;&nbsp;Arcam</option>
+                            <option value="255665">&nbsp;&nbsp;Archelon Mineral B</option>
+                            <option value="510327">&nbsp;&nbsp;Arctic Gold</option>
+                            <option value="923180">&nbsp;&nbsp;Arctic Paper</option>
+                            <option value="607964">&nbsp;&nbsp;Arise Windpower</option>
+                            <option value="742367">&nbsp;&nbsp;AroCell</option>
+                            <option value="5478">&nbsp;&nbsp;Artimplant B</option>
+                            <option value="41386">&nbsp;&nbsp;Aspiro</option>
+                            <option value="4624">&nbsp;&nbsp;Assa Abloy B</option>
+                            <option value="21401">&nbsp;&nbsp;AstraZeneca</option>
+                            <option value="219">&nbsp;&nbsp;Atlas Copco A</option>
+                            <option value="221">&nbsp;&nbsp;Atlas Copco B</option>
+                            <option value="4611">&nbsp;&nbsp;Atrium Ljungberg B</option>
+                            <option value="155404">&nbsp;&nbsp;Auriant Mining</option>
+                            <option value="5296">&nbsp;&nbsp;Autoliv SDB</option>
+                            <option value="2114">&nbsp;&nbsp;Avanza</option>
+                            <option value="348433">&nbsp;&nbsp;Avega Group B</option>
+                            <option value="829611">&nbsp;&nbsp;Avtech Sweden B</option>
+                            <option value="5440">&nbsp;&nbsp;Axfood</option>
+                            <option value="388188">&nbsp;&nbsp;aXichem A</option>
+                            <option value="47766">&nbsp;&nbsp;Axis</option>
+                            <option value="1718">&nbsp;&nbsp;B&B TOOLS B</option>
+                            <option value="358248">&nbsp;&nbsp;Bahnhof B</option>
+                            <option value="37212">&nbsp;&nbsp;Balder B</option>
+                            <option value="750756">&nbsp;&nbsp;Balder Pref</option>
+                            <option value="239123">&nbsp;&nbsp;BE Group</option>
+                            <option value="3582">&nbsp;&nbsp;Beijer Alma B</option>
+                            <option value="46995">&nbsp;&nbsp;Beijer Electronics</option>
+                            <option value="390419">&nbsp;&nbsp;Beowulf Mining PLC</option>
+                            <option value="3159">&nbsp;&nbsp;Bergs Timber B</option>
+                            <option value="4825">&nbsp;&nbsp;Betsson B</option>
+                            <option value="5697">&nbsp;&nbsp;Betting Promotion</option>
+                            <option value="3084">&nbsp;&nbsp;Bilia A</option>
+                            <option value="67942">&nbsp;&nbsp;BillerudKorsnäs</option>
+                            <option value="5601">&nbsp;&nbsp;BioGaia B</option>
+                            <option value="61738">&nbsp;&nbsp;BioInvent</option>
+                            <option value="353359">&nbsp;&nbsp;Biolight</option>
+                            <option value="206250">&nbsp;&nbsp;Biosensor A</option>
+                            <option value="47947">&nbsp;&nbsp;Biotage</option>
+                            <option value="178776">&nbsp;&nbsp;Biotech-IgG B</option>
+                            <option value="150419">&nbsp;&nbsp;Björn Borg</option>
+                            <option value="359271">&nbsp;&nbsp;Black Earth Farming SDB</option>
+                            <option value="312618">&nbsp;&nbsp;BlackPearl Resources</option>
+                            <option value="68657">&nbsp;&nbsp;Boliden</option>
+                            <option value="3628">&nbsp;&nbsp;Bong</option>
+                            <option value="534317">&nbsp;&nbsp;Botnia Exploration Holding</option>
+                            <option value="752307">&nbsp;&nbsp;Boule Diagnostics</option>
+                            <option value="41407">&nbsp;&nbsp;Bredband2</option>
+                            <option value="823532">&nbsp;&nbsp;Brighter</option>
+                            <option value="44239">&nbsp;&nbsp;Bringwell</option>
+                            <option value="61456">&nbsp;&nbsp;BTS Group B</option>
+                            <option value="3398">&nbsp;&nbsp;Bure Equity</option>
+                            <option value="726199">&nbsp;&nbsp;Business Control Systems Sverige</option>
+                            <option value="629864">&nbsp;&nbsp;Byggmax Group</option>
+                            <option value="813401">&nbsp;&nbsp;Byggolit</option>
+                            <option value="168373">&nbsp;&nbsp;Caperio Holding</option>
+                            <option value="141949">&nbsp;&nbsp;Cassandra Oil</option>
+                            <option value="5404">&nbsp;&nbsp;Castellum</option>
+                            <option value="2123">&nbsp;&nbsp;Catella A</option>
+                            <option value="2124">&nbsp;&nbsp;Catella B</option>
+                            <option value="194668">&nbsp;&nbsp;Catena</option>
+                            <option value="527767">&nbsp;&nbsp;Caucasus Oil</option>
+                            <option value="787356">&nbsp;&nbsp;Cavotec</option>
+                            <option value="693104">&nbsp;&nbsp;CDON Group</option>
+                            <option value="707159">&nbsp;&nbsp;Cefour Wine & Beverage B</option>
+                            <option value="185632">&nbsp;&nbsp;CellaVision</option>
+                            <option value="941390">&nbsp;&nbsp;Cell Impact B</option>
+                            <option value="137777">&nbsp;&nbsp;Cellpoint Connect</option>
+                            <option value="639396">&nbsp;&nbsp;Challenger Mobile B</option>
+                            <option value="221516">&nbsp;&nbsp;Cherry B</option>
+                            <option value="230064">&nbsp;&nbsp;ChronTech Pharma</option>
+                            <option value="5635">&nbsp;&nbsp;Cision</option>
+                            <option value="37045">&nbsp;&nbsp;Clas Ohlson B</option>
+                            <option value="147364">&nbsp;&nbsp;Clean Oil</option>
+                            <option value="494153">&nbsp;&nbsp;Clinical Laserthermia Systems B</option>
+                            <option value="469679">&nbsp;&nbsp;Cloetta</option>
+                            <option value="203663">&nbsp;&nbsp;Commodity Quest</option>
+                            <option value="390570">&nbsp;&nbsp;Community Entertainment</option>
+                            <option value="746230">&nbsp;&nbsp;Concentric</option>
+                            <option value="3069">&nbsp;&nbsp;Concordia B</option>
+                            <option value="5698">&nbsp;&nbsp;Confidence Int.</option>
+                            <option value="135899">&nbsp;&nbsp;Connecta</option>
+                            <option value="5483">&nbsp;&nbsp;Conpharm A</option>
+                            <option value="5484">&nbsp;&nbsp;Conpharm B</option>
+                            <option value="4473">&nbsp;&nbsp;Consilium B</option>
+                            <option value="5431">&nbsp;&nbsp;Corem Property Group</option>
+                            <option value="553874">&nbsp;&nbsp;Corem Property Group Pref</option>
+                            <option value="149432">&nbsp;&nbsp;Cortus Energy</option>
+                            <option value="321094">&nbsp;&nbsp;C-RAD B</option>
+                            <option value="830623">&nbsp;&nbsp;Creades A</option>
+                            <option value="130406">&nbsp;&nbsp;Creative Antibiotics</option>
+                            <option value="808886">&nbsp;&nbsp;Crown Energy</option>
+                            <option value="363712">&nbsp;&nbsp;Cryptzone B</option>
+                            <option value="5480">&nbsp;&nbsp;CTT Systems</option>
+                            <option value="497750">&nbsp;&nbsp;CWS Comfort Window Systems</option>
+                            <option value="306885">&nbsp;&nbsp;CybAero</option>
+                            <option value="39043">&nbsp;&nbsp;Cybercom</option>
+                            <option value="299188">&nbsp;&nbsp;Dannemora Mineral B</option>
+                            <option value="734851">&nbsp;&nbsp;Dedicare B</option>
+                            <option value="361709">&nbsp;&nbsp;Deflamo B</option>
+                            <option value="733076">&nbsp;&nbsp;Deltaco</option>
+                            <option value="384853">&nbsp;&nbsp;DGC One</option>
+                            <option value="301696">&nbsp;&nbsp;Diadrom Holding</option>
+                            <option value="5268">&nbsp;&nbsp;Diamyd Medical B</option>
+                            <option value="310315">&nbsp;&nbsp;DIBS Payment Services</option>
+                            <option value="504702">&nbsp;&nbsp;Dignitana</option>
+                            <option value="199933">&nbsp;&nbsp;Diös Fastigheter</option>
+                            <option value="4435">&nbsp;&nbsp;Doro</option>
+                            <option value="213921">&nbsp;&nbsp;Drillcon</option>
+                            <option value="351623">&nbsp;&nbsp;Duni</option>
+                            <option value="5248">&nbsp;&nbsp;Duroc B</option>
+                            <option value="350127">&nbsp;&nbsp;East Capital Explorer</option>
+                            <option value="709327">&nbsp;&nbsp;Ecomb</option>
+                            <option value="632621">&nbsp;&nbsp;EcoRub B</option>
+                            <option value="3787">&nbsp;&nbsp;Elanders B</option>
+                            <option value="197001">&nbsp;&nbsp;Electra Gruppen</option>
+                            <option value="450">&nbsp;&nbsp;Electrolux A</option>
+                            <option value="451">&nbsp;&nbsp;Electrolux B</option>
+                            <option value="4458">&nbsp;&nbsp;Elekta B</option>
+                            <option value="242370">&nbsp;&nbsp;Ellen</option>
+                            <option value="3878">&nbsp;&nbsp;Elos B</option>
+                            <option value="73144">&nbsp;&nbsp;Elverket Vallentuna</option>
+                            <option value="48066">&nbsp;&nbsp;Empire B</option>
+                            <option value="311592">&nbsp;&nbsp;Endomines</option>
+                            <option value="3930">&nbsp;&nbsp;Enea</option>
+                            <option value="51555">&nbsp;&nbsp;Eniro</option>
+                            <option value="873138">&nbsp;&nbsp;Eniro Pref</option>
+                            <option value="297130">&nbsp;&nbsp;Enjoy Group B</option>
+                            <option value="608939">&nbsp;&nbsp;EnQuest</option>
+                            <option value="749366">&nbsp;&nbsp;Enzymatica</option>
+                            <option value="501361">&nbsp;&nbsp;Eolus Vind B</option>
+                            <option value="294121">&nbsp;&nbsp;EOS Russia</option>
+                            <option value="180538">&nbsp;&nbsp;EpiCept</option>
+                            <option value="682587">&nbsp;&nbsp;Episurf Medical B</option>
+                            <option value="847">&nbsp;&nbsp;Ericsson A</option>
+                            <option value="848">&nbsp;&nbsp;Ericsson B</option>
+                            <option value="683505">&nbsp;&nbsp;Etrion Corporation</option>
+                            <option value="242620">&nbsp;&nbsp;Eurocine Vaccines</option>
+                            <option value="356996">&nbsp;&nbsp;Eurocon Consulting</option>
+                            <option value="38149">&nbsp;&nbsp;European Inst. B</option>
+                            <option value="381746">&nbsp;&nbsp;eWork Scandinavia</option>
+                            <option value="5606">&nbsp;&nbsp;ExeoTech Invest AB</option>
+                            <option value="512849">&nbsp;&nbsp;EXINI Diagnostics</option>
+                            <option value="3586">&nbsp;&nbsp;Fabege</option>
+                            <option value="5393">&nbsp;&nbsp;Fagerhult</option>
+                            <option value="4456">&nbsp;&nbsp;Fast Partner</option>
+                            <option value="880813">&nbsp;&nbsp;FDT System Holding</option>
+                            <option value="5392">&nbsp;&nbsp;Feelgood</option>
+                            <option value="2957">&nbsp;&nbsp;Fenix Outdoor B</option>
+                            <option value="5584">&nbsp;&nbsp;Fingerprint Cards B</option>
+                            <option value="162482">&nbsp;&nbsp;Finmetron B</option>
+                            <option value="741142">&nbsp;&nbsp;FinnvedenBulten</option>
+                            <option value="5439">&nbsp;&nbsp;Firefly</option>
+                            <option value="366782">&nbsp;&nbsp;Forestlight Entertainment</option>
+                            <option value="151475">&nbsp;&nbsp;Formpipe Software</option>
+                            <option value="48470">&nbsp;&nbsp;Forsstrom B</option>
+                            <option value="294123">&nbsp;&nbsp;Fortnox</option>
+                            <option value="776213">&nbsp;&nbsp;Fortnox International AB</option>
+                            <option value="270678">&nbsp;&nbsp;Free2Move</option>
+                            <option value="356053">&nbsp;&nbsp;Fundior</option>
+                            <option value="732703">&nbsp;&nbsp;FX International</option>
+                            <option value="2977">&nbsp;&nbsp;G & L Beijer B</option>
+                            <option value="224976">&nbsp;&nbsp;G5 Entertainment</option>
+                            <option value="232015">&nbsp;&nbsp;Generic Sweden</option>
+                            <option value="44287">&nbsp;&nbsp;Genesis-IT</option>
+                            <option value="173794">&nbsp;&nbsp;Genovis</option>
+                            <option value="2404">&nbsp;&nbsp;Getinge B</option>
+                            <option value="2898">&nbsp;&nbsp;Geveko B</option>
+                            <option value="127211">&nbsp;&nbsp;Ginger Oil</option>
+                            <option value="415838">&nbsp;&nbsp;Global Health Partner</option>
+                            <option value="21903">&nbsp;&nbsp;Glycorex Transplant. B</option>
+                            <option value="178146">&nbsp;&nbsp;Guideline Technology</option>
+                            <option value="867920">&nbsp;&nbsp;Gullberg & Jansson</option>
+                            <option value="4445">&nbsp;&nbsp;Gunnebo</option>
+                            <option value="237318">&nbsp;&nbsp;Götenehus Group</option>
+                            <option value="385909">&nbsp;&nbsp;H1 Communication B</option>
+                            <option value="177036">&nbsp;&nbsp;Hakon Invest</option>
+                            <option value="695">&nbsp;&nbsp;Haldex</option>
+                            <option value="342973">&nbsp;&nbsp;Hansa Medical</option>
+                            <option value="3757">&nbsp;&nbsp;Havsfrun B</option>
+                            <option value="709961">&nbsp;&nbsp;HCH Holding</option>
+                            <option value="4601">&nbsp;&nbsp;Heba B</option>
+                            <option value="5598">&nbsp;&nbsp;Hedson Technologies</option>
+                            <option value="171340">&nbsp;&nbsp;Hemtex</option>
+                            <option value="703">&nbsp;&nbsp;Hennes & Mauritz B</option>
+                            <option value="1800">&nbsp;&nbsp;Hexagon B</option>
+                            <option value="384868">&nbsp;&nbsp;Hexatronic Scandinavia</option>
+                            <option value="383319">&nbsp;&nbsp;Hexpol B</option>
+                            <option value="41385">&nbsp;&nbsp;Hifab Group B</option>
+                            <option value="21564">&nbsp;&nbsp;HiQ International</option>
+                            <option value="344101">&nbsp;&nbsp;HMS Networks</option>
+                            <option value="1047">&nbsp;&nbsp;Holmen A</option>
+                            <option value="1048">&nbsp;&nbsp;Holmen B</option>
+                            <option value="173819">&nbsp;&nbsp;HomeMaid B</option>
+                            <option value="47969">&nbsp;&nbsp;HQ</option>
+                            <option value="799">&nbsp;&nbsp;Hufvudstaden A</option>
+                            <option value="801">&nbsp;&nbsp;Hufvudstaden C</option>
+                            <option value="204876">&nbsp;&nbsp;Husqvarna A</option>
+                            <option value="203520">&nbsp;&nbsp;Husqvarna B</option>
+                            <option value="775220">&nbsp;&nbsp;Hyresfastighetsfonden Mgmt Swe. B</option>
+                            <option value="4466">&nbsp;&nbsp;Höganäs B</option>
+                            <option value="5810">&nbsp;&nbsp;IAR Systems B</option>
+                            <option value="21904">&nbsp;&nbsp;IDL Biotech B</option>
+                            <option value="5441">&nbsp;&nbsp;IFS A</option>
+                            <option value="5442">&nbsp;&nbsp;IFS B</option>
+                            <option value="22178">&nbsp;&nbsp;Image Systems</option>
+                            <option value="150174">&nbsp;&nbsp;Impact Coatings</option>
+                            <option value="1862">&nbsp;&nbsp;Industrivärden A</option>
+                            <option value="1865">&nbsp;&nbsp;Industrivärden C</option>
+                            <option value="171308">&nbsp;&nbsp;Indutrade</option>
+                            <option value="203034">&nbsp;&nbsp;Insplanet</option>
+                            <option value="3946">&nbsp;&nbsp;Intellecta B</option>
+                            <option value="83245">&nbsp;&nbsp;Intrum Justitia</option>
+                            <option value="1877">&nbsp;&nbsp;Investor A</option>
+                            <option value="1878">&nbsp;&nbsp;Investor B</option>
+                            <option value="137905">&nbsp;&nbsp;Invisio Communications</option>
+                            <option value="47185">&nbsp;&nbsp;InXL Innovation</option>
+                            <option value="684485">&nbsp;&nbsp;Isconova</option>
+                            <option value="137119">&nbsp;&nbsp;ITAB Shop Concept B</option>
+                            <option value="622791">&nbsp;&nbsp;Jays</option>
+                            <option value="5552">&nbsp;&nbsp;JLT Mobile Computers</option>
+                            <option value="2035">&nbsp;&nbsp;JM</option>
+                            <option value="320135">&nbsp;&nbsp;Jojka Communications</option>
+                            <option value="365966">&nbsp;&nbsp;Josab International AB</option>
+                            <option value="3046">&nbsp;&nbsp;KABE B</option>
+                            <option value="717632">&nbsp;&nbsp;Kancera</option>
+                            <option value="186383">&nbsp;&nbsp;KappAhl</option>
+                            <option value="5579">&nbsp;&nbsp;Karo Bio</option>
+                            <option value="732650">&nbsp;&nbsp;Karolinska Development</option>
+                            <option value="3545">&nbsp;&nbsp;Kinnevik A</option>
+                            <option value="3546">&nbsp;&nbsp;Kinnevik B</option>
+                            <option value="132307">&nbsp;&nbsp;Klick Data B</option>
+                            <option value="92352">&nbsp;&nbsp;Klövern</option>
+                            <option value="822760">&nbsp;&nbsp;Klövern Pref</option>
+                            <option value="5479">&nbsp;&nbsp;Know IT</option>
+                            <option value="265620">&nbsp;&nbsp;Kopparberg Mineral B</option>
+                            <option value="41661">&nbsp;&nbsp;Kopparbergs Bryggeri B</option>
+                            <option value="652297">&nbsp;&nbsp;Kopy Goldfields</option>
+                            <option value="21599">&nbsp;&nbsp;Kungsleden</option>
+                            <option value="64384">&nbsp;&nbsp;Lagercrantz Group B</option>
+                            <option value="5437">&nbsp;&nbsp;Lammhults Design Group B</option>
+                            <option value="137734">&nbsp;&nbsp;Lappland Goldminers</option>
+                            <option value="1858">&nbsp;&nbsp;Latour B</option>
+                            <option value="867755">&nbsp;&nbsp;Latvian Forest B</option>
+                            <option value="120993">&nbsp;&nbsp;LC-Tec Holding</option>
+                            <option value="90495">&nbsp;&nbsp;LifeAssays B</option>
+                            <option value="171343">&nbsp;&nbsp;Lightlab Sweden B</option>
+                            <option value="240922">&nbsp;&nbsp;Lindab International</option>
+                            <option value="468598">&nbsp;&nbsp;Loomis B</option>
+                            <option value="351621">&nbsp;&nbsp;Lovisagruvan</option>
+                            <option value="801849">&nbsp;&nbsp;Lucara Diamond Corp.</option>
+                            <option value="162390">&nbsp;&nbsp;Lucent Oil</option>
+                            <option value="2946">&nbsp;&nbsp;Lundbergföretagen B</option>
+                            <option value="127161">&nbsp;&nbsp;Lundin Mining</option>
+                            <option value="64595">&nbsp;&nbsp;Lundin Petroleum</option>
+                            <option value="3968">&nbsp;&nbsp;Luxonen SDB</option>
+                            <option value="639467">&nbsp;&nbsp;LYYN</option>
+                            <option value="634570">&nbsp;&nbsp;Mabi Rent</option>
+                            <option value="811620">&nbsp;&nbsp;Mackmyra Svensk Whisky B</option>
+                            <option value="5818">&nbsp;&nbsp;Malmbergs Elektriska B</option>
+                            <option value="770555">&nbsp;&nbsp;Mangold</option>
+                            <option value="229100">&nbsp;&nbsp;Maxpeak</option>
+                            <option value="4718">&nbsp;&nbsp;Meda A</option>
+                            <option value="139579">&nbsp;&nbsp;MedCap</option>
+                            <option value="4823">&nbsp;&nbsp;MedCore</option>
+                            <option value="850630">&nbsp;&nbsp;Medfield Diagnostics</option>
+                            <option value="234401">&nbsp;&nbsp;Mediaprovider</option>
+                            <option value="241829">&nbsp;&nbsp;MedicPen</option>
+                            <option value="5621">&nbsp;&nbsp;MediRox A</option>
+                            <option value="506095">&nbsp;&nbsp;MediRox B</option>
+                            <option value="727562">&nbsp;&nbsp;MediRätt B</option>
+                            <option value="4822">&nbsp;&nbsp;Medivir B</option>
+                            <option value="46743">&nbsp;&nbsp;Mekonomen</option>
+                            <option value="219806">&nbsp;&nbsp;Melker Schörling</option>
+                            <option value="368475">&nbsp;&nbsp;Metallvärden i Sv.</option>
+                            <option value="42767">&nbsp;&nbsp;Micronic Mydata</option>
+                            <option value="536024">&nbsp;&nbsp;Micropos Medical</option>
+                            <option value="39036">&nbsp;&nbsp;Micro Systemation B</option>
+                            <option value="22952">&nbsp;&nbsp;Midsona A</option>
+                            <option value="22953">&nbsp;&nbsp;Midsona B</option>
+                            <option value="3901">&nbsp;&nbsp;Midway A</option>
+                            <option value="3904">&nbsp;&nbsp;Midway B</option>
+                            <option value="134313">&nbsp;&nbsp;Millicom Int. Cellular SDB</option>
+                            <option value="528595">&nbsp;&nbsp;Mineral Invest International MII</option>
+                            <option value="206249">&nbsp;&nbsp;Miris Holding</option>
+                            <option value="306396">&nbsp;&nbsp;Misen Energy</option>
+                            <option value="742930">&nbsp;&nbsp;Moberg Derma</option>
+                            <option value="241163">&nbsp;&nbsp;Mobicard Media Group</option>
+                            <option value="820380">&nbsp;&nbsp;Mobile Loyalty</option>
+                            <option value="635712">&nbsp;&nbsp;MQ Holding</option>
+                            <option value="5592">&nbsp;&nbsp;MSC Konsult B</option>
+                            <option value="5463">&nbsp;&nbsp;MTG A</option>
+                            <option value="5464">&nbsp;&nbsp;MTG B</option>
+                            <option value="5389">&nbsp;&nbsp;MultiQ</option>
+                            <option value="341340">&nbsp;&nbsp;MVV Holding B</option>
+                            <option value="833952">&nbsp;&nbsp;Mycab International</option>
+                            <option value="293902">&nbsp;&nbsp;NAXS Nordic Access Buyout Fund</option>
+                            <option value="2085">&nbsp;&nbsp;NCC A</option>
+                            <option value="2087">&nbsp;&nbsp;NCC B</option>
+                            <option value="295189">&nbsp;&nbsp;Nederman Holding</option>
+                            <option value="280622">&nbsp;&nbsp;Net Entertainment B</option>
+                            <option value="497735">&nbsp;&nbsp;Net Gaming</option>
+                            <option value="22839">&nbsp;&nbsp;Net Insight B</option>
+                            <option value="227602">&nbsp;&nbsp;Netjobs Group</option>
+                            <option value="415837">&nbsp;&nbsp;NeuroVive Pharmaceutical</option>
+                            <option value="257070">&nbsp;&nbsp;New Nordic Healthbrands</option>
+                            <option value="5549">&nbsp;&nbsp;New Wave Group B</option>
+                            <option value="41951">&nbsp;&nbsp;NFO Drives</option>
+                            <option value="41394">&nbsp;&nbsp;NGS Group</option>
+                            <option value="5419">&nbsp;&nbsp;NIBE Industrier B</option>
+                            <option value="4950">&nbsp;&nbsp;Nischer</option>
+                            <option value="90027">&nbsp;&nbsp;Nobia</option>
+                            <option value="2169">&nbsp;&nbsp;Nokia</option>
+                            <option value="3095">&nbsp;&nbsp;Nolato B</option>
+                            <option value="5487">&nbsp;&nbsp;Nordea Bank</option>
+                            <option value="233631">&nbsp;&nbsp;Nordic Camping</option>
+                            <option value="210081">&nbsp;&nbsp;Nordic Leisure</option>
+                            <option value="245155">&nbsp;&nbsp;Nordic Mines</option>
+                            <option value="813329">&nbsp;&nbsp;NordIQ Göteborg</option>
+                            <option value="312433">&nbsp;&nbsp;Nordkom</option>
+                            <option value="39657">&nbsp;&nbsp;Nordnet B</option>
+                            <option value="139577">&nbsp;&nbsp;NOTE</option>
+                            <option value="41402">&nbsp;&nbsp;Novestra</option>
+                            <option value="23422">&nbsp;&nbsp;Novotek B</option>
+                            <option value="301694">&nbsp;&nbsp;Novus Group</option>
+                            <option value="5610">&nbsp;&nbsp;NSP Holding B</option>
+                            <option value="179585">&nbsp;&nbsp;Oasmia Pharmaceutical</option>
+                            <option value="21541">&nbsp;&nbsp;Obducat B</option>
+                            <option value="310736">&nbsp;&nbsp;Odd Molly</option>
+                            <option value="939891">&nbsp;&nbsp;Oden Control</option>
+                            <option value="2988">&nbsp;&nbsp;OEM International B</option>
+                            <option value="183501">&nbsp;&nbsp;Old Mutual</option>
+                            <option value="5561">&nbsp;&nbsp;Oniva Online Group</option>
+                            <option value="284349">&nbsp;&nbsp;Online Brands Nordic</option>
+                            <option value="5809">&nbsp;&nbsp;Opcon</option>
+                            <option value="193538">&nbsp;&nbsp;OPUS Group</option>
+                            <option value="137464">&nbsp;&nbsp;OraSolv</option>
+                            <option value="173774">&nbsp;&nbsp;Orexo</option>
+                            <option value="133050">&nbsp;&nbsp;Oriflame Cosmetics SDB</option>
+                            <option value="4727">&nbsp;&nbsp;Ortivus A</option>
+                            <option value="4728">&nbsp;&nbsp;Ortivus B</option>
+                            <option value="639393">&nbsp;&nbsp;Pallas Group B</option>
+                            <option value="160357">&nbsp;&nbsp;Paradox Entertainment</option>
+                            <option value="630317">&nbsp;&nbsp;Parans Solar Lighting</option>
+                            <option value="5633">&nbsp;&nbsp;PA Resources</option>
+                            <option value="5415">&nbsp;&nbsp;PartnerTech</option>
+                            <option value="741420">&nbsp;&nbsp;PatientTrac</option>
+                            <option value="131561">&nbsp;&nbsp;Paynova</option>
+                            <option value="3535">&nbsp;&nbsp;Peab B</option>
+                            <option value="265038">&nbsp;&nbsp;PetroGrand</option>
+                            <option value="115655">&nbsp;&nbsp;Pfizer</option>
+                            <option value="639231">&nbsp;&nbsp;PharmaLundensis</option>
+                            <option value="46760">&nbsp;&nbsp;Phonera</option>
+                            <option value="159932">&nbsp;&nbsp;Pilum B</option>
+                            <option value="728818">&nbsp;&nbsp;PledPharma</option>
+                            <option value="179519">&nbsp;&nbsp;Polyplank</option>
+                            <option value="23259">&nbsp;&nbsp;Poolia B</option>
+                            <option value="49795">&nbsp;&nbsp;Precio Systemutveckling B</option>
+                            <option value="39554">&nbsp;&nbsp;Precise Biometrics</option>
+                            <option value="326096">&nbsp;&nbsp;Precomp Solutions B</option>
+                            <option value="5607">&nbsp;&nbsp;Prevas B</option>
+                            <option value="4651">&nbsp;&nbsp;Pricer B</option>
+                            <option value="5473">&nbsp;&nbsp;Proact IT Group</option>
+                            <option value="5704">&nbsp;&nbsp;Probi</option>
+                            <option value="37190">&nbsp;&nbsp;Proffice B</option>
+                            <option value="5426">&nbsp;&nbsp;ProfilGruppen B</option>
+                            <option value="338208">&nbsp;&nbsp;Railcare Group</option>
+                            <option value="55443">&nbsp;&nbsp;Rasta Group</option>
+                            <option value="1986">&nbsp;&nbsp;Ratos A</option>
+                            <option value="1988">&nbsp;&nbsp;Ratos B</option>
+                            <option value="3956">&nbsp;&nbsp;RaySearch B</option>
+                            <option value="23258">&nbsp;&nbsp;ReadSoft B</option>
+                            <option value="923888">&nbsp;&nbsp;Recyctec B</option>
+                            <option value="847954">&nbsp;&nbsp;Rehact B</option>
+                            <option value="115772">&nbsp;&nbsp;Rejlers B</option>
+                            <option value="212849">&nbsp;&nbsp;Relation & Brand B</option>
+                            <option value="872795">&nbsp;&nbsp;Respiratorius</option>
+                            <option value="240320">&nbsp;&nbsp;Rezidor Hotel Group</option>
+                            <option value="851123">&nbsp;&nbsp;RLS Global</option>
+                            <option value="62066">&nbsp;&nbsp;rnb Retail and Brands</option>
+                            <option value="3613">&nbsp;&nbsp;Rottneros</option>
+                            <option value="194815">&nbsp;&nbsp;Ruric B</option>
+                            <option value="217821">&nbsp;&nbsp;RusForest</option>
+                            <option value="5436">&nbsp;&nbsp;Rörvik Timber B</option>
+                            <option value="5596">&nbsp;&nbsp;SAAB B</option>
+                            <option value="360283">&nbsp;&nbsp;Safe at Sea</option>
+                            <option value="21402">&nbsp;&nbsp;Sagax A</option>
+                            <option value="184307">&nbsp;&nbsp;Sagax Pref</option>
+                            <option value="1160">&nbsp;&nbsp;Sandvik</option>
+                            <option value="2024">&nbsp;&nbsp;SAS</option>
+                            <option value="186876">&nbsp;&nbsp;SBC Sveriges BostadsrättsCentrum</option>
+                            <option value="302">&nbsp;&nbsp;SCA A</option>
+                            <option value="304">&nbsp;&nbsp;SCA B</option>
+                            <option value="609111">&nbsp;&nbsp;Scandbook Holding</option>
+                            <option value="241464">&nbsp;&nbsp;Scandinavian Clinical Nutrition</option>
+                            <option value="4826">&nbsp;&nbsp;SCANIA A</option>
+                            <option value="4827">&nbsp;&nbsp;SCANIA B</option>
+                            <option value="201724">&nbsp;&nbsp;Seamless Distribution</option>
+                            <option value="2424">&nbsp;&nbsp;SEB A</option>
+                            <option value="2427">&nbsp;&nbsp;SEB C</option>
+                            <option value="5815">&nbsp;&nbsp;SECTRA B</option>
+                            <option value="3991">&nbsp;&nbsp;Securitas B</option>
+                            <option value="136472">&nbsp;&nbsp;Selena Oil & Gas Holding</option>
+                            <option value="787477">&nbsp;&nbsp;SEMAFO</option>
+                            <option value="5405">&nbsp;&nbsp;Semcon</option>
+                            <option value="530498">&nbsp;&nbsp;SensoDetect</option>
+                            <option value="45614">&nbsp;&nbsp;Sensys Traffic</option>
+                            <option value="385389">&nbsp;&nbsp;Senzime</option>
+                            <option value="163020">&nbsp;&nbsp;Servage B</option>
+                            <option value="751692">&nbsp;&nbsp;ShaMaran Petroleum Corp.</option>
+                            <option value="21906">&nbsp;&nbsp;Shelton Petroleum B</option>
+                            <option value="66348">&nbsp;&nbsp;Sigma B</option>
+                            <option value="2143">&nbsp;&nbsp;SinterCast</option>
+                            <option value="743439">&nbsp;&nbsp;Sivers IMA Holding</option>
+                            <option value="269626">&nbsp;&nbsp;SJR B</option>
+                            <option value="367">&nbsp;&nbsp;Skanska B</option>
+                            <option value="1246">&nbsp;&nbsp;SKF A</option>
+                            <option value="1248">&nbsp;&nbsp;SKF B</option>
+                            <option value="4606">&nbsp;&nbsp;SkiStar B</option>
+                            <option value="5614">&nbsp;&nbsp;Skåne-möllan</option>
+                            <option value="805543">&nbsp;&nbsp;Skånska Energi B</option>
+                            <option value="41406">&nbsp;&nbsp;Smarteq B</option>
+                            <option value="5700">&nbsp;&nbsp;Softronic B</option>
+                            <option value="131272">&nbsp;&nbsp;Sotkamo Silver</option>
+                            <option value="930007">&nbsp;&nbsp;Spago Imaging</option>
+                            <option value="906321">&nbsp;&nbsp;Sportamore</option>
+                            <option value="552818">&nbsp;&nbsp;Sportjohan B</option>
+                            <option value="3795">&nbsp;&nbsp;SSAB A</option>
+                            <option value="3796">&nbsp;&nbsp;SSAB B</option>
+                            <option value="48558">&nbsp;&nbsp;Starbreeze</option>
+                            <option value="336379">&nbsp;&nbsp;Star Vault B</option>
+                            <option value="21913">&nbsp;&nbsp;Stille</option>
+                            <option value="3569">&nbsp;&nbsp;StjärnaFyrkant</option>
+                            <option value="5707">&nbsp;&nbsp;Stora Enso A</option>
+                            <option value="5708">&nbsp;&nbsp;Stora Enso R</option>
+                            <option value="60390">&nbsp;&nbsp;Studsvik</option>
+                            <option value="780222">&nbsp;&nbsp;Stureguld B</option>
+                            <option value="5692">&nbsp;&nbsp;Sweco A</option>
+                            <option value="5693">&nbsp;&nbsp;Sweco B</option>
+                            <option value="4515">&nbsp;&nbsp;Swedbank A</option>
+                            <option value="473029">&nbsp;&nbsp;Swedbank Pref</option>
+                            <option value="5469">&nbsp;&nbsp;Svedbergs B</option>
+                            <option value="178406">&nbsp;&nbsp;Swede Resources B</option>
+                            <option value="4951">&nbsp;&nbsp;Swedish Match</option>
+                            <option value="222260">&nbsp;&nbsp;Swedish Orphan Biovitrum</option>
+                            <option value="204032">&nbsp;&nbsp;Swedol B</option>
+                            <option value="2599">&nbsp;&nbsp;Svenska Handelsbanken A</option>
+                            <option value="2607">&nbsp;&nbsp;Svenska Handelsbanken B</option>
+                            <option value="5820">&nbsp;&nbsp;SwitchCore A</option>
+                            <option value="554039">&nbsp;&nbsp;SwitchCore B</option>
+                            <option value="3396">&nbsp;&nbsp;Svolder A</option>
+                            <option value="3397">&nbsp;&nbsp;Svolder B</option>
+                            <option value="340802">&nbsp;&nbsp;Systemair</option>
+                            <option value="21916">&nbsp;&nbsp;TagMaster B</option>
+                            <option value="117476">&nbsp;&nbsp;Taurus Energy B</option>
+                            <option value="5015">&nbsp;&nbsp;Tele2 A</option>
+                            <option value="5016">&nbsp;&nbsp;Tele2 B</option>
+                            <option value="47010">&nbsp;&nbsp;TeliaSonera</option>
+                            <option value="134624">&nbsp;&nbsp;Tethys Oil</option>
+                            <option value="339693">&nbsp;&nbsp;Thenberg & Kinde Fondkommission</option>
+                            <option value="23549">&nbsp;&nbsp;Tieto Corporation</option>
+                            <option value="464942">&nbsp;&nbsp;Tigran Technologies</option>
+                            <option value="350430">&nbsp;&nbsp;Towork Sverige</option>
+                            <option value="5459">&nbsp;&nbsp;Traction B</option>
+                            <option value="173702">&nbsp;&nbsp;TradeDoubler</option>
+                            <option value="4075">&nbsp;&nbsp;Transatlantic B</option>
+                            <option value="64608">&nbsp;&nbsp;Transcom WorldWide S.A SDB A</option>
+                            <option value="64609">&nbsp;&nbsp;Transcom WorldWide S.A SDB B</option>
+                            <option value="273515">&nbsp;&nbsp;Transferator A</option>
+                            <option value="510524">&nbsp;&nbsp;Transferator B</option>
+                            <option value="743141">&nbsp;&nbsp;Transmode Holding</option>
+                            <option value="505612">&nbsp;&nbsp;Traveas</option>
+                            <option value="1431">&nbsp;&nbsp;Trelleborg B</option>
+                            <option value="295526">&nbsp;&nbsp;Trigon Agri</option>
+                            <option value="621443">&nbsp;&nbsp;True Heading B</option>
+                            <option value="163522">&nbsp;&nbsp;TrustBuddy International</option>
+                            <option value="382423">&nbsp;&nbsp;Trygga Hem Skandinavien</option>
+                            <option value="137521">&nbsp;&nbsp;Unibet Group SDB</option>
+                            <option value="148296">&nbsp;&nbsp;Uniflex B</option>
+                            <option value="878528">&nbsp;&nbsp;United Media</option>
+                            <option value="242635">&nbsp;&nbsp;Unlimited Travel Group</option>
+                            <option value="3140">&nbsp;&nbsp;Wallenstam B</option>
+                            <option value="3609">&nbsp;&nbsp;VBG Group B</option>
+                            <option value="689882">&nbsp;&nbsp;Vendator B</option>
+                            <option value="5458">&nbsp;&nbsp;Venue Retail Group B</option>
+                            <option value="226287">&nbsp;&nbsp;WeSC</option>
+                            <option value="345854">&nbsp;&nbsp;West International</option>
+                            <option value="906005">&nbsp;&nbsp;Vezzel</option>
+                            <option value="351620">&nbsp;&nbsp;Victoria Park</option>
+                            <option value="940230">&nbsp;&nbsp;Vigmed</option>
+                            <option value="158179">&nbsp;&nbsp;Wihlborgs Fastigheter</option>
+                            <option value="198156">&nbsp;&nbsp;Wiking Mineral</option>
+                            <option value="321408">&nbsp;&nbsp;Vindico Security</option>
+                            <option value="344762">&nbsp;&nbsp;Vinovo</option>
+                            <option value="278930">&nbsp;&nbsp;Wise Group</option>
+                            <option value="23344">&nbsp;&nbsp;Vitec Software Group B</option>
+                            <option value="62054">&nbsp;&nbsp;Vitrolife</option>
+                            <option value="374832">&nbsp;&nbsp;VJ since 1890</option>
+                            <option value="696591">&nbsp;&nbsp;WntResearch</option>
+                            <option value="1528">&nbsp;&nbsp;Volvo A</option>
+                            <option value="1530">&nbsp;&nbsp;Volvo B</option>
+                            <option value="462299">&nbsp;&nbsp;Wonderful Times Group</option>
+                            <option value="315971">&nbsp;&nbsp;Vostok Nafta Investment SDB</option>
+                            <option value="3776">&nbsp;&nbsp;XANO Industri B</option>
+                            <option value="805300">&nbsp;&nbsp;Xcounter</option>
+                            <option value="179513">&nbsp;&nbsp;Xtranet</option>
+                            <option value="900635">&nbsp;&nbsp;Xvivo Perfusion</option>
+                            <option value="158720">&nbsp;&nbsp;Yield Life Science</option>
+                            <option value="727566">&nbsp;&nbsp;ZetaDisplay</option>
+                            <option value="673022">&nbsp;&nbsp;Zinzino B</option>
+                            <option value="3418">&nbsp;&nbsp;ÅF B</option>
+                            <option value="1996">&nbsp;&nbsp;Öresund</option>
+                                                <option value="">&nbsp;</option>
+            <option value="">-- Helsingfors --</option>
+                                                  <option value="159940">&nbsp;&nbsp;Affecto</option>
+                            <option value="189249">&nbsp;&nbsp;Ahlstrom</option>
+                            <option value="522066">&nbsp;&nbsp;Aktia A</option>
+                            <option value="522067">&nbsp;&nbsp;Aktia R</option>
+                            <option value="157224">&nbsp;&nbsp;Alma Media</option>
+                            <option value="19928">&nbsp;&nbsp;Amer Sports</option>
+                            <option value="36854">&nbsp;&nbsp;Aspo</option>
+                            <option value="36853">&nbsp;&nbsp;Aspocomp Group</option>
+                            <option value="20065">&nbsp;&nbsp;Atria plc A</option>
+                            <option value="42207">&nbsp;&nbsp;Basware</option>
+                            <option value="23019">&nbsp;&nbsp;Biohit B</option>
+                            <option value="104301">&nbsp;&nbsp;Biotie Therapies</option>
+                            <option value="59466">&nbsp;&nbsp;CapMan B</option>
+                            <option value="160341">&nbsp;&nbsp;Cargotec B</option>
+                            <option value="20247">&nbsp;&nbsp;Cencorp</option>
+                            <option value="20022">&nbsp;&nbsp;Citycon</option>
+                            <option value="944534">&nbsp;&nbsp;Citycon Oyj Uudet</option>
+                            <option value="944534">&nbsp;&nbsp;Citycon Oyj Uudet</option>
+                            <option value="58768">&nbsp;&nbsp;Componenta</option>
+                            <option value="39421">&nbsp;&nbsp;Comptel</option>
+                            <option value="20118">&nbsp;&nbsp;Cramo</option>
+                            <option value="36768">&nbsp;&nbsp;DIGIA</option>
+                            <option value="37306">&nbsp;&nbsp;Dovre Group Plc</option>
+                            <option value="20095">&nbsp;&nbsp;Efore</option>
+                            <option value="20127">&nbsp;&nbsp;Elecster A</option>
+                            <option value="20264">&nbsp;&nbsp;Elektrobit</option>
+                            <option value="23454">&nbsp;&nbsp;Elisa</option>
+                            <option value="52618">&nbsp;&nbsp;eQ Plc</option>
+                            <option value="108430">&nbsp;&nbsp;Ericsson B</option>
+                            <option value="44698">&nbsp;&nbsp;Etteplan</option>
+                            <option value="20266">&nbsp;&nbsp;Exel Composites Plc</option>
+                            <option value="19979">&nbsp;&nbsp;Finnair</option>
+                            <option value="20038">&nbsp;&nbsp;Finnlines</option>
+                            <option value="20047">&nbsp;&nbsp;Fiskars</option>
+                            <option value="20270">&nbsp;&nbsp;Fortum</option>
+                            <option value="38032">&nbsp;&nbsp;F-Secure</option>
+                            <option value="20168">&nbsp;&nbsp;GeoSentric</option>
+                            <option value="59471">&nbsp;&nbsp;Glaston</option>
+                            <option value="20261">&nbsp;&nbsp;HKScan A</option>
+                            <option value="20098">&nbsp;&nbsp;Honkarakenne B</option>
+                            <option value="19947">&nbsp;&nbsp;Huhtamäki</option>
+                            <option value="20145">&nbsp;&nbsp;Ilkka-Yhtymä 1</option>
+                            <option value="20146">&nbsp;&nbsp;Ilkka-Yhtymä 2</option>
+                            <option value="20237">&nbsp;&nbsp;Incap</option>
+                            <option value="20274">&nbsp;&nbsp;Innofactor Plc</option>
+                            <option value="36791">&nbsp;&nbsp;Ixonos</option>
+                            <option value="20224">&nbsp;&nbsp;Kemira</option>
+                            <option value="21804">&nbsp;&nbsp;Keskisuomalainen A</option>
+                            <option value="22802">&nbsp;&nbsp;Kesko A</option>
+                            <option value="19933">&nbsp;&nbsp;Kesko B</option>
+                            <option value="20103">&nbsp;&nbsp;Kesla A</option>
+                            <option value="160340">&nbsp;&nbsp;Kone B</option>
+                            <option value="20229">&nbsp;&nbsp;Konecranes</option>
+                            <option value="66360">&nbsp;&nbsp;Lassila&Tikanoja</option>
+                            <option value="20105">&nbsp;&nbsp;Lemminkäinen</option>
+                            <option value="20066">&nbsp;&nbsp;Lännen Tehtaat</option>
+                            <option value="20273">&nbsp;&nbsp;Marimekko</option>
+                            <option value="20109">&nbsp;&nbsp;Martela A</option>
+                            <option value="23453">&nbsp;&nbsp;Metso</option>
+                            <option value="19961">&nbsp;&nbsp;Metsä Board Corporation A</option>
+                            <option value="19959">&nbsp;&nbsp;Metsä Board Corporation B</option>
+                            <option value="20234">&nbsp;&nbsp;Neo Industrial Plc</option>
+                            <option value="155850">&nbsp;&nbsp;Neste Oil</option>
+                            <option value="2168">&nbsp;&nbsp;Nokia</option>
+                            <option value="20256">&nbsp;&nbsp;Nokian Renkaat</option>
+                            <option value="925345">&nbsp;&nbsp;Nokia Uudet</option>
+                            <option value="41079">&nbsp;&nbsp;Nordea Bank FDR</option>
+                            <option value="20029">&nbsp;&nbsp;Norvestia B</option>
+                            <option value="20102">&nbsp;&nbsp;Nurminen Logistics Plc</option>
+                            <option value="47976">&nbsp;&nbsp;Okmetic</option>
+                            <option value="20111">&nbsp;&nbsp;Olvi A</option>
+                            <option value="22805">&nbsp;&nbsp;Oral Hammaslääkärit</option>
+                            <option value="208500">&nbsp;&nbsp;Oriola-KD A</option>
+                            <option value="208501">&nbsp;&nbsp;Oriola-KD B</option>
+                            <option value="208497">&nbsp;&nbsp;Orion A</option>
+                            <option value="208498">&nbsp;&nbsp;Orion B</option>
+                            <option value="19971">&nbsp;&nbsp;Outokumpu</option>
+                            <option value="227042">&nbsp;&nbsp;Outotec</option>
+                            <option value="20160">&nbsp;&nbsp;Panostaja</option>
+                            <option value="20235">&nbsp;&nbsp;PKC Group</option>
+                            <option value="20116">&nbsp;&nbsp;Pohj-Karjalan Kirjapaino</option>
+                            <option value="19986">&nbsp;&nbsp;Pohjola Bank Plc</option>
+                            <option value="20255">&nbsp;&nbsp;Ponsse</option>
+                            <option value="5485">&nbsp;&nbsp;Pöyry</option>
+                            <option value="72474">&nbsp;&nbsp;QPR Software</option>
+                            <option value="20069">&nbsp;&nbsp;Raisio K</option>
+                            <option value="20070">&nbsp;&nbsp;Raisio V</option>
+                            <option value="20263">&nbsp;&nbsp;Ramirent</option>
+                            <option value="20269">&nbsp;&nbsp;Rapala VMC</option>
+                            <option value="20051">&nbsp;&nbsp;Rautaruukki K</option>
+                            <option value="20221">&nbsp;&nbsp;Raute A</option>
+                            <option value="66362">&nbsp;&nbsp;Revenio Group Corporation</option>
+                            <option value="20141">&nbsp;&nbsp;Ruukki Group</option>
+                            <option value="20164">&nbsp;&nbsp;Saga Furs Oyj</option>
+                            <option value="19973">&nbsp;&nbsp;Sampo A</option>
+                            <option value="22238">&nbsp;&nbsp;Sanoma Plc</option>
+                            <option value="814078">&nbsp;&nbsp;Scanfil plc</option>
+                            <option value="46053">&nbsp;&nbsp;Sievi Capital</option>
+                            <option value="36153">&nbsp;&nbsp;Solteq</option>
+                            <option value="143899">&nbsp;&nbsp;Soprano</option>
+                            <option value="877039">&nbsp;&nbsp;Sotkamo Silver AB</option>
+                            <option value="20248">&nbsp;&nbsp;Sponda</option>
+                            <option value="306390">&nbsp;&nbsp;SRV Yhtiöt</option>
+                            <option value="54632">&nbsp;&nbsp;SSH Communications Security</option>
+                            <option value="20120">&nbsp;&nbsp;SSK S.Sääst.Kiint.</option>
+                            <option value="19938">&nbsp;&nbsp;Stockmann A</option>
+                            <option value="19940">&nbsp;&nbsp;Stockmann B</option>
+                            <option value="21578">&nbsp;&nbsp;Stonesoft</option>
+                            <option value="20230">&nbsp;&nbsp;Stora Enso A</option>
+                            <option value="20231">&nbsp;&nbsp;Stora Enso R</option>
+                            <option value="66361">&nbsp;&nbsp;Suominen</option>
+                            <option value="20110">&nbsp;&nbsp;Takoma</option>
+                            <option value="20123">&nbsp;&nbsp;Talentum</option>
+                            <option value="497759">&nbsp;&nbsp;Talvivaara Mining Company Plc</option>
+                            <option value="22874">&nbsp;&nbsp;Technopolis</option>
+                            <option value="59472">&nbsp;&nbsp;Tecnotree Corporation</option>
+                            <option value="21525">&nbsp;&nbsp;Teleste</option>
+                            <option value="107950">&nbsp;&nbsp;TeliaSonera FDR</option>
+                            <option value="20043">&nbsp;&nbsp;Tieto Corporation</option>
+                            <option value="20087">&nbsp;&nbsp;Tiimari</option>
+                            <option value="606614">&nbsp;&nbsp;Tikkurila</option>
+                            <option value="42952">&nbsp;&nbsp;Trainers' House Plc</option>
+                            <option value="20122">&nbsp;&nbsp;Tulikivi A</option>
+                            <option value="20121">&nbsp;&nbsp;Turvatiimi</option>
+                            <option value="20232">&nbsp;&nbsp;UPM-Kymmene</option>
+                            <option value="19988">&nbsp;&nbsp;Uponor</option>
+                            <option value="20100">&nbsp;&nbsp;Vaahto Group</option>
+                            <option value="54259">&nbsp;&nbsp;Vacon</option>
+                            <option value="20130">&nbsp;&nbsp;Vaisala A</option>
+                            <option value="20258">&nbsp;&nbsp;Viking Line</option>
+                            <option value="51503">&nbsp;&nbsp;Wulff-Group</option>
+                            <option value="20002">&nbsp;&nbsp;Wärtsilä</option>
+                            <option value="20166">&nbsp;&nbsp;YIT-Yhtymä</option>
+                            <option value="20093">&nbsp;&nbsp;Yleiselektroniikka P</option>
+                            <option value="20011">&nbsp;&nbsp;Ålandsbanken A</option>
+                            <option value="20012">&nbsp;&nbsp;Ålandsbanken B</option>
+                                                <option value="">&nbsp;</option>
+            <option value="">-- Köpenhamn --</option>
+                                                          <option value="20359">&nbsp;&nbsp;A.P. Møller - Mærsk A</option>
+                                <option value="20360">&nbsp;&nbsp;A.P. Møller - Mærsk B</option>
+                                <option value="20841">&nbsp;&nbsp;Aab</option>
+                                <option value="20791">&nbsp;&nbsp;Aarhus Elite B</option>
+                                <option value="310721">&nbsp;&nbsp;Aktiv Formue Forvaltning Stratego</option>
+                                <option value="20333">&nbsp;&nbsp;ALK Abello B</option>
+                                <option value="20392">&nbsp;&nbsp;Alm. Brand</option>
+                                <option value="121619">&nbsp;&nbsp;Alm. Brand Formue B</option>
+                                <option value="20699">&nbsp;&nbsp;Ambu B</option>
+                                <option value="20451">&nbsp;&nbsp;Andersen & Martini B</option>
+                                <option value="185404">&nbsp;&nbsp;Aqualife</option>
+                                <option value="20622">&nbsp;&nbsp;Arkil Holding B</option>
+                                <option value="20520">&nbsp;&nbsp;Asgaard Group</option>
+                                <option value="299809">&nbsp;&nbsp;Athena IT-Group</option>
+                                <option value="461766">&nbsp;&nbsp;Atlantic Airways</option>
+                                <option value="227605">&nbsp;&nbsp;Atlantic Petroleum</option>
+                                <option value="20334">&nbsp;&nbsp;Auriga Industries B</option>
+                                <option value="20700">&nbsp;&nbsp;Bang & Olufsen</option>
+                                <option value="313283">&nbsp;&nbsp;BankNordik</option>
+                                <option value="20843">&nbsp;&nbsp;Bavarian Nordic</option>
+                                <option value="241158">&nbsp;&nbsp;Berlin III B</option>
+                                <option value="316733">&nbsp;&nbsp;Berlin IV B</option>
+                                <option value="20721">&nbsp;&nbsp;BioPorto</option>
+                                <option value="117658">&nbsp;&nbsp;Blue Vision</option>
+                                <option value="20502">&nbsp;&nbsp;BoConcept B</option>
+                                <option value="20793">&nbsp;&nbsp;Brd. Klee B</option>
+                                <option value="20706">&nbsp;&nbsp;Brdr. A & O Johansen præf.</option>
+                                <option value="20460">&nbsp;&nbsp;Brdr.Hartmann</option>
+                                <option value="20461">&nbsp;&nbsp;Brøndby IF B</option>
+                                <option value="20320">&nbsp;&nbsp;Carlsberg A</option>
+                                <option value="20319">&nbsp;&nbsp;Carlsberg B</option>
+                                <option value="186384">&nbsp;&nbsp;cBrain</option>
+                                <option value="245905">&nbsp;&nbsp;ChemoMetec</option>
+                                <option value="630139">&nbsp;&nbsp;Chr. Hansen Holding</option>
+                                <option value="20337">&nbsp;&nbsp;Coloplast B</option>
+                                <option value="20835">&nbsp;&nbsp;Columbus</option>
+                                <option value="246902">&nbsp;&nbsp;Comendo</option>
+                                <option value="20486">&nbsp;&nbsp;D/S Norden</option>
+                                <option value="56271">&nbsp;&nbsp;Danionics</option>
+                                <option value="755163">&nbsp;&nbsp;Danske Andelskassers Bank</option>
+                                <option value="20378">&nbsp;&nbsp;Danske Bank</option>
+                                <option value="20500">&nbsp;&nbsp;Dantax</option>
+                                <option value="20493">&nbsp;&nbsp;Dantherm</option>
+                                <option value="336376">&nbsp;&nbsp;Deltaq</option>
+                                <option value="20361">&nbsp;&nbsp;DFDS</option>
+                                <option value="20726">&nbsp;&nbsp;DiBa Bank</option>
+                                <option value="20514">&nbsp;&nbsp;Djurslands Bank</option>
+                                <option value="20458">&nbsp;&nbsp;DK Company</option>
+                                <option value="302426">&nbsp;&nbsp;DKTI</option>
+                                <option value="20725">&nbsp;&nbsp;DLH</option>
+                                <option value="20517">&nbsp;&nbsp;DSV</option>
+                                <option value="20354">&nbsp;&nbsp;Egetæpper B</option>
+                                <option value="377024">&nbsp;&nbsp;EgnsINVEST Ejd., Tyskland</option>
+                                <option value="263312">&nbsp;&nbsp;Enalyzer</option>
+                                <option value="349745">&nbsp;&nbsp;Erria</option>
+                                <option value="280620">&nbsp;&nbsp;esoft systems</option>
+                                <option value="307206">&nbsp;&nbsp;Euroinvestor.com</option>
+                                <option value="367453">&nbsp;&nbsp;European Wind Investment</option>
+                                <option value="300230">&nbsp;&nbsp;Exiqon</option>
+                                <option value="20535">&nbsp;&nbsp;Expedit B</option>
+                                <option value="20539">&nbsp;&nbsp;F.E. Bording B</option>
+                                <option value="341341">&nbsp;&nbsp;FastPassCorp</option>
+                                <option value="244739">&nbsp;&nbsp;FirstFarms</option>
+                                <option value="20328">&nbsp;&nbsp;FLSmidth & Co</option>
+                                <option value="20543">&nbsp;&nbsp;Flügger B</option>
+                                <option value="378237">&nbsp;&nbsp;FormueEvolution I</option>
+                                <option value="378238">&nbsp;&nbsp;FormueEvolution II</option>
+                                <option value="203666">&nbsp;&nbsp;Formuepleje Epikur</option>
+                                <option value="222259">&nbsp;&nbsp;Formuepleje LimiTTellus</option>
+                                <option value="232276">&nbsp;&nbsp;Formuepleje Merkur</option>
+                                <option value="206757">&nbsp;&nbsp;Formuepleje Optimum</option>
+                                <option value="206758">&nbsp;&nbsp;Formuepleje Pareto</option>
+                                <option value="203667">&nbsp;&nbsp;Formuepleje Penta</option>
+                                <option value="193315">&nbsp;&nbsp;FormuePleje Safe</option>
+                                <option value="141667">&nbsp;&nbsp;G4S</option>
+                                <option value="20548">&nbsp;&nbsp;Gabriel Holding</option>
+                                <option value="51820">&nbsp;&nbsp;Genmab</option>
+                                <option value="334127">&nbsp;&nbsp;German High Street Properties B</option>
+                                <option value="20549">&nbsp;&nbsp;Glunz & Jensen</option>
+                                <option value="20339">&nbsp;&nbsp;GN Store Nord</option>
+                                <option value="20772">&nbsp;&nbsp;Greentech Energy Systems</option>
+                                <option value="20558">&nbsp;&nbsp;Grønlandsbanken</option>
+                                <option value="20559">&nbsp;&nbsp;Gyldendal A</option>
+                                <option value="20560">&nbsp;&nbsp;Gyldendal B</option>
+                                <option value="22989">&nbsp;&nbsp;H. Lundbeck</option>
+                                <option value="20332">&nbsp;&nbsp;H+H International</option>
+                                <option value="20562">&nbsp;&nbsp;Harboes Bryggeri B</option>
+                                <option value="20569">&nbsp;&nbsp;Hvidbjerg Bank</option>
+                                <option value="20335">&nbsp;&nbsp;Højgaard Holding A</option>
+                                <option value="20336">&nbsp;&nbsp;Højgaard Holding B</option>
+                                <option value="20799">&nbsp;&nbsp;IC Companys</option>
+                                <option value="20744">&nbsp;&nbsp;InterMail</option>
+                                <option value="20579">&nbsp;&nbsp;Jensen & Møller Invest</option>
+                                <option value="20529">&nbsp;&nbsp;Jeudan</option>
+                                <option value="315613">&nbsp;&nbsp;Jobindex</option>
+                                <option value="20381">&nbsp;&nbsp;Jyske Bank</option>
+                                <option value="350124">&nbsp;&nbsp;KIF Håndbold Elite B</option>
+                                <option value="347079">&nbsp;&nbsp;KlimaInvest</option>
+                                <option value="20437">&nbsp;&nbsp;Kreditbanken</option>
+                                <option value="20707">&nbsp;&nbsp;Københavns Lufthavne</option>
+                                <option value="20755">&nbsp;&nbsp;Land & Leisure A</option>
+                                <option value="20752">&nbsp;&nbsp;Land & Leisure B</option>
+                                <option value="20545">&nbsp;&nbsp;Lastas B</option>
+                                <option value="20600">&nbsp;&nbsp;Lollands Bank</option>
+                                <option value="20574">&nbsp;&nbsp;Luxor B</option>
+                                <option value="20731">&nbsp;&nbsp;Lån og Spar Bank</option>
+                                <option value="281311">&nbsp;&nbsp;Mermaid</option>
+                                <option value="20606">&nbsp;&nbsp;Migatronic B</option>
+                                <option value="20705">&nbsp;&nbsp;Mols-Linien</option>
+                                <option value="20351">&nbsp;&nbsp;Monberg & Thorsen B</option>
+                                <option value="20421">&nbsp;&nbsp;Møns Bank</option>
+                                <option value="199668">&nbsp;&nbsp;NetBooster Holding</option>
+                                <option value="61909">&nbsp;&nbsp;Netop Solutions</option>
+                                <option value="20807">&nbsp;&nbsp;NeuroSearch</option>
+                                <option value="20532">&nbsp;&nbsp;Newcap Holding</option>
+                                <option value="20326">&nbsp;&nbsp;NKT Holding</option>
+                                <option value="44361">&nbsp;&nbsp;Nordea Bank</option>
+                                <option value="20439">&nbsp;&nbsp;Nordfyns Bank</option>
+                                <option value="20762">&nbsp;&nbsp;Nordicom</option>
+                                <option value="306391">&nbsp;&nbsp;Nordic Shipholding</option>
+                                <option value="20414">&nbsp;&nbsp;Nordjyske Bank</option>
+                                <option value="20804">&nbsp;&nbsp;North Media</option>
+                                <option value="20402">&nbsp;&nbsp;Novo Nordisk B</option>
+                                <option value="52969">&nbsp;&nbsp;Novozymes B</option>
+                                <option value="20625">&nbsp;&nbsp;NTR Holding B</option>
+                                <option value="383479">&nbsp;&nbsp;NunaMinerals D/S</option>
+                                <option value="20611">&nbsp;&nbsp;Nørresundby Bank</option>
+                                <option value="676159">&nbsp;&nbsp;Pandora</option>
+                                <option value="20822">&nbsp;&nbsp;PARKEN Sport & Entertainment</option>
+                                <option value="20624">&nbsp;&nbsp;Per Aarsleff B</option>
+                                <option value="387961">&nbsp;&nbsp;Prime Office</option>
+                                <option value="204040">&nbsp;&nbsp;Rella Holding</option>
+                                <option value="20628">&nbsp;&nbsp;Rias B</option>
+                                <option value="20630">&nbsp;&nbsp;Ringkjøbing Landbobank</option>
+                                <option value="20631">&nbsp;&nbsp;Roblon B</option>
+                                <option value="20789">&nbsp;&nbsp;Rockwool International A</option>
+                                <option value="20790">&nbsp;&nbsp;Rockwool International B</option>
+                                <option value="20582">&nbsp;&nbsp;Royal Unibrew</option>
+                                <option value="46993">&nbsp;&nbsp;RTX</option>
+                                <option value="20640">&nbsp;&nbsp;Salling Bank</option>
+                                <option value="20641">&nbsp;&nbsp;Sanistål</option>
+                                <option value="20362">&nbsp;&nbsp;SAS AB</option>
+                                <option value="20620">&nbsp;&nbsp;Scandinavian Brake Systems</option>
+                                <option value="261935">&nbsp;&nbsp;Scandinavian Private Equity</option>
+                                <option value="20430">&nbsp;&nbsp;Schouw & Co.</option>
+                                <option value="20794">&nbsp;&nbsp;Silkeborg IF Invest B</option>
+                                <option value="44241">&nbsp;&nbsp;SimCorp</option>
+                                <option value="20831">&nbsp;&nbsp;Sjælsø Gruppen</option>
+                                <option value="20684">&nbsp;&nbsp;SKAKO</option>
+                                <option value="20432">&nbsp;&nbsp;Skjern Bank</option>
+                                <option value="20472">&nbsp;&nbsp;Small Cap Danmark</option>
+                                <option value="224688">&nbsp;&nbsp;SmartGuy Group</option>
+                                <option value="20376">&nbsp;&nbsp;Solar B</option>
+                                <option value="20659">&nbsp;&nbsp;Sparekassen Faaborg</option>
+                                <option value="240923">&nbsp;&nbsp;Sparekassen Himmerland</option>
+                                <option value="20657">&nbsp;&nbsp;Spar Nord Bank</option>
+                                <option value="20417">&nbsp;&nbsp;SP Group</option>
+                                <option value="241462">&nbsp;&nbsp;SSBV-Rovsing</option>
+                                <option value="66535">&nbsp;&nbsp;Svendborg Sparekasse</option>
+                                <option value="20704">&nbsp;&nbsp;Sydbank</option>
+                                <option value="20665">&nbsp;&nbsp;TDC</option>
+                                <option value="20709">&nbsp;&nbsp;Tivoli</option>
+                                <option value="20668">&nbsp;&nbsp;TK Development</option>
+                                <option value="20391">&nbsp;&nbsp;Topdanmark</option>
+                                <option value="160911">&nbsp;&nbsp;TopoTarget</option>
+                                <option value="20674">&nbsp;&nbsp;Topsil Semiconductor Materials</option>
+                                <option value="20407">&nbsp;&nbsp;TORM</option>
+                                <option value="20676">&nbsp;&nbsp;Totalbanken</option>
+                                <option value="922598">&nbsp;&nbsp;Totalbanken, nye ? udb. 2012</option>
+                                <option value="356798">&nbsp;&nbsp;Travelmarket.com</option>
+                                <option value="358421">&nbsp;&nbsp;Trifork</option>
+                                <option value="171630">&nbsp;&nbsp;Tryg</option>
+                                <option value="20722">&nbsp;&nbsp;United International Enterprises Ltd</option>
+                                <option value="20723">&nbsp;&nbsp;United Plantations Berhad</option>
+                                <option value="235519">&nbsp;&nbsp;Veloxis Pharmaceuticals</option>
+                                <option value="20833">&nbsp;&nbsp;Vestas Wind Systems</option>
+                                <option value="20434">&nbsp;&nbsp;Vestfyns Bank</option>
+                                <option value="20422">&nbsp;&nbsp;Vestjysk Bank</option>
+                                <option value="39738">&nbsp;&nbsp;Viborg Håndbold Klub</option>
+                                <option value="20533">&nbsp;&nbsp;Victoria Properties</option>
+                                <option value="20773">&nbsp;&nbsp;Victor International</option>
+                                <option value="20756">&nbsp;&nbsp;William Demant Holding</option>
+                                <option value="207913">&nbsp;&nbsp;WirTek</option>
+                                <option value="20690">&nbsp;&nbsp;Vordingborg Bank</option>
+                                <option value="688148">&nbsp;&nbsp;Zealand Pharma</option>
+                                <option value="516520">&nbsp;&nbsp;Øssur</option>
+                                <option value="20364">&nbsp;&nbsp;Østasiatiske Kompagni</option>
+                                <option value="20694">&nbsp;&nbsp;Østjydsk Bank</option>
+                                          
+        </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="form-felt2">Jämför med index</td>
+    <td class="form-felt2">
+      <select name="IDX" class="listruta">
+                
+<option value="">Välj</option>
+
+
+
+    
+                <option value="49534">OMX Stockholm</option>
+                  <option value="810283">Råvaror</option>
+                  <option value="810300">Konsumentvaror</option>
+                  <option value="810315">Konsumenttjänster</option>
+                  <option value="810331">Ekonomi</option>
+                  <option value="810311">Sjukvård</option>
+                  <option value="810290">Industriverksamhet</option>
+                  <option value="810278">Olja och gas</option>
+                  <option value="810342">Teknik</option>
+                  <option value="810323">Telekommunikation</option>
+                  <option value="810327">Allmännyttiga tjänster</option>
+                  <option value="55175">Oslo, OSEBX</option>
+                  <option value="4810">Paris, CAC40</option>
+                  <option value="125288">Moscow, RTS</option>
+                </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="form-felt2">Valfritt intervall</td>
+    <td class="form-felt2">
+      <input class="textruta" name="FROM" type="text" size="10" onfocus="javascript:this.value='';" value="ååååmmdd">&nbsp;-&nbsp;<input name="TO" type="text" size="10" onfocus="javascript:this.value='';" value="ååååmmdd">
+    </td>
+  </tr>
+  <tr>
+    <td class="form-felt2">&nbsp;</td>
+    <td class="form-felt2"><input class="textruta" type="button" value="Visa" onClick="doIserverAction(document.forms['iForm']);"></td>
+  </tr>
+</table>
+</form>
+
+
+<script language="JavaScript" type="text/javascript">
+  var magicTemplate = '(cc (detail (id OMXS30) (src OM)) (graph1 (period _period) (from _from) (to _to) (instr _instr)))';
+  var thispage = '/fsb.public/site/public/index/indexdetail.page';
+
+  function createMagic(form)
+  {
+    m = magicTemplate;
+
+    // period
+    m = m.replace('_period',form.PERIOD.options[form.PERIOD.selectedIndex].value);
+
+    // Index
+    var stk = form.STO.options[form.STO.selectedIndex].value;
+    var idx = form.IDX.options[form.IDX.selectedIndex].value;
+
+    var newINSTR = ' ';
+    newINSTR = removeAll(newINSTR,'[');
+    newINSTR = removeAll(newINSTR,']');
+    newINSTR = removeAll(newINSTR,',');
+
+    var nInstr = 0;
+    if(nInstr<(7-1))
+    {
+      if(idx.length>0)
+        newINSTR += " idx"+idx;
+
+      // Stocks
+
+      if(stk.length>0)
+        newINSTR += " stk"+stk;
+    }
+    else
+    {
+      if(stk.length>0 || idx.length>0)
+      {
+        alert("Max 7 instrument kan visas samtidigt.");
+        form.STO.selectedIndex = 0;
+        form.IDX.selectedIndex = 0;
+        magic = "";
+        return;
+      }
+    }
+
+    m = m.replace('_instr',newINSTR);
+
+    // tidy up from/to
+    form.FROM.value = removeAll(form.FROM.value,' ');
+    form.FROM.value = removeAll(form.FROM.value,'-');
+    form.TO.value = removeAll(form.TO.value,' ');
+    form.TO.value = removeAll(form.TO.value,'-');
+
+    // validate
+    if (form.FROM.value.length > 0 && form.TO.value.length > 0 && form.FROM.value!="ååååmmdd")
+    {
+      if(form.FROM.value>=form.TO.value)
+      {
+        alert('Startdatum ' + form.FROM.value + ' måste vara tidigare än slutdatum ' + form.TO.value);
+        m = "";
+        return;
+      }
+
+      m = m.replace('_from',form.FROM.value);
+      m = m.replace('_to',form.TO.value);
+    }
+    else
+    {
+      m = m.replace('_from','');
+      m = m.replace('_to','');
+    }
+
+    //alert('m -> '+m);
+    return m;
+  }
+
+  function doIserverAction(form)
+  {
+    magic = createMagic(form);
+    if (magic.length > 0)
+      document.location=thispage+'?magic='+magic;
+  }
+
+</script>
+                       		    </td>
+		  </tr>
+		</table>  
+	</td>
+  </tr>
+  </tbody>
+</table>
+
+</div>
+
+<!-- sidfot start -->
+<div class="sidfot">
+  Marknadsinformation tillhandahålls av SIX AB. Information fördröjd 15 min.<br>
+  The Dow Jones IndexesSM are compiled, calculated and distributed by Dow Jones & Company, Inc. and have been licensed for use. All content of The Dow Jones IndexesSM © 2000 Dow Jones & Company, Inc.<br>
+</div>
+</body>
+</html>
+<!-- sidfot slut -->
+ 
