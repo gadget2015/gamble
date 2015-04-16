@@ -46,20 +46,21 @@ public class GooglePlusAPI {
 
 	}
 
-	public String getAccessToken(String authorizationCode) {
+	/**
+	 * Get accesstoken from Google given authorication code.
+	 */
+	public String getAccessToken(String authorizationCode, String clientId,
+			String redirectUri, String clientSecret) {
 		try {
 			HttpClient httpClient = new HttpClient();
 			PostMethod postRequest = new PostMethod(
 					"https://accounts.google.com/o/oauth2/token");
 			NameValuePair[] data = {
 					new NameValuePair("grant_type", "authorization_code"),
-					new NameValuePair("client_id",
-							"607736284212-t8iejp7vq3pf853r88ncspgreb7fvtgo.apps.googleusercontent.com"),
+					new NameValuePair("client_id", clientId),
 					new NameValuePair("code", authorizationCode),
-					new NameValuePair("redirect_uri",
-							"http://www.stryktipsbolag.se/oauth2callback"),
-					new NameValuePair("client_secret",
-							"uqOcN4UXUPhhFc53_xWSt4dF") };
+					new NameValuePair("redirect_uri", redirectUri),
+					new NameValuePair("client_secret", clientSecret) };
 
 			postRequest.setRequestBody(data);
 
@@ -72,10 +73,8 @@ public class GooglePlusAPI {
 			GoogleToken gt = new GoogleToken(response);
 
 			if (gt.getAccess_token() == null) {
-				logger.debug("No access_token from Google."
-						+ gt.toString());
-				throw new RuntimeException(
-						"No access_token from Google.");
+				logger.debug("No access_token from Google." + gt.toString());
+				throw new RuntimeException("No access_token from Google.");
 			}
 
 			postRequest.releaseConnection();
