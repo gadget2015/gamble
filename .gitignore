@@ -1,3 +1,4 @@
 /common/target/*
 /gamble_website/target/*
 /gamble_website/war/*
+/gamble_website/derby.log
