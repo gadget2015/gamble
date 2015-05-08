@@ -4,7 +4,7 @@
 	<groupId>org.robert</groupId>
 	<artifactId>common</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1</version>
+	<version>0.2</version>
 	<name>Common - Generella utility klasser.</name>
 
 <repositories>
