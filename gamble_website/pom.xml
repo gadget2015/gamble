@@ -4,7 +4,7 @@
 	<groupId>org.tips.robert</groupId>
 	<artifactId>tips-website</artifactId>
 	<packaging>war</packaging>
-	<version>1.1</version>
+	<version>1.2</version>
 	<name>Gamble application - Website and JNLP launcher.</name>
 	<properties>
 		<jsf-myfaces.version>2.0.3</jsf-myfaces.version>
@@ -199,7 +199,7 @@
 		<dependency>
 			<groupId>org.robert</groupId>
 			<artifactId>common</artifactId>
-			<version>0.1</version>
+			<version>0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>xerces</groupId>
