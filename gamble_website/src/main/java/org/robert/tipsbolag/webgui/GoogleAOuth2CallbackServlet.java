@@ -1,6 +1,7 @@
 package org.robert.tipsbolag.webgui;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.robert.common.googleplus.AccessToken;
+import org.robert.common.googleplus.AuthorizationCode;
+import org.robert.common.googleplus.ClientId;
+import org.robert.common.googleplus.ClientSecret;
+import org.robert.common.googleplus.GooglePlusAPI;
 import org.robert.tipsbolag.webgui.dialog.Navigation;
 import org.robert.tipsbolag.webgui.session.UserSessionFactory;
 import org.robert.tipsbolag.webgui.session.UserSessionFactoryServletImpl;
@@ -38,15 +44,23 @@ public class GoogleAOuth2CallbackServlet extends HttpServlet {
 			// continue
 			logger.info("Actor is authenticated.");
 
-			// continue with getting a access_token.
+			// continue with getting an access_token.
 			String[] authorizationCodeTmp = parameters.get("code");
-			String authorizationCode = authorizationCodeTmp[0];
+			AuthorizationCode authCode = new AuthorizationCode(
+					authorizationCodeTmp[0]);
+
 			try {
-				String access_token = googleAPI
-						.getAccessToken(authorizationCode);
+				ClientId clientId = new ClientId(
+						"607736284212-t8iejp7vq3pf853r88ncspgreb7fvtgo.apps.googleusercontent.com");
+				URL redirectURL = new URL(
+						"http://www.stryktipsbolag.se/oauth2callback");
+				ClientSecret password = new ClientSecret(
+						"uqOcN4UXUPhhFc53_xWSt4dF");
+				AccessToken access_token = googleAPI.getAccessToken(authCode,
+						clientId, redirectURL, password);
 
 				// Call google and get email-adress.
-				UserInfo email = googleAPI.getEmailAdress(access_token);
+				org.robert.common.googleplus.UserInfo email = googleAPI.getEmailAdress(access_token);
 				logger.info("Actor identifies as " + email.getEmail() + ".");
 
 				// Update actors session with email-adress and go to html-page.
@@ -54,7 +68,8 @@ public class GoogleAOuth2CallbackServlet extends HttpServlet {
 				String assoc_handle = assoc_handles[0];
 				this.userSessionFactory = getUserSessionFactory(request,
 						assoc_handle);
-				this.userSessionFactory.getUserSession().setEmail(email.getEmail());
+				this.userSessionFactory.getUserSession().setEmail(
+						email.getEmail());
 				response.sendRedirect(Navigation.MITT_SALDO);
 			} catch (RuntimeException e) {
 				response.sendRedirect(Navigation.ERROR_MESSAGE_DIALOG);
