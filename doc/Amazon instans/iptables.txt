@@ -1,0 +1,7 @@
+iptables --list
+
+Lägga till:
+iptables -A INPUT -s 65.55.44.100 -j DROP
+
+Ta bort:
+iptables -D INPUT -s xx.xxx.xx.xx -j DROP
