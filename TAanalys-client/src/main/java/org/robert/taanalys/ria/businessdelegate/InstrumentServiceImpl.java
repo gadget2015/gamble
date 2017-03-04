@@ -225,6 +225,10 @@ public class InstrumentServiceImpl implements InstrumentServiceBD {
 			throw new RuntimeException(
 					"Datum konverteringsfel vid anrop till Webservice: "
 							+ e.getMessage());
+		} catch(Throwable e) {
+			throw new RuntimeException(
+					"Major error while connecting to webservice: "
+							+ e.getMessage());
 		}
 	}
 
@@ -266,6 +270,10 @@ public class InstrumentServiceImpl implements InstrumentServiceBD {
 		} catch (DatatypeConfigurationException e) {
 			throw new RuntimeException(
 					"Datum konverteringsfel vid anrop till Webservice: "
+							+ e.getMessage());
+		} catch(Throwable e) {
+			throw new RuntimeException(
+					"Major error while connecting to webservice: "
 							+ e.getMessage());
 		}
 	}

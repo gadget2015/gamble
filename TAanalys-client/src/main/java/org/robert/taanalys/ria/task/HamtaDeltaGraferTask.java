@@ -35,11 +35,13 @@ public class HamtaDeltaGraferTask extends Task<Collection<ProcentIntradag>> {
 	protected Collection<ProcentIntradag> call() throws Exception {
 		InstrumentServiceBD bd = new InstrumentServiceImpl();
 
+		System.out.println("Hämtar liknande dagar...");
 		Collection<ProcentIntradag> liknandeDagar = bd.hamtaLiknandeDagar(
 				jamforTid, franTid);
 
-		days.addAll(liknandeDagar);
-
+		days.addAll(liknandeDagar); 
+		System.out.println("Hämtat liknande dagar, ska rita upp dem nu.");
+		
 		// 4. Ritar upp grafen med alla dagarna.
 		final ObservableList<XYChart.Series<Integer, Double>> lineChartData = FXCollections
 				.observableArrayList();

@@ -63,6 +63,7 @@ public class DeltaIgenkanningGraphController extends LineGraphController {
 				.getTime());
 
 		days.add(jamforDagen);
+		System.out.println("Hamtat dagens graf.");
 
 		// Hämta grafer som påminner om den uppritade grafen.
 		Task<Collection<ProcentIntradag>> hamtaDeltaDagarTask = new HamtaDeltaGraferTask(

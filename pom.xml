@@ -12,6 +12,6 @@
 		<module>stryktipsfinder_desktop_client</module>
 		<module>stryktipsfinder_desktop_client_WAR</module>
 		<module>gamble_website</module>
-		<module>deployableUnit</module>
+
 	</modules>
 </project>
