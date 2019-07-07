@@ -1,0 +1,21 @@
+https://tecadmin.net/install-mysql-on-amazon-linux/
+
+1.
+/etc/my.cnf
+[mysqld]
+innodb_buffer_pool_size=16M
+
+2. Start
+# service mysqld start
+
+3. mysql_secure_installation
+	pwd: Kameler2019
+
+
+/var/log
+
+Ansluta till EC2 instans med workbench:
+https://vannstudios.com/connecting-mysql-database-engine-on-amazon-ec2-from-mysql-workbench
+
+Exportera ifrån Derby: https://db.apache.org/derby/docs/10.8/adminguide/radminimport91458.html#radminimport91458
+> CALL SYSCS_UTIL.SYSCS_EXPORT_TABLE('SHARENOTEUSER','NOTE','myfile.del',';',null,null);
