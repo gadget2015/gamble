@@ -16,15 +16,13 @@ export class Noteservice {
         const con = this.connectToDb();
         const sql = 'select * from noterepo.note;';
 
-        console.log('Call Database..');
-
-        let promise = new Promise((resolve, reject) => {
+        let sqlpromise = new Promise((resolve, reject) => {
             con.query(sql, function (err, result) {
                 if (err) {
                     console.log('Error: ' + err);
                     throw err;
                 }
-                console.log("SQL result:" + result);
+
                 res.status(200).send({
                     success: 'true',
                     message: 'todos retrieved successfully',
@@ -35,7 +33,7 @@ export class Noteservice {
             });
         });
 
-        let result = await promise;
+        let result = await sqlpromise;
 
         return result;
     }
