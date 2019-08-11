@@ -17,5 +17,8 @@ innodb_buffer_pool_size=16M
 Ansluta till EC2 instans med workbench:
 https://vannstudios.com/connecting-mysql-database-engine-on-amazon-ec2-from-mysql-workbench
 
-Exportera ifrån Derby: https://db.apache.org/derby/docs/10.8/adminguide/radminimport91458.html#radminimport91458
+Exportera ifrï¿½n Derby: https://db.apache.org/derby/docs/10.8/adminguide/radminimport91458.html#radminimport91458
 > CALL SYSCS_UTIL.SYSCS_EXPORT_TABLE('SHARENOTEUSER','NOTE','myfile.csv','|','`','UTF-8');
+
+Starta mysql lokalt
+> mysqld --console
