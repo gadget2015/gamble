@@ -12,9 +12,9 @@ export class Noteservice {
 
     async getNote(req: Request, res: Response) {
         const id = parseInt(req.params.id, 10);
-        console.log('Search for  note id = ' + id);
+        console.log('Search for note with id = ' + id);
         const con = this.connectToDb();
-        const sql = 'select * from noterepo.note;';
+        const sql = 'select * from noterepo.note where id = ' + id +';';
 
         let sqlpromise = new Promise((resolve, reject) => {
             con.query(sql, function (err, result) {
@@ -26,7 +26,7 @@ export class Noteservice {
                 res.status(200).send({
                     success: 'true',
                     message: 'todos retrieved successfully',
-                    todos: {'id': id}
+                    note: result
                 });
 
                 resolve(result);
@@ -38,6 +38,9 @@ export class Noteservice {
         return result;
     }
 
+    /**
+     * Create a database connection what can be used to query data/write data.
+     */
     connectToDb(): db.Connection {
         let con = db.createConnection({
             host: "localhost",
