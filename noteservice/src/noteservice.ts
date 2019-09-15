@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import * as db from 'mysql';
-import {next} from "jest-express/lib/next";
+import myprops = require('properties-reader');
 
 /**
  * The Note service, that handles CRUD operations.
@@ -90,13 +90,18 @@ export class Noteservice {
     }
 
     /**
-     * Create a database connection what can be used to query data/write data.
+     * Create a database connection that can be used to query data/write data.
      */
     connectToDb(): db.Connection {
+        let properties = myprops('database.properties');
+        let dbHost = properties.get('database.host');
+        let dbUser  = properties.get('database.user');
+        let dbPassword = properties.get('database.password');
+
         let con = db.createConnection({
-            host: "localhost",
-            user: "root",
-            password: ""
+            host: dbHost,
+            user: dbUser,
+            password: dbPassword
         });
 
         con.connect();
