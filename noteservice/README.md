@@ -1,6 +1,8 @@
 # Noteservice tjänsten
 Har några CRUD operationer för att kunna spara och uppdatera TODO's.
 
+Källa: https://github.com/ggadget2015/gamble/tree/master/noteservice
+
 # Bygga
 Tjänsten är en REST-tjänst som körs i en Express server med Node.js version 12.
 
