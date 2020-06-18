@@ -8,7 +8,6 @@ import myprops = require('properties-reader');
  */
 export class Noteservice {
     constructor() {
-
     }
 
     async getNote(req: Request, res: Response) {
@@ -32,6 +31,8 @@ export class Noteservice {
 
                 resolve(result);
             });
+
+            con.end();
         });
 
         let result = await sqlpromise;
@@ -75,6 +76,8 @@ export class Noteservice {
 
                 resolve(result);
             });
+
+            con.end();
         });
 
         result = await sqlpromise;
@@ -108,4 +111,35 @@ export class Noteservice {
 
         return con;
     }
+
+     async searchNote(req: Request, res: Response) {
+            const queryString = '%' + req.params.text + '%';
+            console.log('Search for note with text = ' + queryString);
+            const con = this.connectToDb();
+            const sql = 'select * from noterepo.note where text LIKE ?';
+
+            let sqlpromise = new Promise((resolve, reject) => {
+                con.query(sql, [queryString], function (err, result) {
+
+                    if (err) {
+                        console.log('Error: ' + err);
+                        throw err;
+                    }
+
+                    res.status(200).send({
+                        success: 'true',
+                        message: 'Notes retrieved successfully',
+                        note: result
+                    });
+
+                    resolve({queryResult: result});
+                });
+
+                con.end();
+            });
+
+            let result = await sqlpromise;
+
+            return result; // Just for the unittests.
+        }
 }

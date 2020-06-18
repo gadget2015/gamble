@@ -21,10 +21,16 @@ app.post('/api/v1/note', (req, res) => {
     return noteservice.createNote(req, res);
 });
 
+app.get('/api/v1/notes/text/:text', (req, res) => {
+    const noteservice = new Noteservice();
+
+    return noteservice.searchNote(req, res);
+});
+
 app.listen(port, err => {
     if (err) {
         return console.error(err);
     }
 
-    return console.log(`server is listening on ${port}`);
+    return console.log(`Server is listening on ${port}`);
 });

@@ -1,4 +1,5 @@
-https://tecadmin.net/install-mysql-on-amazon-linux/
+﻿https://tecadmin.net/install-mysql-on-amazon-linux/
+Installeras: /var/local
 
 1.
 /etc/my.cnf

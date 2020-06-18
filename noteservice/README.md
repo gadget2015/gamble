@@ -8,6 +8,8 @@ Tjänsten är en REST-tjänst som körs i en Express server med Node.js version 
 
 > npm start
 
+http://localhost:3000/api/v1/notes/5
+
 # Testning
 * Använder Jest, https://basarat.gitbooks.io/typescript/content/docs/testing/jest.html
 * Mockar Request och Response med https://www.npmjs.com/package/node-mocks-http.

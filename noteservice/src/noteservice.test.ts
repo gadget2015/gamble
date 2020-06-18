@@ -29,7 +29,7 @@ test('Cant find note with given ID.', async () => {
 
     let req = httpMocks.createRequest({
         method: 'GET',
-        url: '/api/v1/notes/',
+        url: '/api/v1/notes/text',
         params: {
             id: 1967
         }
@@ -44,18 +44,6 @@ test('Cant find note with given ID.', async () => {
     expect(JSON.stringify(result)).toBe('[]');
 });
 
-/*
-fetch('http://localhost:3000/api/v1/note', {
-   method: 'POST',
-   body: JSON.stringify({
-     TEXT: 'foo'
-   }),
-   headers: {
-     'Content-type': 'application/json; charset=UTF-8'
-   }
- }).then(res => res.json())
- .then(console.log);
-*/
 test('Create a new Note.', async ()=> {
    // Given
     const service = new Noteservice();
@@ -76,3 +64,33 @@ test('Create a new Note.', async ()=> {
    // Then
     expect(result).toBeGreaterThan(1);
 });
+
+test('Search for a note that contains the given text', async() => {
+    // Given
+    const service = new Noteservice();
+
+    let req = httpMocks.createRequest({
+        method: 'GET',
+        url: '/api/v1/notes/',
+        params: {
+            text: 'rob'
+        }
+    });
+
+    let res = httpMocks.createResponse();
+
+    // When
+    let result = await service.searchNote(req, res);
+
+    // Then should return more than one result
+    expect(result['queryResult'].length).toBeGreaterThan(1);
+});
+
+/**
+* Skriver ut resultset.
+*/
+function printResult(result) {
+    for (var i = 0; i < result['queryResult'].length; i++) {
+        console.log('Rad #' + i + ' = ' + result['queryResult'] [i].ID  + ' | ' + result['queryResult'][i].TEXT);
+     }
+}
