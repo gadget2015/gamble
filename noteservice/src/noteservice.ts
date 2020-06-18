@@ -29,7 +29,7 @@ export class Noteservice {
                     note: result
                 });
 
-                resolve(result);
+                resolve({queryResult: result});
             });
 
             con.end();

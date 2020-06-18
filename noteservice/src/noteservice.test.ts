@@ -20,7 +20,7 @@ test('Find a note with given ID.', async () => {
     let result = await service.getNote(req, res);
 
     // Then
-    expect(result[0]['TEXT']).toBe('TODO');
+    expect(result['queryResult'][0]['TEXT']).toBe('TODO');
 });
 
 test('Cant find note with given ID.', async () => {
@@ -41,7 +41,7 @@ test('Cant find note with given ID.', async () => {
     let result = await service.getNote(req, res);
 
     // Then
-    expect(JSON.stringify(result)).toBe('[]');
+    expect(result['queryResult'].length).toBeLessThan(1);
 });
 
 test('Create a new Note.', async ()=> {
@@ -73,7 +73,7 @@ test('Search for a note that contains the given text', async() => {
         method: 'GET',
         url: '/api/v1/notes/',
         params: {
-            text: 'rob'
+            text: 'morsning'
         }
     });
 
