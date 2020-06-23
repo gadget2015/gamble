@@ -1,12 +1,14 @@
 import express from 'express';
 import {Noteservice} from "./noteservice";
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
 
 // https://medium.com/@purposenigeria/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/api/v1/notes/:id', (req, res) => {
     const noteservice = new Noteservice();
