@@ -9,7 +9,8 @@ class Noteservice {
             fetch(this.destinationServer + '/api/v1/notes/' + noteid)
                 .then(async response => {
                     if (!response.ok) {
-                          throw new Error('Dåligt nätverk: response was not ok, code = ' + response);
+                          console.log('Dåligt nätverk: response was not ok, code = ' + response);
+                          reject(0);
                     } else {
                         const data = await response.json();
                         resolve(data);

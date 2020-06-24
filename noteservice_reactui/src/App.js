@@ -26,7 +26,11 @@ function App() {
         const service  = new Noteservice('http://localhost:4000');
         service.getNote(noteid).then( (note) => {
             console.log('note=' + JSON.stringify(note));
-            setText(note.note[0].TEXT);
+            if(note.success === 'true' ) {
+                setText(note.note[0].TEXT);
+            }
+        }, rejection => {
+            console.log('Network connection error when calling REST API, status code = ' + rejection);
         });
     }, [onlyOnce]);
 

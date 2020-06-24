@@ -13,7 +13,19 @@ app.use(cors());
 app.get('/api/v1/notes/:id', (req, res) => {
     const noteservice = new Noteservice();
 
-    return noteservice.getNote(req, res);
+    noteservice.getNote(req, res).then( (result) => {
+            const theNote = result['queryResult'];
+            res.status(200).send({
+                            success: 'true',
+                            message: 'Notes retrieved successfully',
+                            note: theNote
+                        });
+        }, rejection => {
+            res.status(200).send({
+                                success: 'false',
+                                message: 'Error while query database.'
+                            });
+        });
 });
 
 app.post('/api/v1/note', (req, res) => {

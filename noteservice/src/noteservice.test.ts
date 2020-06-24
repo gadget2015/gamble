@@ -44,6 +44,29 @@ test('Cant find note with given ID.', async () => {
     expect(result['queryResult'].length).toBeLessThan(1);
 });
 
+test('Cant find note with not present note ID (NaN).', async () => {
+    // Given
+    const service = new Noteservice();
+
+    let req = httpMocks.createRequest({
+        method: 'GET',
+        url: '/api/v1/notes/text',
+        params: {
+            id: NaN
+        }
+    });
+
+    let res = httpMocks.createResponse();
+
+    // When
+    await service.getNote(req, res).then( (note) => {
+        console.log('Search ok');
+        fail('Det borde inte gå att köra SQL kommandot.');
+    }, rejection => {
+        console.log('failed to query database, which is OK.');
+    });
+});
+
 test('Create a new Note.', async ()=> {
    // Given
     const service = new Noteservice();

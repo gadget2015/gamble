@@ -10,7 +10,7 @@ export class Noteservice {
     constructor() {
     }
 
-    async getNote(req: Request, res: Response) {
+    getNote(req: Request, res: Response) {
         const id = parseInt(req.params.id, 10);
         console.log('Search for note with id = ' + id);
         const con = this.connectToDb();
@@ -20,14 +20,8 @@ export class Noteservice {
             con.query(sql, function (err, result) {
                 if (err) {
                     console.log('Error: ' + err);
-                    throw err;
+                    reject('SQLerror');
                 }
-
-                res.status(200).send({
-                    success: 'true',
-                    message: 'Notes retrieved successfully',
-                    note: result
-                });
 
                 resolve({queryResult: result});
             });
@@ -35,9 +29,7 @@ export class Noteservice {
             con.end();
         });
 
-        let result = await sqlpromise;
-
-        return result;
+        return sqlpromise;
     }
 
     async createNote(req: Request, res: Response) {
