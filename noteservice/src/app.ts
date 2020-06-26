@@ -32,7 +32,7 @@ app.post('/api/v1/note', (req, res) => {
     console.log('app.body = ' + JSON.stringify(req.body));
     const noteservice = new Noteservice();
 
-    return noteservice.createNote(req, res);
+    noteservice.createNote(req, res);
 });
 
 app.get('/api/v1/notes/text/:text', (req, res) => {

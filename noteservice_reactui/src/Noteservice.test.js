@@ -38,3 +38,27 @@ it('Borde vara ett jättefel på nätverket.', async () => {
         expect(reject).toEqual(0);
     });
 });
+
+it('Borde spara en ny anteckning.', async () => {
+    // Given
+    const service  = new Noteservice('http://localhost:4000');
+
+    // When
+    await service.saveNote('UI sparar.').then(noteId => {
+            expect(noteId).toBeGreaterThan(1);   // Det har sparats en ny anteckning.
+        }, reject => {
+            fail('My Error=' + reject);
+        });
+});
+
+it('Borde bli fel vid anrop till servern vid spara operationen', async () => {
+  // Given
+    const service  = new Noteservice('http://localhost:1967');
+
+    // When
+    await service.saveNote('UI sparar.').then(noteId => {
+            fail('Borde inte gå bra att spara, ' + noteId);
+        }, reject => {
+            // Detta borde inträffa, dvs. det ska gå fel.
+        });
+});

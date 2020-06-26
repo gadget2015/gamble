@@ -7,8 +7,9 @@ import {Noteservice} from './Noteservice';
 function App() {
 
     const [text, setText] = useState();
-    let lastSaved = '2020-06-22 12:00:00T234';
-    const onlyOnce = 5;
+    const [lastSaved, setLastSaved] = useState();
+    const [noteId, setNoteId] = useState();
+    var onlyOnce = 5;
 
     function handleChange(text) {
         setText(text);
@@ -16,29 +17,40 @@ function App() {
 
     function spara(event) {
         alert(text);
+        const service  = new Noteservice('http://localhost:4000');
+        service.saveNote(text).then( (noteId) => {
+            setNoteId(noteId);
+            window.location.search = '?noteid=' + noteId;
+            onlyOnce++; // force new fetch.
+        });
+
     }
 
     useEffect( () =>  {
         const windowUrl = window.location.search;
         const params = new URLSearchParams(windowUrl);
         const noteid = params.get('noteid');
-        console.log('Use Effect, load noteid ' + noteid);
-        const service  = new Noteservice('http://localhost:4000');
-        service.getNote(noteid).then( (note) => {
-            console.log('note=' + JSON.stringify(note));
-            if(note.success === 'true' ) {
-                setText(note.note[0].TEXT);
-            }
-        }, rejection => {
-            console.log('Network connection error when calling REST API, status code = ' + rejection);
-        });
+
+        if (noteid != null) {
+            // Fetch Note from REST API.
+            const service  = new Noteservice('http://localhost:4000');
+
+            service.getNote(noteid).then( (note) => {
+                    if(note.success === 'true' ) {
+                        setText(note.note[0].TEXT);
+                        setLastSaved(note.note[0].LASTSAVED);
+                    }
+                }, rejection => {
+                    console.log('Network connection error when calling REST API, status code = ' + rejection);
+            });
+        }
     }, [onlyOnce]);
 
     return (
         <div className="container_ui">
             <div className="grid-container">
               <div className="grid-item1"><ReactQuill them="snow" onChange={handleChange} value={text}/></div>
-              <div className="grid-item2">Senast sparat {lastSaved}</div>
+              <div className="grid-item2">Senast sparad {lastSaved}</div>
               <div className="grid-item3"><button onClick={spara}>Spara</button></div>
             </div>
         </div>
