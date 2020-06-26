@@ -28,11 +28,18 @@ app.get('/api/v1/notes/:id', (req, res) => {
         });
 });
 
-app.post('/api/v1/note', (req, res) => {
-    console.log('app.body = ' + JSON.stringify(req.body));
+app.post('/api/v1/notes', (req, res) => {
+    // Skapar en ny anteckning.
     const noteservice = new Noteservice();
 
     noteservice.createNote(req, res);
+});
+
+app.put('/api/v1/note', (req, res) => {
+    // Uppdaterar en ny anteckning.
+    const noteservice = new Noteservice();
+
+    noteservice.updateNote(req, res);
 });
 
 app.get('/api/v1/notes/text/:text', (req, res) => {

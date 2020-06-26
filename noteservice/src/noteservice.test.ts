@@ -17,7 +17,7 @@ test('Find a note with given ID.', async () => {
     let res = httpMocks.createResponse();
 
     // When
-    let result = await service.getNote(req, res);
+    const result = await service.getNote(req, res);
 
     // Then
     expect(result['queryResult'][0]['TEXT']).toBe('TODO');
@@ -38,7 +38,7 @@ test('Cant find note with given ID.', async () => {
     let res = httpMocks.createResponse();
 
     // When
-    let result = await service.getNote(req, res);
+    const result = await service.getNote(req, res);
 
     // Then
     expect(result['queryResult'].length).toBeLessThan(1);
@@ -56,7 +56,7 @@ test('Cant find note with not present note ID (NaN).', async () => {
         }
     });
 
-    let res = httpMocks.createResponse();
+    const res = httpMocks.createResponse();
 
     // When
     await service.getNote(req, res).then( (note) => {
@@ -82,7 +82,7 @@ test('Create a new Note.', async ()=> {
     let res = httpMocks.createResponse();
 
     // When
-    let result = await service.createNote(req, res);
+    const result = await service.createNote(req, res);
 
    // Then
     expect(result).toBeGreaterThan(1);
@@ -103,10 +103,34 @@ test('Search for a note that contains the given text', async() => {
     let res = httpMocks.createResponse();
 
     // When
-    let result = await service.searchNote(req, res);
+    const result = await service.searchNote(req, res);
 
     // Then should return more than one result
     expect(result['queryResult'].length).toBeGreaterThan(1);
+});
+
+
+test('Update a Note.', async ()=> {
+   // Given
+    const service = new Noteservice();
+
+    let req = httpMocks.createRequest({
+        method: 'PUT',
+        url: '/api/v1/note/',
+        params: {
+            id: 5,
+            text: "TODO"
+        }
+    });
+
+    let res = httpMocks.createResponse();
+
+    // When
+    const result = await service.updateNote(req, res);
+
+    // Then
+    const affectedRows = result['queryResult'].affectedRows;
+    expect(affectedRows).toEqual(1);
 });
 
 /**

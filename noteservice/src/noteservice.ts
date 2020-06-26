@@ -134,4 +134,27 @@ export class Noteservice {
 
             return result; // Just for the unittests.
         }
+
+        updateNote(req: Request, res: Response) {
+            const id = parseInt(req.params.id, 10);
+            const text = req.params.text;
+            console.log('Update note with id = ' + id + ', and text = ' + text);
+            const con = this.connectToDb();
+            const sql = 'update noterepo.note set TEXT = \'' + text + '\', LASTSAVED = CURRENT_TIMESTAMP where id = ' + id + ';';
+
+            let sqlpromise = new Promise((resolve, reject) => {
+                con.query(sql, function (err, result) {
+                    if (err) {
+                        console.log('Error: ' + err);
+                        reject('SQLerror');
+                    }
+
+                    resolve({queryResult: result});
+                });
+
+                con.end();
+            });
+
+            return sqlpromise;
+        }
 }
