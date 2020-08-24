@@ -36,10 +36,28 @@ app.post('/api/v1/notes', (req, res) => {
 });
 
 app.put('/api/v1/note', (req, res) => {
-    // Uppdaterar en ny anteckning.
+    // Uppdaterar en anteckning.
     const noteservice = new Noteservice();
 
-    noteservice.updateNote(req, res);
+    noteservice.updateNote(req, res).then( (result) => {
+             const affectedRows = result['queryResult'].affectedRows;
+             if (affectedRows === 1) {
+                res.status(200).send({
+                     success: 'true',
+                     message: 'Notes updated successfully'
+                 });
+             } else {
+                 res.status(200).send({
+                      success: 'false',
+                      message: 'Failed to update note.'
+                  });
+             }
+         }, rejection => {
+             res.status(200).send({
+                                 success: 'false',
+                                 message: 'Error while query database.'
+                             });
+         });;
 });
 
 app.get('/api/v1/notes/text/:text', (req, res) => {

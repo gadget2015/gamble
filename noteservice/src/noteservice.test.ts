@@ -117,7 +117,7 @@ test('Update a Note.', async ()=> {
     let req = httpMocks.createRequest({
         method: 'PUT',
         url: '/api/v1/note/',
-        params: {
+        body: {
             id: 5,
             text: "TODO"
         }

@@ -135,9 +135,12 @@ export class Noteservice {
             return result; // Just for the unittests.
         }
 
+/**
+*   Params are case sensitive.
+*/
         updateNote(req: Request, res: Response) {
-            const id = parseInt(req.params.id, 10);
-            const text = req.params.text;
+            const text = req.body['text'];
+            const id = parseInt(req.body['id'], 10);
             console.log('Update note with id = ' + id + ', and text = ' + text);
             const con = this.connectToDb();
             const sql = 'update noterepo.note set TEXT = \'' + text + '\', LASTSAVED = CURRENT_TIMESTAMP where id = ' + id + ';';

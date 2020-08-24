@@ -5,6 +5,8 @@ class Noteservice {
     }
 
     getNote(noteid) {
+        console.log('Get note id = ' + noteid);
+
         const fetchDataPromise = new Promise((resolve, reject) => {
             fetch(this.destinationServer + '/api/v1/notes/' + noteid)
                 .then(async response => {
@@ -26,11 +28,11 @@ class Noteservice {
         return fetchDataPromise;
     }
 
-    saveNote(text) {
+    saveNewNote(text) {
         const fetchDataPromise = new Promise((resolve, reject) => {
             const data = {'TEXT': text};
 
-            fetch(this.destinationServer + '/api/v1/note/', {
+            fetch(this.destinationServer + '/api/v1/notes/', {
                    method: 'POST',
                    headers: {
                          'Content-Type': 'application/json'
@@ -54,6 +56,34 @@ class Noteservice {
 
         return fetchDataPromise;
     }
+
+        updateNote(noteId, text) {
+            const fetchDataPromise = new Promise((resolve, reject) => {
+                const data = {'id': noteId, 'text': text};
+
+                fetch(this.destinationServer + '/api/v1/note/', {
+                       method: 'PUT',
+                       headers: {
+                             'Content-Type': 'application/json'
+                           },
+                       body: JSON.stringify(data) })
+                       .then( async (response) => {
+                            // Hämtar ut returdata (JSON objekt).
+                            await response.json().then( (resolved) => {
+                                    const updateOk = resolved.success;
+                                    resolve(updateOk);
+                                }, (rejectedMessage) => {
+                                    console.log('Rejected when parsing return data, message = ' + rejectedMessage);
+                                    reject(0);
+                                });
+                       }, (rejectedMessage) => {
+                            console.log('Rejected when posting note to server, message = ' + rejectedMessage);
+                            reject(0);
+                       });
+            });
+
+            return fetchDataPromise;
+        }
 }
 
 export {Noteservice};

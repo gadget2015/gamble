@@ -18,11 +18,20 @@ function App() {
     function spara(event) {
         alert(text);
         const service  = new Noteservice('http://localhost:4000');
-        service.saveNote(text).then( (noteId) => {
-            setNoteId(noteId);
-            window.location.search = '?noteid=' + noteId;
-            onlyOnce++; // force new fetch.
-        });
+
+        if(noteId != null) {
+            console.log('Update');
+            service.updateNote(noteId, text).then( (status) => {
+                console.log('update ' + status);
+            });
+        } else  {
+            console.log('Ny note');
+            service.saveNewNote(text).then( (noteId) => {
+                setNoteId(noteId);
+                window.location.search = '?noteid=' + noteId;
+                onlyOnce++; // force new fetch.
+            });
+        }
 
     }
 
@@ -39,6 +48,7 @@ function App() {
                     if(note.success === 'true' ) {
                         setText(note.note[0].TEXT);
                         setLastSaved(note.note[0].LASTSAVED);
+                        setNoteId(note.note[0].ID);
                     }
                 }, rejection => {
                     console.log('Network connection error when calling REST API, status code = ' + rejection);
