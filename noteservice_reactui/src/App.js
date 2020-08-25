@@ -6,7 +6,7 @@ import {Noteservice} from './Noteservice';
 
 function App() {
 
-    const [text, setText] = useState();
+    const [text, setText] = useState('');
     const [lastSaved, setLastSaved] = useState();
     const [noteId, setNoteId] = useState();
     var onlyOnce = 5;
@@ -16,23 +16,19 @@ function App() {
     }
 
     function spara(event) {
-        alert(text);
         const service  = new Noteservice('http://localhost:4000');
 
         if(noteId != null) {
-            console.log('Update');
             service.updateNote(noteId, text).then( (status) => {
                 console.log('update ' + status);
             });
         } else  {
-            console.log('Ny note');
             service.saveNewNote(text).then( (noteId) => {
                 setNoteId(noteId);
                 window.location.search = '?noteid=' + noteId;
                 onlyOnce++; // force new fetch.
             });
         }
-
     }
 
     useEffect( () =>  {

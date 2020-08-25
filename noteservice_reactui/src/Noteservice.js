@@ -31,6 +31,7 @@ class Noteservice {
     saveNewNote(text) {
         const fetchDataPromise = new Promise((resolve, reject) => {
             const data = {'TEXT': text};
+            console.log('Save new note with TEXT = ' + text);
 
             fetch(this.destinationServer + '/api/v1/notes/', {
                    method: 'POST',
@@ -60,7 +61,7 @@ class Noteservice {
         updateNote(noteId, text) {
             const fetchDataPromise = new Promise((resolve, reject) => {
                 const data = {'id': noteId, 'text': text};
-
+                console.log('Update note: ' + JSON.stringify(data));
                 fetch(this.destinationServer + '/api/v1/note/', {
                        method: 'PUT',
                        headers: {
