@@ -8,9 +8,10 @@ innodb_buffer_pool_size=16M
 
 2. Start
 # service mysqld start
+https://unix.stackexchange.com/questions/20357/how-can-i-make-a-script-in-etc-init-d-start-at-boot
 
 3. mysql_secure_installation
-	pwd: Kameler2019
+	pwd: Kameler2020
 
 
 /var/log
