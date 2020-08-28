@@ -28,6 +28,8 @@ Den startas med
 
 MySQL Workbench 8.0 används som GUI mot databasen. 
 
+Skapa en databas som heter noterepo.
+
 Tjänsten består av två tabeller, note och sequence.  
 <pre>
   CREATE TABLE `note` (  
@@ -47,3 +49,4 @@ CREATE TABLE `sequence` (
   PRIMARY KEY (`SEQ_NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 </pre>
+
