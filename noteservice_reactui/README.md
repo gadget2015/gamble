@@ -11,5 +11,9 @@ Text editor, https://www.npmjs.com/package/react-quill
 ``npm run bundle``
 
 # Deploy
+``cd /var/local/webapps``
 
 ``tar xvf noteservice_ui.tgz``
+
+``npx serve build``
+

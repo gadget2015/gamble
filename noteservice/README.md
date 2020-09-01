@@ -42,11 +42,10 @@ Tjänsten består av två tabeller, note och sequence.
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;  
 </pre>
 
-<pre>
-CREATE TABLE `sequence` (
-  `SEQ_NAME` varchar(40) NOT NULL,
-  `SEQ_COUNT` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`SEQ_NAME`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-</pre>
 
+# Deploy
+``cd /var/local/noteservice
+
+``tar -xvf noteservice.tgz``
+
+``node dist/app.js``
