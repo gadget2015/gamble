@@ -4,7 +4,12 @@ Installeras: /var/local
 1.
 /etc/my.cnf
 [mysqld]
-innodb_buffer_pool_size=16M
+innodb_buffer_pool_size=6M
+key_buffer_size = 6M
+query_cache_size = 6M
+max_connections = 20
+table_definition_cache = 10
+
 
 2. Start
 # service mysqld start

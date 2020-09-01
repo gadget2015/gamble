@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/app.js",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "bundle": "node createbundle.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +20,8 @@
     "node-mocks-http": "^1.7.6",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "tar": "^6.0.5"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

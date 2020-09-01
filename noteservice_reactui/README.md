@@ -4,3 +4,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Beroenden
 Text editor, https://www.npmjs.com/package/react-quill
+
+# Bygga för AWS
+`` npm run build ``
+ 
+``npm run bundle``
+
+# Deploy
+
+``tar xvf noteservice_ui.tgz``
