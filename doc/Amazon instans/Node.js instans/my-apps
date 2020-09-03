@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# my-apps
+#
+# chkconfig: 23456 90 60
+# description: Mina applikationer, node.js och webbservers.
+#
+export PATH=/var/local/node-v14.8.0-linux-x64/bin:$PATH
+
+
+
+case "$1" in
+ 'start')
+   echo "Start Noteservice REST-service" 
+   cd /var/local/noteservice
+   node dist/app.js > /var/log/my-apps/noteservice.log&
+
+   echo "Start webbapps"
+   cd /var/local/webapps
+   npx serve build > /var/log/my-apps/my-webapps.log&
+   ;;
+ 'stop')
+   echo "Stopping my applications.";;
+esac
