@@ -9,6 +9,11 @@ const port = 4000;
 // https://medium.com/@purposenigeria/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb
 app.use(bodyParser.json());
 app.use(cors());
+app.use(function(req, res, next) {
+	console.log('Server called with URL:' + req.url);
+	next();
+});
+
 
 app.get('/api/v1/notes/:id', (req, res) => {
     const noteservice = new Noteservice();

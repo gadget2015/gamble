@@ -23,7 +23,7 @@ function App() {
     }
 
     function spara(event) {
-        const service  = new Noteservice(getServerHost() + ':4000');
+        const service  = new Noteservice(getServerHost());
 
         if(noteId != null) {
             service.updateNote(noteId, text).then( (status) => {
@@ -45,7 +45,7 @@ function App() {
 
         if (noteid != null) {
             // Fetch Note from REST API.
-            const service  = new Noteservice(getServerHost() +':4000');
+            const service  = new Noteservice(getServerHost());
 
             service.getNote(noteid).then( (note) => {
                     if(note.success === 'true' ) {
