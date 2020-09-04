@@ -16,10 +16,15 @@ function App() {
     }
 
     /**
-    * Get hostname for backend-services.
+    * Get hostname for backend-services. Different depending if it's development mode
+    * or production.
     */
     function getServerHost() {
-        return document.location.protocol + '//' + document.location.hostname;
+        if (document.location.port) {
+            return document.location.protocol + '//' + document.location.hostname + ':' + document.location.port;
+        } else {
+           return document.location.protocol + '//' + document.location.hostname;
+        }
     }
 
     function spara(event) {
