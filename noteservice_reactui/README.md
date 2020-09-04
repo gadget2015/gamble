@@ -15,5 +15,7 @@ Text editor, https://www.npmjs.com/package/react-quill
 
 ``tar xvf noteservice_ui.tgz``
 
-``npx serve build``
+Restart Linux system or run:
+
+``node build/httpserver``
 
