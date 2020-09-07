@@ -9,10 +9,13 @@ function App() {
     const [text, setText] = useState('');
     const [lastSaved, setLastSaved] = useState();
     const [noteId, setNoteId] = useState();
+    const [saveEnabled, setSavedEnabled] = useState(false);
+
     var onlyOnce = 5;
 
     function handleChange(text) {
         setText(text);
+        setSavedEnabled(true);
     }
 
     /**
@@ -33,12 +36,14 @@ function App() {
         if(noteId != null) {
             service.updateNote(noteId, text).then( (status) => {
                 console.log('update ' + status);
+                setSavedEnabled(false);
             });
         } else  {
             service.saveNewNote(text).then( (noteId) => {
                 setNoteId(noteId);
                 window.location.search = '?noteid=' + noteId;
                 onlyOnce++; // force new fetch.
+                setSavedEnabled(false);
             });
         }
     }
@@ -57,6 +62,7 @@ function App() {
                         setText(note.note[0].TEXT);
                         setLastSaved(note.note[0].LASTSAVED);
                         setNoteId(note.note[0].ID);
+                        setSavedEnabled(false);
                     }
                 }, rejection => {
                     console.log('Network connection error when calling REST API, status code = ' + rejection);
@@ -69,7 +75,7 @@ function App() {
             <div className="grid-container">
               <div className="grid-item1"><ReactQuill them="snow" onChange={handleChange} value={text}/></div>
               <div className="grid-item2">Senast sparad {lastSaved}</div>
-              <div className="grid-item3"><button onClick={spara}>Spara</button></div>
+              <div className="grid-item3"><button onClick={spara} disabled={!saveEnabled}>Spara</button></div>
             </div>
         </div>
     );
