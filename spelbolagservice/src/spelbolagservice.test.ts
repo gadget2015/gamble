@@ -20,7 +20,7 @@ test('Find a transaction with given ID.', async () => {
     const result = await service.getTransaction(req, res);
 
     // Then
-    expect(result['queryResult'][0]['BESKRIVNING']).toBe('Spelar stryktipset');
+    expect(result['queryResult'][0]['beskrivning']).toBe('Spelar stryktipset');
 });
 
 
@@ -45,30 +45,29 @@ test('Cant find a transaction with given ID.', async () => {
     expect(result['queryResult'].length).toBeLessThan(1);
 });
 
-/**
-test('Cant find note with not present note ID (NaN).', async () => {
+
+test('Find transactions for given konto id.', async () => {
     // Given
-    const service = new Noteservice();
+    const service = new Spelbolagservice();
 
     let req = httpMocks.createRequest({
         method: 'GET',
-        url: '/api/v1/notes/text',
+        url: '/api/v1/transactions/',
         params: {
-            id: NaN
+            kontonr: 234
         }
     });
 
     const res = httpMocks.createResponse();
 
     // When
-    await service.getNote(req, res).then( (note) => {
-        console.log('Search ok');
-        fail('Det borde inte gå att köra SQL kommandot.');
-    }, rejection => {
-        console.log('failed to query database, which is OK.');
-    });
+    const result = await service.getTransactions(req, res);
+
+    // Then
+    expect(result['queryResult'].length).toBe(2);
 });
 
+/**
 test('Create a new Note.', async ()=> {
    // Given
     const service = new Noteservice();
@@ -143,6 +142,10 @@ test('Update a Note.', async ()=> {
 */
 function printResult(result) {
     for (var i = 0; i < result['queryResult'].length; i++) {
-        console.log('Rad #' + i + ' = ' + result['queryResult'] [i].ID  + ' | ' + result['queryResult'][i].TEXT);
+        console.log('Rad #' + i + ' = ' + result['queryResult'] [i].ID  + ' | ' + result['queryResult'][i].beskrivning
+        + ' | ' + result['queryResult'][i].debit
+        + ' | ' + result['queryResult'][i].kredit
+        + ' | ' + result['queryResult'][i].tid
+        + ' | ' + result['queryResult'][i].kontonr);
      }
 }

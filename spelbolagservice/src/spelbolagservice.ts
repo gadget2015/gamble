@@ -32,6 +32,34 @@ export class Spelbolagservice {
         return sqlpromise;
     }
 
+    getTransactions(req: Request, res: Response) {
+        const id = parseInt(req.params.kontonr, 10);
+        console.log('Search for transaction with kontonr = ' + id);
+        const con = this.connectToDb();
+        const sql = `SELECT stryktipsbolag.transaktion.ID, stryktipsbolag.transaktion.beskrivning, stryktipsbolag.transaktion.debit,
+                            stryktipsbolag.transaktion.kredit, stryktipsbolag.transaktion.tid,
+                    		stryktipsbolag.konto_transaktion.konto_id, stryktipsbolag.konto.kontonr
+                    	FROM stryktipsbolag.transaktion
+                        INNER JOIN stryktipsbolag.konto_transaktion ON stryktipsbolag.konto_transaktion.transaktioner_id = stryktipsbolag.transaktion.ID
+                    	INNER JOIN stryktipsbolag.konto ON stryktipsbolag.konto_transaktion.konto_id = stryktipsbolag.konto.ID
+                        WHERE stryktipsbolag.konto.kontonr = ` + id + ';';
+
+        let sqlpromise = new Promise((resolve, reject) => {
+            con.query(sql, function (err, result) {
+                if (err) {
+                    console.log('Error: ' + err);
+                    reject('SQLerror');
+                }
+
+                resolve({queryResult: result});
+            });
+
+            con.end();
+        });
+
+        return sqlpromise;
+    }
+
     async createNote(req: Request, res: Response) {
         const text = req.body['TEXT'];
         console.log('Create a new note with TEXT = ' + text);

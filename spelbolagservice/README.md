@@ -16,6 +16,14 @@ http://localhost:4001/api/v1/spelbolag/5
 * Utför tester med en uppstartad MySQL databas, Det behöver finnas lite data i databasen.
 
 ``INSERT INTO `stryktipsbolag`.`transaktion` (`ID`,`BESKRIVNING`,`DEBIT`,`KREDIT`,`TID`) VALUES (1, 'Spelar stryktipset', 0, 50,CURRENT_TIMESTAMP); ``
+``INSERT INTO `stryktipsbolag`.`transaktion` (`ID`,`BESKRIVNING`,`DEBIT`,`KREDIT`,`TID`) VALUES (2, 'Spelar stryktipset', 0, 25,CURRENT_TIMESTAMP); ``
+``INSERT INTO `stryktipsbolag`.`transaktion` (`ID`,`BESKRIVNING`,`DEBIT`,`KREDIT`,`TID`) VALUES (3, 'Spelar stryktipset', 0, 50,CURRENT_TIMESTAMP); ``
+``INSERT INTO `stryktipsbolag`.`konto` (`ID`,`KONTONR`) VALUES (1, 234);``
+``INSERT INTO `stryktipsbolag`.`konto` (`ID`,`KONTONR`) VALUES (2, 1967);``
+``INSERT INTO `stryktipsbolag`.`konto_transaktion` (`KONTO_ID`,`TRANSAKTIONER_ID`) VALUES (1, 1);``
+``INSERT INTO `stryktipsbolag`.`konto_transaktion` (`KONTO_ID`,`TRANSAKTIONER_ID`) VALUES (1, 2);``
+``INSERT INTO `stryktipsbolag`.`konto_transaktion` (`KONTO_ID`,`TRANSAKTIONER_ID`) VALUES (2, 3);``
+
 
 
 Starta testning med .
@@ -39,15 +47,33 @@ Tjänsten består av tabellerna transaktion,
 <pre>
 CREATE TABLE `transaktion` (
   `ID` bigint(8) NOT NULL,
-  `BESKRIVNING` varchar(255) DEFAULT NULL,
-  `DEBIT` int(11) DEFAULT NULL,
-  `KREDIT` int(11) DEFAULT NULL,
-  `TID` timestamp NULL DEFAULT NULL,
+  `beskrivning` varchar(255) DEFAULT NULL,
+  `debit` int(11) DEFAULT NULL,
+  `kredit` int(11) DEFAULT NULL,
+  `tid` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 </pre>
 
+<pre>
+CREATE TABLE `konto` (
+  `ID` bigint(8) NOT NULL,
+  `kontonr` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ID_index` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+</pre>
 
+<pre>
+CREATE TABLE `konto_transaktion` (
+  `konto_id` bigint(8) DEFAULT NULL,
+  `transaktioner_id` bigint(8) DEFAULT NULL,
+  KEY `transaktion_id_fk_idx` (`transaktioner_id`),
+  KEY `konto_id_fk` (`konto_id`),
+  CONSTRAINT `konto_id_fk` FOREIGN KEY (`konto_id`) REFERENCES `konto` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `transaktion_id_fk` FOREIGN KEY (`transaktioner_id`) REFERENCES `transaktion` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+</pre>
 # Deploy
 ``cd /var/local/spelbolagservice``
 
