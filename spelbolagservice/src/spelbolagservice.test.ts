@@ -46,7 +46,7 @@ test('Cant find a transaction with given ID.', async () => {
 });
 
 
-test('Find transactions for given konto id.', async () => {
+test('Find transactions for given konto nummer.', async () => {
     // Given
     const service = new Spelbolagservice();
 

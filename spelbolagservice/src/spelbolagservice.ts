@@ -42,7 +42,8 @@ export class Spelbolagservice {
                     	FROM stryktipsbolag.transaktion
                         INNER JOIN stryktipsbolag.konto_transaktion ON stryktipsbolag.konto_transaktion.transaktioner_id = stryktipsbolag.transaktion.ID
                     	INNER JOIN stryktipsbolag.konto ON stryktipsbolag.konto_transaktion.konto_id = stryktipsbolag.konto.ID
-                        WHERE stryktipsbolag.konto.kontonr = ` + id + ';';
+                        WHERE stryktipsbolag.konto.kontonr = ` + id +
+                        ' ORDER BY  stryktipsbolag.transaktion.TID ASC;';
 
         let sqlpromise = new Promise((resolve, reject) => {
             con.query(sql, function (err, result) {
