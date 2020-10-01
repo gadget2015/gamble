@@ -10,28 +10,23 @@ export class Spelbolagservice {
     constructor() {
     }
 
+    /**
+    * Hämtar en transaktion för ett givet transaktionsid.
+    */
     getTransaction(req: Request, res: Response) {
         const id = parseInt(req.params.id, 10);
         console.log('Search for transaction with id = ' + id);
         const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.transaktion where id = ' + id + ';';
 
-        let sqlpromise = new Promise((resolve, reject) => {
-            con.query(sql, function (err, result) {
-                if (err) {
-                    console.log('Error: ' + err);
-                    reject('SQLerror');
-                }
-
-                resolve({queryResult: result});
-            });
-
-            con.end();
-        });
+        let sqlpromise = this.createSQLPromise(sql, con);
 
         return sqlpromise;
     }
 
+    /**
+    * Hämtar alla transaktion för ett givet kontonummer.
+    */
     getTransactions(req: Request, res: Response) {
         const id = parseInt(req.params.kontonr, 10);
         console.log('Search for transaction with kontonr = ' + id);
@@ -45,18 +40,35 @@ export class Spelbolagservice {
                         WHERE stryktipsbolag.konto.kontonr = ` + id +
                         ' ORDER BY  stryktipsbolag.transaktion.TID ASC;';
 
-        let sqlpromise = new Promise((resolve, reject) => {
-            con.query(sql, function (err, result) {
-                if (err) {
-                    console.log('Error: ' + err);
-                    reject('SQLerror');
-                }
+        let sqlpromise = this.createSQLPromise(sql, con);
 
-                resolve({queryResult: result});
-            });
+        return sqlpromise;
+    }
 
-            con.end();
-        });
+    /**
+    * Hämtar en spelare med givet userid.
+    */
+    getSpelare(req: Request, res: Response) {
+        const userid = req.params.userid;
+        console.log('Hämtar en Spelare med userid = ' + userid);
+        const con = this.connectToDb();
+        const sql = 'select * from stryktipsbolag.spelare where userid = "' + userid + '";';
+
+        let sqlpromise = this.createSQLPromise(sql, con);
+
+        return sqlpromise;
+    }
+
+    /**
+    * Hämtar ett Spelbolag med namn.
+    */
+    getSpelbolag(req: Request, res: Response) {
+        const namn = req.params.namn;
+        console.log('Hämtar ett Spelbolag med namn = ' + namn);
+        const con = this.connectToDb();
+        const sql = 'select * from stryktipsbolag.spelbolag where namn = "' + namn + '";';
+
+        let sqlpromise = this.createSQLPromise(sql, con);
 
         return sqlpromise;
     }
@@ -133,60 +145,23 @@ export class Spelbolagservice {
         return con;
     }
 
-     async searchNote(req: Request, res: Response) {
-            const queryString = '%' + req.params.text + '%';
-            console.log('Search for note with text = ' + queryString);
-            const con = this.connectToDb();
-            const sql = 'select * from noterepo.note where text LIKE ?';
+    /**
+     * Skapar ett Promise som exekverar ett SQL statement.
+     */
+     createSQLPromise(sql, con) {
+        let sqlpromise = new Promise((resolve, reject) => {
+             con.query(sql, function (err, result) {
+                 if (err) {
+                     console.log('Error: ' + err);
+                     reject('SQLerror');
+                 }
 
-            let sqlpromise = new Promise((resolve, reject) => {
-                con.query(sql, [queryString], function (err, result) {
+                 resolve({queryResult: result});
+             });
 
-                    if (err) {
-                        console.log('Error: ' + err);
-                        throw err;
-                    }
+             con.end();
+         });
 
-                    res.status(200).send({
-                        success: 'true',
-                        message: 'Notes retrieved successfully',
-                        note: result
-                    });
-
-                    resolve({queryResult: result});
-                });
-
-                con.end();
-            });
-
-            let result = await sqlpromise;
-
-            return result; // Just for the unittests.
-        }
-
-/**
-*   Params are case sensitive.
-*/
-        updateNote(req: Request, res: Response) {
-            const text = req.body['text'];
-            const id = parseInt(req.body['id'], 10);
-            console.log('Update note with id = ' + id + ', and text = ' + text);
-            const con = this.connectToDb();
-            const sql = 'update noterepo.note set TEXT = \'' + text + '\', LASTSAVED = CURRENT_TIMESTAMP where id = ' + id + ';';
-
-            let sqlpromise = new Promise((resolve, reject) => {
-                con.query(sql, function (err, result) {
-                    if (err) {
-                        console.log('Error: ' + err);
-                        reject('SQLerror');
-                    }
-
-                    resolve({queryResult: result});
-                });
-
-                con.end();
-            });
-
-            return sqlpromise;
-        }
+         return sqlpromise;
+     }
 }

@@ -46,7 +46,7 @@ test('Cant find a transaction with given ID.', async () => {
 });
 
 
-test('Find transactions for given konto nummer.', async () => {
+test('Find transactions for given kontonummer.', async () => {
     // Given
     const service = new Spelbolagservice();
 
@@ -66,6 +66,51 @@ test('Find transactions for given konto nummer.', async () => {
     // Then
     expect(result['queryResult'].length).toBe(2);
 });
+
+test('Leta fram en seplare', async () => {
+    // Given
+    const service = new Spelbolagservice();
+
+    let req = httpMocks.createRequest({
+        method: 'GET',
+        url: '/api/v1/spelare/',
+        params: {
+            userid: 'robert.georen@gmail.com'
+        }
+    });
+
+    const res = httpMocks.createResponse();
+
+    // When
+    const result = await service.getSpelare(req, res);
+
+    // Then
+    expect(result['queryResult'].length).toBe(1);
+    expect(result['queryResult'][0]['userid']).toBe('robert.georen@gmail.com');
+});
+
+test('Letar fram ett Spelbolag', async () => {
+    // Given
+    const service = new Spelbolagservice();
+
+    let req = httpMocks.createRequest({
+        method: 'GET',
+        url: '/api/v1/spelbolag/',
+        params: {
+            namn: 'The gamblers'
+        }
+    });
+
+    const res = httpMocks.createResponse();
+
+    // When
+    const result = await service.getSpelbolag(req, res);
+
+    // Then
+    expect(result['queryResult'].length).toBe(1);
+    expect(result['queryResult'][0]['insatsperomgang']).toBe(50);
+});
+
 
 /**
 test('Create a new Note.', async ()=> {
