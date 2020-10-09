@@ -2,7 +2,7 @@ import {Spelbolagservice} from './spelbolagservice';
 import mock = jest.mock;
 import * as httpMocks from 'node-mocks-http';
 
-test('Find a transaction with given ID.', async () => {
+test('Leta fram en transaktion med givet ID.', async () => {
     // Given
     const service = new Spelbolagservice();
 
@@ -24,7 +24,7 @@ test('Find a transaction with given ID.', async () => {
 });
 
 
-test('Cant find a transaction with given ID.', async () => {
+test('Kan inte hitta en transaktion med givet ID.', async () => {
     // Given
     const service = new Spelbolagservice();
 
@@ -46,13 +46,13 @@ test('Cant find a transaction with given ID.', async () => {
 });
 
 
-test('Find transactions for given kontonummer.', async () => {
+test('Hämtar alla transaktioner för ett givet kontonummer.', async () => {
     // Given
     const service = new Spelbolagservice();
 
     let req = httpMocks.createRequest({
         method: 'GET',
-        url: '/api/v1/transactions/',
+        url: '/api/v1/transaktioner/',
         params: {
             kontonr: 234
         }
@@ -111,6 +111,29 @@ test('Letar fram ett Spelbolag', async () => {
     expect(result['queryResult'][0]['insatsperomgang']).toBe(50);
 });
 
+test('Skapa en transaktion för givet kontonummer.', async() => {
+ // Given
+    const service = new Spelbolagservice();
+
+    let req = httpMocks.createRequest({
+        method: 'POST',
+        url: '/api/v1/transaktioner/',
+        body: {
+            "beskrivning": "Spelar på Stryktipset",
+            "kredit": 30,
+            "kontonummer": 1967
+        }
+    });
+
+    let res = httpMocks.createResponse();
+
+    // When
+    const result = await service.addTransaktion(req, res);
+
+   // Then
+    expect(result).toBeGreaterThan(1);
+
+});
 
 /**
 test('Create a new Note.', async ()=> {

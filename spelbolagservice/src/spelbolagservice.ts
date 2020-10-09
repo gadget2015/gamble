@@ -73,6 +73,29 @@ export class Spelbolagservice {
         return sqlpromise;
     }
 
+    /**
+    * Lägg in en transaktionpost på givet kontonummer.
+    */
+    async addTransaktion(req: Request, res: Response) {
+        const beskrivning = req.body['beskrivning'];
+        const kredit = req.body['kredit'];
+        const debit = req.body['debit'];
+        const kontonummer = req.body['kontonummer'];
+        console.log('Skapar en transaktion med {beskrivning:' + beskrivning + ', debit:' + debit + ', kredit:' + kredit +'kontonummer:' + kontonummer + '}.');
+
+        const con = this.connectToDb();
+
+        // Calculate the next sequnece ID used in the sql insert into statement för transaktion.
+        const sqlLastID = 'SELECT ID FROM stryktipsbolag.transaktion ORDER BY ID DESC LIMIT 1;';
+        let transaktionIDPromise = this.createSQLPromise(sqlLastID, con);
+        let result = await transaktionIDPromise;
+        const id = parseInt(result['queryResult'][0].ID, 10);
+        const nextTransaktionId = id + 1;
+        console.log('Nästa Transaktions ID = ' + nextTransaktionId);
+
+        //
+    }
+
     async createNote(req: Request, res: Response) {
         const text = req.body['TEXT'];
         console.log('Create a new note with TEXT = ' + text);
@@ -163,5 +186,18 @@ export class Spelbolagservice {
          });
 
          return sqlpromise;
+     }
+}
+
+/**
+* Skriver ut resultset.
+*/
+function printResult(result) {
+    for (var i = 0; i < result['queryResult'].length; i++) {
+        console.log('Rad #' + i + ' = ' + result['queryResult'] [i].ID  + ' | ' + result['queryResult'][i].beskrivning
+        + ' | ' + result['queryResult'][i].debit
+        + ' | ' + result['queryResult'][i].kredit
+        + ' | ' + result['queryResult'][i].tid
+        + ' | ' + result['queryResult'][i].kontonr);
      }
 }
