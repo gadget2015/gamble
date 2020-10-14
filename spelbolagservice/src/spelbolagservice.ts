@@ -118,6 +118,7 @@ export class Spelbolagservice {
                     'VALUES (' + konto_id + ', ' + nextTransaktionId +');';
         let insertRelationPromise = this.createSQLPromise(sqlInsertRelation, conRelation);
 
+        // Skapar ett promise för båda insert statements.
         const insertPromise = new Promise(async (resolve, reject) => {
            await insertTransaktionPromise;
            const result = await insertRelationPromise;
