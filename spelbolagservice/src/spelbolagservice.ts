@@ -74,26 +74,57 @@ export class Spelbolagservice {
     }
 
     /**
+    * Hämtar ett konto för givet kontonummer.
+    */
+    getKonto(kontonummer) {
+        const con = this.connectToDb();
+        const sql = 'select * from stryktipsbolag.konto where kontonr = ' + kontonummer + ';';
+        let sqlpromise = this.createSQLPromise(sql, con);
+
+        return sqlpromise;
+    }
+
+    /**
     * Lägg in en transaktionpost på givet kontonummer.
     */
     async addTransaktion(req: Request, res: Response) {
         const beskrivning = req.body['beskrivning'];
-        const kredit = req.body['kredit'];
-        const debit = req.body['debit'];
+        const kredit = (req.body['kredit'] == null) ? 0: req.body['kredit'];
+        const debit = (req.body['dedit'] == null) ? 0: req.body['debit'];
         const kontonummer = req.body['kontonummer'];
-        console.log('Skapar en transaktion med {beskrivning:' + beskrivning + ', debit:' + debit + ', kredit:' + kredit +'kontonummer:' + kontonummer + '}.');
+        console.log('Skapar en transaktion med {beskrivning:' + beskrivning + ', debit:' + debit + ', kredit:' + kredit +', kontonummer:' + kontonummer + '}.');
 
-        const con = this.connectToDb();
+        let con = this.connectToDb();
 
-        // Calculate the next sequnece ID used in the sql insert into statement för transaktion.
+        // Calculate the next sequnece ID used in the sql insert into statement for transaktion.
         const sqlLastID = 'SELECT ID FROM stryktipsbolag.transaktion ORDER BY ID DESC LIMIT 1;';
         let transaktionIDPromise = this.createSQLPromise(sqlLastID, con);
         let result = await transaktionIDPromise;
         const id = parseInt(result['queryResult'][0].ID, 10);
         const nextTransaktionId = id + 1;
-        console.log('Nästa Transaktions ID = ' + nextTransaktionId);
 
-        //
+
+        // Lägger in en ny transaktion i databasen.
+        con = this.connectToDb();   // need new connection to db, the previous is stalled.
+        const sqlInsertTransaktion = 'INSERT INTO stryktipsbolag.transaktion (ID, BESKRIVNING, DEBIT,KREDIT, TID) ' +
+                    'VALUES (' + nextTransaktionId + ', \'' + beskrivning + '\',' + debit + ', ' + kredit + ',CURRENT_TIMESTAMP);';
+        let insertTransaktionPromise = this.createSQLPromise(sqlInsertTransaktion, con);
+
+        // Lägger in relation mellan konto och transaktion.
+        const konto = await this.getKonto(kontonummer);
+        const konto_id = konto['queryResult'][0]['ID'];
+        let conRelation = this.connectToDb();   // need new connection to db, the previous is stalled.
+        const sqlInsertRelation = 'INSERT INTO stryktipsbolag.konto_transaktion (konto_id, transaktioner_id) ' +
+                    'VALUES (' + konto_id + ', ' + nextTransaktionId +');';
+        let insertRelationPromise = this.createSQLPromise(sqlInsertRelation, conRelation);
+
+        const insertPromise = new Promise(async (resolve, reject) => {
+           await insertTransaktionPromise;
+           const result = await insertRelationPromise;
+           resolve(result);
+        });
+
+        return insertPromise;
     }
 
     async createNote(req: Request, res: Response) {

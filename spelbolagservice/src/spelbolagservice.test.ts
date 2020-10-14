@@ -131,7 +131,7 @@ test('Skapa en transaktion för givet kontonummer.', async() => {
     const result = await service.addTransaktion(req, res);
 
    // Then
-    expect(result).toBeGreaterThan(1);
+    expect(result['queryResult']['affectedRows']).toBe(1);
 
 });
 
@@ -210,10 +210,10 @@ test('Update a Note.', async ()=> {
 */
 function printResult(result) {
     for (var i = 0; i < result['queryResult'].length; i++) {
-        console.log('Rad #' + i + ' = ' + result['queryResult'] [i].ID  + ' | ' + result['queryResult'][i].beskrivning
-        + ' | ' + result['queryResult'][i].debit
-        + ' | ' + result['queryResult'][i].kredit
-        + ' | ' + result['queryResult'][i].tid
-        + ' | ' + result['queryResult'][i].kontonr);
+        console.log('Rad #' + i + ' = ID:' + result['queryResult'] [i].ID  + ' , beskrivning: ' + result['queryResult'][i].beskrivning
+        + ' , debit: ' + result['queryResult'][i].debit
+        + ' , kredit: ' + result['queryResult'][i].kredit
+        + ' , tid: ' + result['queryResult'][i].tid
+        + ' , kontonummer: ' + result['queryResult'][i].kontonr);
      }
 }
