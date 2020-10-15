@@ -111,6 +111,26 @@ test('Letar fram ett Spelbolag', async () => {
     expect(result['queryResult'][0]['insatsperomgang']).toBe(50);
 });
 
+test('Hämtar alla spelbolag', async () => {
+    // Given
+    const service = new Spelbolagservice();
+
+    let req = httpMocks.createRequest({
+        method: 'GET',
+        url: '/api/v1/spelbolag/',
+        params: {
+        }
+    });
+
+    const res = httpMocks.createResponse();
+
+    // When
+    const result = await service.getSpelbolag(req, res);
+
+    // Then
+    expect(result['queryResult'].length).toBe(2);
+});
+
 test('Skapa en transaktion för givet kontonummer.', async() => {
  // Given
     const service = new Spelbolagservice();

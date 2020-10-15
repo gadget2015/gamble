@@ -30,6 +30,7 @@ http://localhost:4001/api/v1/spelbolag/5
 ``INSERT INTO `stryktipsbolag`.`spelare` (`ID`, `userid`,`administratorforspelbolag_id`,`konto_id`) VALUES (2, 'sune.mags@gmail.com', 0, 4);``
 ``INSERT INTO `stryktipsbolag`.`spelare` (`ID`, `userid`,`administratorforspelbolag_id`,`konto_id`) VALUES (3, 'hjalmar.branting@gmail.com', 0, 5);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag` (`ID`,`insatsperomgang`,`namn`,`konto_id`) VALUES (1, 50, 'The gamblers', 3);``
+``INSERT INTO `stryktipsbolag`.`spelbolag` (`ID`,`insatsperomgang`,`namn`,`konto_id`) VALUES (1, 25, 'Lucky boys', 5);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag_spelare` (`spelare_id`,`spelbolag_id`) VALUES (1, 1);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag_spelare` (`spelare_id`,`spelbolag_id`) VALUES (2, 1);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag_spelare` (`spelare_id`,`spelbolag_id`) VALUES (3, 1);``
@@ -89,7 +90,9 @@ CREATE TABLE `spelare` (
   `userid` varchar(255) DEFAULT NULL,
   `administratorforspelbolag_id` bigint(8) DEFAULT NULL,
   `konto_id` bigint(8) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `fk_kontoid_idx` (`konto_id`),
+  CONSTRAINT `fk_kontoid` FOREIGN KEY (`konto_id`) REFERENCES `konto` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 </pre>
 

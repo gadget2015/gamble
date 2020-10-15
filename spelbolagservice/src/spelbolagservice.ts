@@ -63,10 +63,10 @@ export class Spelbolagservice {
     * Hämtar ett Spelbolag med namn.
     */
     getSpelbolag(req: Request, res: Response) {
-        const namn = req.params.namn;
+        const namn = (req.params.namn == null) ? '%': req.params.namn;
         console.log('Hämtar ett Spelbolag med namn = ' + namn);
         const con = this.connectToDb();
-        const sql = 'select * from stryktipsbolag.spelbolag where namn = "' + namn + '";';
+        const sql = 'select * from stryktipsbolag.spelbolag where namn LIKE "' + namn + '";';
 
         let sqlpromise = this.createSQLPromise(sql, con);
 
@@ -126,58 +126,6 @@ export class Spelbolagservice {
         });
 
         return insertPromise;
-    }
-
-    async createNote(req: Request, res: Response) {
-        const text = req.body['TEXT'];
-        console.log('Create a new note with TEXT = ' + text);
-
-        const con = this.connectToDb();
-
-        // Calculate the next sequnece ID used in the sql insert into statement.
-        const sqlLastID = 'SELECT ID FROM noterepo.note ORDER BY ID DESC LIMIT 1;';
-
-        let sqlpromise = new Promise((resolve, reject) => {
-            con.query(sqlLastID, function (err, result) {
-                if (err) {
-                    console.log('Error: ' + err);
-                    throw err;
-                }
-
-                resolve(result);
-            });
-        });
-
-        let result = await sqlpromise;
-        const id = parseInt(result[0]["ID"], 10);
-        const nextId = id + 1;
-
-        // Insert new Note in database.
-        const sqlInsert = 'insert into noterepo.note (ID, ADMINUSERID, PRIVATEACCESS, TEXT, LASTSAVED) VALUES (' + nextId + ',\'\', 0, \'' + text + '\', CURRENT_TIMESTAMP);';
-
-        sqlpromise = new Promise((resolve, reject) => {
-            con.query(sqlInsert, function (err, result) {
-                if (err) {
-                    console.log('Error: ' + err);
-                    throw err;
-                }
-
-                resolve(result);
-            });
-
-            con.end();
-        });
-
-        result = await sqlpromise;
-
-        res.status(200).send({
-            success: 'true',
-            message: 'Note saved successfully with Id = ' + nextId + '.',
-			noteid: nextId,
-			databaseinformation: JSON.stringify(result)
-        });
-
-        return nextId;
     }
 
     /**
