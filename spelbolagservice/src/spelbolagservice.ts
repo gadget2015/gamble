@@ -85,6 +85,17 @@ export class Spelbolagservice {
     }
 
     /**
+    * Hämtar ett konto för givet ID.
+    */
+    getKontoByID(id : string) {
+        const con = this.connectToDb();
+        const sql = 'select * from stryktipsbolag.konto where ID = ' + id + ';';
+        let sqlpromise = this.createSQLPromise(sql, con);
+
+        return sqlpromise;
+    }
+
+    /**
     * Lägg in en transaktionpost på givet kontonummer.
     */
     async addTransaktion(beskrivning_params, kredit_params, debit_params, kontonummer_params) {
@@ -126,6 +137,23 @@ export class Spelbolagservice {
         });
 
         return insertPromise;
+    }
+
+    /**
+    * Hämtar alla spelare som är med i givet spelbolag.
+    */
+    async getAllaSpelareForSpelbolag(id_param : string) {
+        console.log('Hämtar alla spelare för givet spelbolag ID(' + id_param + ').');
+
+        const sqlQuery = `SELECT stryktipsbolag.spelare.ID, stryktipsbolag.spelare.userid, stryktipsbolag.spelare.administratorforspelbolag_id, stryktipsbolag.spelare.konto_id
+                                              	FROM stryktipsbolag.spelare
+                                                  INNER JOIN stryktipsbolag.spelbolag_spelare ON stryktipsbolag.spelbolag_spelare.spelare_id = stryktipsbolag.spelare.ID
+                                                  WHERE stryktipsbolag.spelbolag_spelare.spelbolag_id = ` +
+                                                  id_param +';';
+        const con = this.connectToDb();
+        const queryPromise = this.createSQLPromise(sqlQuery, con);
+
+        return queryPromise;
     }
 
     /**

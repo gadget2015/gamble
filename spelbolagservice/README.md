@@ -30,7 +30,7 @@ http://localhost:4001/api/v1/spelbolag/5
 ``INSERT INTO `stryktipsbolag`.`spelare` (`ID`, `userid`,`administratorforspelbolag_id`,`konto_id`) VALUES (2, 'sune.mags@gmail.com', 0, 4);``
 ``INSERT INTO `stryktipsbolag`.`spelare` (`ID`, `userid`,`administratorforspelbolag_id`,`konto_id`) VALUES (3, 'hjalmar.branting@gmail.com', 0, 5);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag` (`ID`,`insatsperomgang`,`namn`,`konto_id`) VALUES (1, 50, 'The gamblers', 3);``
-``INSERT INTO `stryktipsbolag`.`spelbolag` (`ID`,`insatsperomgang`,`namn`,`konto_id`) VALUES (1, 25, 'Lucky boys', 5);``
+``INSERT INTO `stryktipsbolag`.`spelbolag` (`ID`,`insatsperomgang`,`namn`,`konto_id`) VALUES (2, 25, 'Lucky boys', 5);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag_spelare` (`spelare_id`,`spelbolag_id`) VALUES (1, 1);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag_spelare` (`spelare_id`,`spelbolag_id`) VALUES (2, 1);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag_spelare` (`spelare_id`,`spelbolag_id`) VALUES (3, 1);``

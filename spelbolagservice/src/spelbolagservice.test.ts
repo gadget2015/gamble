@@ -84,6 +84,20 @@ test('Skapa en transaktion för givet kontonummer.', async() => {
 
 });
 
+test('Hämtar alla spelare i ett Spelbolag.', async () => {
+    // Given
+    const service = new Spelbolagservice();
+
+    // When
+    const result = await service.getAllaSpelareForSpelbolag('1');
+
+    // Then
+    expect(result['queryResult'].length).toBe(3);
+});
+
+test('Ta betalt av alla seplare i ett spelbolag', async () => {
+
+});
 
 /**
 * Skriver ut resultset.
