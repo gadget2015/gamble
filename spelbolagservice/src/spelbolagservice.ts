@@ -13,8 +13,8 @@ export class Spelbolagservice {
     /**
     * Hämtar en transaktion för ett givet transaktionsid.
     */
-    getTransaction(req: Request, res: Response) {
-        const id = parseInt(req.params.id, 10);
+    getTransaction(id_param : string) {
+        const id = parseInt(id_param, 10);
         console.log('Search for transaction with id = ' + id);
         const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.transaktion where id = ' + id + ';';
@@ -27,8 +27,8 @@ export class Spelbolagservice {
     /**
     * Hämtar alla transaktion för ett givet kontonummer.
     */
-    getTransactions(req: Request, res: Response) {
-        const id = parseInt(req.params.kontonr, 10);
+    getTransactions(kontonr_param : string) {
+        const id = parseInt(kontonr_param, 10);
         console.log('Search for transaction with kontonr = ' + id);
         const con = this.connectToDb();
         const sql = `SELECT stryktipsbolag.transaktion.ID, stryktipsbolag.transaktion.beskrivning, stryktipsbolag.transaktion.debit,
@@ -48,8 +48,8 @@ export class Spelbolagservice {
     /**
     * Hämtar en spelare med givet userid.
     */
-    getSpelare(req: Request, res: Response) {
-        const userid = req.params.userid;
+    getSpelare(userid_params : string) {
+        const userid = userid_params;
         console.log('Hämtar en Spelare med userid = ' + userid);
         const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.spelare where userid = "' + userid + '";';
@@ -62,8 +62,8 @@ export class Spelbolagservice {
     /**
     * Hämtar ett Spelbolag med namn.
     */
-    getSpelbolag(req: Request, res: Response) {
-        const namn = (req.params.namn == null) ? '%': req.params.namn;
+    getSpelbolag(namn_params : string) {
+        const namn = (namn_params == null) ? '%': namn_params;
         console.log('Hämtar ett Spelbolag med namn = ' + namn);
         const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.spelbolag where namn LIKE "' + namn + '";';
@@ -76,7 +76,7 @@ export class Spelbolagservice {
     /**
     * Hämtar ett konto för givet kontonummer.
     */
-    getKonto(kontonummer) {
+    getKonto(kontonummer : string) {
         const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.konto where kontonr = ' + kontonummer + ';';
         let sqlpromise = this.createSQLPromise(sql, con);
@@ -87,11 +87,11 @@ export class Spelbolagservice {
     /**
     * Lägg in en transaktionpost på givet kontonummer.
     */
-    async addTransaktion(req: Request, res: Response) {
-        const beskrivning = req.body['beskrivning'];
-        const kredit = (req.body['kredit'] == null) ? 0: req.body['kredit'];
-        const debit = (req.body['dedit'] == null) ? 0: req.body['debit'];
-        const kontonummer = req.body['kontonummer'];
+    async addTransaktion(beskrivning_params, kredit_params, debit_params, kontonummer_params) {
+        const beskrivning = beskrivning_params;
+        const debit = (debit_params == null) ? 0: debit_params;
+        const kredit = (kredit_params == null) ? 0: kredit_params;
+        const kontonummer = kontonummer_params;
         console.log('Skapar en transaktion med {beskrivning:' + beskrivning + ', debit:' + debit + ', kredit:' + kredit +', kontonummer:' + kontonummer + '}.');
 
         let con = this.connectToDb();
