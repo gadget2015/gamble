@@ -31,7 +31,7 @@ export class Spelbolagservice {
         const id = parseInt(kontonr_param, 10);
         console.log('Search for transaction with kontonr = ' + id);
         const con = this.connectToDb();
-        const sql = `SELECT stryktipsbolag.transaktion.ID, stryktipsbolag.transaktion.beskrivning, stryktipsbolag.transaktion.debit,
+        const sql = `SELECT stryktipsbolag.transaktion.ID, stryktipsbolag.transaktion.beskrivning, stryktipsbolag.transaktion.debet,
                             stryktipsbolag.transaktion.kredit, stryktipsbolag.transaktion.tid,
                     		stryktipsbolag.konto_transaktion.konto_id, stryktipsbolag.konto.kontonr
                     	FROM stryktipsbolag.transaktion
@@ -100,10 +100,10 @@ export class Spelbolagservice {
     */
     async addTransaktion(beskrivning_params, kredit_params, debit_params, kontonummer_params) {
         const beskrivning = beskrivning_params;
-        const debit = (debit_params == null) ? 0: debit_params;
+        const debet = (debit_params == null) ? 0: debit_params;
         const kredit = (kredit_params == null) ? 0: kredit_params;
         const kontonummer = kontonummer_params;
-        console.log('Skapar en transaktion med {beskrivning:' + beskrivning + ', debit:' + debit + ', kredit:' + kredit +', kontonummer:' + kontonummer + '}.');
+        console.log('Skapar en transaktion med {beskrivning:' + beskrivning + ', debet:' + debet + ', kredit:' + kredit +', kontonummer:' + kontonummer + '}.');
 
         let con = this.connectToDb();
 
@@ -117,8 +117,8 @@ export class Spelbolagservice {
 
         // Lägger in en ny transaktion i databasen.
         con = this.connectToDb();   // need new connection to db, the previous is stalled.
-        const sqlInsertTransaktion = 'INSERT INTO stryktipsbolag.transaktion (ID, BESKRIVNING, DEBIT,KREDIT, TID) ' +
-                    'VALUES (' + nextTransaktionId + ', \'' + beskrivning + '\',' + debit + ', ' + kredit + ',CURRENT_TIMESTAMP);';
+        const sqlInsertTransaktion = 'INSERT INTO stryktipsbolag.transaktion (ID, BESKRIVNING, DEBET,KREDIT, TID) ' +
+                    'VALUES (' + nextTransaktionId + ', \'' + beskrivning + '\',' + debet + ', ' + kredit + ',CURRENT_TIMESTAMP);';
         let insertTransaktionPromise = this.createSQLPromise(sqlInsertTransaktion, con);
 
         // Lägger in relation mellan konto och transaktion.
@@ -154,6 +154,30 @@ export class Spelbolagservice {
         const queryPromise = this.createSQLPromise(sqlQuery, con);
 
         return queryPromise;
+    }
+
+    /**
+    * Beräknar saldo för givet kontonummer.
+    */
+    async getSaldo(kontonummer) {
+        const transaktioner = await this.getTransactions(kontonummer);
+        let saldo = 0;
+
+        for (var i = 0; i < transaktioner['queryResult'].length; i++) {
+            const kredit = transaktioner['queryResult'][i].kredit;
+            const debet = transaktioner['queryResult'][i].debet;
+            saldo += debet - kredit;
+        }
+
+        return saldo;
+    }
+
+    /**
+    * Ta betalt av alla spelare som ingår i givet spelbolag.
+    */
+    async taBetaltForEnOmgang(spelbolagnamn, tidpunkt) {
+
+
     }
 
     /**

@@ -15,9 +15,9 @@ http://localhost:4001/api/v1/spelbolag/5
 * npm i jest @types/jest ts-jest -D
 * Utför tester med en uppstartad MySQL databas, Det behöver finnas lite data i databasen.
 
-``INSERT INTO `stryktipsbolag`.`transaktion` (`ID`,`BESKRIVNING`,`DEBIT`,`KREDIT`,`TID`) VALUES (1, 'Spelar stryktipset', 0, 50,CURRENT_TIMESTAMP); ``
-``INSERT INTO `stryktipsbolag`.`transaktion` (`ID`,`BESKRIVNING`,`DEBIT`,`KREDIT`,`TID`) VALUES (2, 'Spelar stryktipset', 0, 25,CURRENT_TIMESTAMP); ``
-``INSERT INTO `stryktipsbolag`.`transaktion` (`ID`,`BESKRIVNING`,`DEBIT`,`KREDIT`,`TID`) VALUES (3, 'Spelar stryktipset', 0, 50,CURRENT_TIMESTAMP); ``
+``INSERT INTO `stryktipsbolag`.`transaktion` (`ID`,`BESKRIVNING`,`DEBET`,`KREDIT`,`TID`) VALUES (1, 'Spelar stryktipset', 0, 50,CURRENT_TIMESTAMP); ``
+``INSERT INTO `stryktipsbolag`.`transaktion` (`ID`,`BESKRIVNING`,`DEBET`,`KREDIT`,`TID`) VALUES (2, 'Spelar stryktipset', 0, 25,CURRENT_TIMESTAMP); ``
+``INSERT INTO `stryktipsbolag`.`transaktion` (`ID`,`BESKRIVNING`,`DEBET`,`KREDIT`,`TID`) VALUES (3, 'Spelar stryktipset', 0, 50,CURRENT_TIMESTAMP); ``
 ``INSERT INTO `stryktipsbolag`.`konto` (`ID`,`KONTONR`) VALUES (1, 234);``
 ``INSERT INTO `stryktipsbolag`.`konto` (`ID`,`KONTONR`) VALUES (2, 1967);``
 ``INSERT INTO `stryktipsbolag`.`konto` (`ID`,`KONTONR`) VALUES (3, 88);``
@@ -57,7 +57,7 @@ Tjänsten består av tabellerna transaktion,
 CREATE TABLE `transaktion` (
   `ID` bigint(8) NOT NULL,
   `beskrivning` varchar(255) DEFAULT NULL,
-  `debit` int(11) DEFAULT NULL,
+  `debet` int(11) DEFAULT NULL,
   `kredit` int(11) DEFAULT NULL,
   `tid` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`)

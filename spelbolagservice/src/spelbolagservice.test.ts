@@ -95,7 +95,41 @@ test('Hämtar alla spelare i ett Spelbolag.', async () => {
     expect(result['queryResult'].length).toBe(3);
 });
 
+test('Hämtar saldo för en givet kontonummer efter debet (+)', async () => {
+    // Given
+    const service = new Spelbolagservice();
+
+    // When
+    const saldoBefore = await service.getSaldo('1967');
+    const result = await service.addTransaktion('Spelar på Stryktipset', 0, 30, 1967);
+    const saldoAfter = await service.getSaldo('1967');
+
+    // Then
+    expect(saldoAfter - saldoBefore).toBe(30);
+});
+
+test('Hämtar saldo för en givet kontonummer efter kredit (-)', async () => {
+    // Given
+    const service = new Spelbolagservice();
+
+    // When
+    const saldoBefore = await service.getSaldo('1967');
+    const result = await service.addTransaktion('Spelar på Stryktipset', 50, 0, 1967);
+    const saldoAfter = await service.getSaldo('1967');
+
+    // Then
+    expect(saldoAfter - saldoBefore).toBe(-50);
+});
+
 test('Ta betalt av alla seplare i ett spelbolag', async () => {
+    // Given
+    const service = new Spelbolagservice();
+    //const spelare1Saldo =
+
+    // When
+    const result = await service.taBetaltForEnOmgang('The gamblers', '2020-10-21 08:00:00');
+
+    // Then
 
 });
 
