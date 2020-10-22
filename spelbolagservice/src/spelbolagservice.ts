@@ -140,7 +140,7 @@ export class Spelbolagservice {
     }
 
     /**
-    * Hämtar alla spelare som är med i givet spelbolag.
+    * Hämtar alla spelare som är med i givet spelbolag id.
     */
     async getAllaSpelareForSpelbolag(id_param : string) {
         console.log('Hämtar alla spelare för givet spelbolag ID(' + id_param + ').');
@@ -176,8 +176,26 @@ export class Spelbolagservice {
     * Ta betalt av alla spelare som ingår i givet spelbolag.
     */
     async taBetaltForEnOmgang(spelbolagnamn, tidpunkt) {
+        // Hämtar hur mycket som ska ta betalts av varje spelare.
+        const spelbolag = await this.getSpelbolag(spelbolagnamn);
+        const insatsperomgang = spelbolag['queryResult'][0]['insatsperomgang'];
+        console.log('insatsperomgang = '  + insatsperomgang);
 
+        // Hämtar alla spelare för givet spelbolag.
+        const spelbolag_id = spelbolag['queryResult'][0]['ID'];
+        const spelare = await this.getAllaSpelareForSpelbolag(spelbolag_id);
 
+        // Lägger till en kredit (-) för varje spelare
+        for (var i = 0; i < spelare['queryResult'].length; i++) {
+             const text = 'Tar betalt av spelare.';
+             const kredit = insatsperomgang;
+             const debet = 0;
+             const konto_id = spelare['queryResult'] [i].konto_id;
+             const konto = await this.getKontoByID(konto_id);
+             const kontonummer = konto['queryResult'][0].kontonr;
+
+             await this.addTransaktion(text, kredit, debet, kontonummer);
+          }
     }
 
     /**

@@ -34,7 +34,7 @@ test('Hämtar alla transaktioner för ett givet kontonummer.', async () => {
     const result = await service.getTransactions('234');
 
     // Then
-    expect(result['queryResult'].length).toBe(2);
+    expect(result['queryResult'].length).toBeGreaterThan(2);
 });
 
 test('Leta fram en seplare', async () => {
@@ -124,13 +124,18 @@ test('Hämtar saldo för en givet kontonummer efter kredit (-)', async () => {
 test('Ta betalt av alla seplare i ett spelbolag', async () => {
     // Given
     const service = new Spelbolagservice();
-    //const spelare1Saldo =
+    const spelare1Saldo = await service.getSaldo('234');
+    const spelare2Saldo = await service.getSaldo('89');
+    const spelare3Saldo = await service.getSaldo('98');
+    const spelbolagSaldo = await service.getSaldo('88')
 
     // When
     const result = await service.taBetaltForEnOmgang('The gamblers', '2020-10-21 08:00:00');
 
     // Then
-
+    const spelare1SaldoAfter = await service.getSaldo('234');
+    expect(spelare1SaldoAfter - spelare1Saldo).toBe(-50);    // Det borde dragits 50 ifrån spelarkontot.
+    console.log('före' + spelare1Saldo + ', efter ' + spelare1SaldoAfter);
 });
 
 /**
