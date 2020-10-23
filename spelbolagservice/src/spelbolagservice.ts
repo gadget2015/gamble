@@ -179,15 +179,18 @@ export class Spelbolagservice {
         // Hämtar hur mycket som ska ta betalts av varje spelare.
         const spelbolag = await this.getSpelbolag(spelbolagnamn);
         const insatsperomgang = spelbolag['queryResult'][0]['insatsperomgang'];
-        console.log('insatsperomgang = '  + insatsperomgang);
+
+        // Hämtar spelbolaget kontonummer
+        const spelbolagsKonto = await this.getKontoByID(spelbolag['queryResult'][0]['konto_id']);
+        const spelbolagKontonummer = spelbolagsKonto['queryResult'][0].kontonr;
 
         // Hämtar alla spelare för givet spelbolag.
         const spelbolag_id = spelbolag['queryResult'][0]['ID'];
         const spelare = await this.getAllaSpelareForSpelbolag(spelbolag_id);
 
-        // Lägger till en kredit (-) för varje spelare
+        // Lägger till en kredit (-) för varje spelare och debet (+) för spelbolaget.
         for (var i = 0; i < spelare['queryResult'].length; i++) {
-             const text = 'Tar betalt av spelare.';
+             const text = 'Tar betalt av spelare för spelbolaget ' + spelbolagnamn;
              const kredit = insatsperomgang;
              const debet = 0;
              const konto_id = spelare['queryResult'] [i].konto_id;
@@ -195,6 +198,7 @@ export class Spelbolagservice {
              const kontonummer = konto['queryResult'][0].kontonr;
 
              await this.addTransaktion(text, kredit, debet, kontonummer);
+             await this.addTransaktion('Får betalt av spelare' + spelare['queryResult'][i].userid, 0, insatsperomgang, spelbolagKontonummer);
           }
     }
 
