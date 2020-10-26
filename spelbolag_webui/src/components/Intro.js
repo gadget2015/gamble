@@ -3,8 +3,8 @@ import './Intro.css';
 
 function Intro() {
   return (
-    <div class="row">
-      <div class="column">
+    <div className="row">
+      <div className="column">
      Sajten för dig som är med i ett spelbolag
      Denna hemsida är till för dig som är med i ett spelbolag eller administrerar ett spelbolag.<br/><br/>
 
@@ -16,8 +16,8 @@ function Intro() {
     </ul>
         <br/><br/><br/>Är det något som inte fungerar som det borde, maila mig: robert.georen@gmail.com.
         </div>
-        <div class="column">
-            <img src="intro_bild.png"/>
+        <div className="column">
+            <img src="intro_bild.png" alt="Så glada blir vi!"/>
         </div>
         <i>version 0.1 (2020)</i>
     </div>
