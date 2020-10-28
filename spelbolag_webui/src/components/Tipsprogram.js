@@ -10,7 +10,8 @@ function Tipsprogram() {
     Systemkrav<br/>
     Programmet är ett Java program, vilket ger fördelar som plattformsoberoende och automatisk uppdatering av ny versioner. Systemkravet är dock att man har Java installerat på sin maskin. Den version av Java som krävas är Java2 ( version 1.5 eller högre ).
     <br/><br/>
-    Starta Gamble application, Klicka <a href="http://stryktipsbolag.se/gamble.jnlp">här</a>.
+    Starta Gamble application, Klicka <a href="http://stryktipsbolag.se/gamble.jnlp">här</a>.<br/>
+    <a href="gambleapplication.pdf">Manual</a>
     <br/><br/>
     Skärmdumpar på Gamble Application<br/>
     <img src="screenshot_1.gif" alt="Skärmbild på Stryktipset."/><br/>

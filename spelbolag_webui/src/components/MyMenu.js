@@ -1,11 +1,13 @@
 import React from 'react';
 import { Menu } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
-import { Button } from '@material-ui/core';
 import './MyMenu.css';
+import { OAuth2ImplicitFlow } from './OAuth2ImplicitFlow';
 
 function MyMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const loginService = new OAuth2ImplicitFlow();
+  loginService.handleClientLoad();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,6 +19,8 @@ function MyMenu(props) {
 
   const handleLogin = () => {
     setAnchorEl(null);
+
+    loginService.login();
   };
 
   const handleTipsprogramClick = () => {

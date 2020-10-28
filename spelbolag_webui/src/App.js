@@ -9,12 +9,6 @@ function App() {
     const [showIntro, setShowIntro] = useState(true);
     const [showTipsprogram, setShowTipsprogram] = useState(false);
 
-    const myF = function hello(data) {
-        setShowIntro(data);
-        console.log('hello anropas');
-    };
-
-
     let content;
 
     if (showIntro === true) {
