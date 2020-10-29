@@ -4,9 +4,11 @@
  * Google inloggningslösning.
  */
 class OAuth2ImplicitFlow {
-    constructor() {
+    constructor(setInloggad, setUsername) {
         this.GoogleAuth = {};
         this.SCOPE = 'https://www.googleapis.com/auth/userinfo.email';
+        this.setInloggad = setInloggad;
+        this.setUsername = setUsername;
         console.log('OAuth2ImplicitFlow.constructor');
     }
 
@@ -22,24 +24,29 @@ class OAuth2ImplicitFlow {
             'discoveryDocs': [],
             'scope': this.SCOPE
         }).then(function () {
-            console.log('callback from client.init SCOPE=' + parent.SCOPE);
+            console.log('callback from client.init.');
             parent.GoogleAuth = window.gapi.auth2.getAuthInstance();
 
             // Listen for sign-in state changes.
-            parent.GoogleAuth.isSignedIn.listen(parent.updateSigninStatus);
+            //parent.GoogleAuth.isSignedIn.listen(parent.updateSigninStatus);
+            parent.GoogleAuth.isSignedIn.listen(parent.createSigninStatusCallbackFunction(parent));
 
             // Handle initial sign-in state. (Determine if user is already signed in.)
-            var user = parent.GoogleAuth.currentUser.get();
+            parent.GoogleAuth.currentUser.get();
             parent.setSigninStatus();
         });
     }
 
-    mycall(parent) {
-        parent.initClient(parent);
+    createSigninStatusCallbackFunction(parent) {
+        console.log('createSigninStatusCallbackFunction');
+        return function() {
+            console.log('callback from client.init.');
+            parent.updateSigninStatus(parent)
+        }
     }
 
-    heyScope() {
-        return this.SCOPE;
+    mycall(parent) {
+        parent.initClient(parent);
     }
 
     handleClientLoad() {
@@ -62,24 +69,35 @@ class OAuth2ImplicitFlow {
     }
 
     updateSigninStatus() {
+        console.log('updateSigninStatus');
         this.setSigninStatus();
     }
 
     setSigninStatus() {
         var user = this.GoogleAuth.currentUser.get();
-        console.log('User=' + JSON.stringify(user));
-        console.log('email=' + user.getBasicProfile().getEmail());
+
         var isAuthorized = user.hasGrantedScopes(this.SCOPE);
         if (isAuthorized) {
             console.log('Inloggad.');
+            var username = user.getBasicProfile().getEmail();
+            console.log('email=' + username);
+            this.setUsername(username);
+            this.setInloggad(true);
         } else {
             console.log('oinloggad');
+            this.setUsername('');
+            this.setInloggad(false);
         }
     }
 
     login() {
         console.log('Login user...');
         this.GoogleAuth.signIn();
+    }
+
+    logout() {
+        console.log('Logout user...');
+        this.GoogleAuth.signOut();
     }
 };
 
