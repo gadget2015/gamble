@@ -9,11 +9,10 @@ class OAuth2ImplicitFlow {
         this.SCOPE = 'https://www.googleapis.com/auth/userinfo.email';
         this.setInloggad = setInloggad;
         this.setUsername = setUsername;
-        console.log('OAuth2ImplicitFlow.constructor');
     }
 
     initClient(parent) {
-        console.log('callback från gapi.load = ' + this.SCOPE);
+        //console.log('initClient(): Callback från gapi.load = ' + this.SCOPE);
 
         // Initialize the gapi.client object, which app uses to make API requests.
         // Get API key and client ID from API Console.
@@ -24,7 +23,6 @@ class OAuth2ImplicitFlow {
             'discoveryDocs': [],
             'scope': this.SCOPE
         }).then(function () {
-            console.log('callback from client.init.');
             parent.GoogleAuth = window.gapi.auth2.getAuthInstance();
 
             // Listen for sign-in state changes.
@@ -37,10 +35,12 @@ class OAuth2ImplicitFlow {
         });
     }
 
+    /**
+     * Skapar en callbackfunktion som kan komma åt en skapad klassinstans, dvs. parent=this.
+     * Detta gör det möjligt att komma åt this.SCOPE, vilket är definierad i konstruktorn.
+     */
     createSigninStatusCallbackFunction(parent) {
-        console.log('createSigninStatusCallbackFunction');
-        return function() {
-            console.log('callback from client.init.');
+         return function() {
             parent.updateSigninStatus(parent)
         }
     }
@@ -49,54 +49,52 @@ class OAuth2ImplicitFlow {
         parent.initClient(parent);
     }
 
+    /**
+     * Load the API's client and auth2 modules.
+     * Call the initClient function after the modules load.
+     */
     handleClientLoad() {
-        console.log('handleClientload');
+        // Skapar en callbackfunktion som kan komma åt denna klassinstans, dvs. parent = this.
+        // Detta för att komma åt SCOPE som sitter på denna klassinstans i konstruktorn.
         const initCallback = function(parent) {
-            console.log('create function.');
-
             return function z() {
-                console.log('z and this = ' + parent);
                 return parent.mycall(parent);
             }
         }
 
         let zz = initCallback(this);
 
-        // Load the API's client and auth2 modules.
-        // Call the initClient function after the modules load.
         window.gapi.load('client:auth2', zz);
-        console.log('handleClientload.end');
     }
 
     updateSigninStatus() {
-        console.log('updateSigninStatus');
         this.setSigninStatus();
     }
 
+    /**
+     * Uppdaterar om användaren är inloggad, och då med vilket email/username.
+     */
     setSigninStatus() {
         var user = this.GoogleAuth.currentUser.get();
-
         var isAuthorized = user.hasGrantedScopes(this.SCOPE);
+
         if (isAuthorized) {
-            console.log('Inloggad.');
             var username = user.getBasicProfile().getEmail();
-            console.log('email=' + username);
+            console.log('Inloggad med email =' + username);
+            //console.log('id_token' + user.getAuthResponse().id_token);
             this.setUsername(username);
             this.setInloggad(true);
         } else {
-            console.log('oinloggad');
             this.setUsername('');
             this.setInloggad(false);
         }
     }
 
     login() {
-        console.log('Login user...');
         this.GoogleAuth.signIn();
     }
 
     logout() {
-        console.log('Logout user...');
         this.GoogleAuth.signOut();
     }
 };

@@ -10,7 +10,7 @@ function MyMenu(props) {
   const [inloggad, setInloggad] = useState(false);
   const [username, setUsername] = useState('');
   const loginService = new OAuth2ImplicitFlow(setInloggad, setUsername);
-  loginService.handleClientLoad();
+  loginService.handleClientLoad();  // Förbereder inloggning mot Google med Oauth2 Implicit Flow.
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,7 +42,6 @@ function MyMenu(props) {
   }
 
     // Hanterar menyvalet login & logout.
-
     let authenticationContent;
 
     if (inloggad === false) {

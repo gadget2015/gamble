@@ -4,7 +4,12 @@
 
 Använder spelbolagservice.
 
-https://material-ui.com/
+Använder UI komponenter ifrån https://material-ui.com/.
+
+Verifiera id_token:
+https://oauth2.googleapis.com/tokeninfo?id_token=eyJhbGci
+
+Dokumentation: https://developers.google.com/identity/sign-in/web/reference#gapiauth2authresponse
 
 ### `npm start`
 
