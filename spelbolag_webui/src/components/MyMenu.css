@@ -2,13 +2,12 @@
     text-align: left;
 }
 
-.column {
+.column-header1 {
   float: left;
-  width: 50%;
+  width: 10%;
 }
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+
+.column-header2 {
+  float: left;
+  width: 80%;
 }

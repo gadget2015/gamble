@@ -52,20 +52,20 @@ function MyMenu(props) {
 
   return (
     <div className="MenuStyle row">
-     <div className="column">
-     <img src="menu.png" onClick={handleClick} aria-controls="simple-menu" aria-haspopup="true" alt="Meny"/>
-     <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-             <MenuItem onClick={handleHemClick}>Hem</MenuItem>
-             <MenuItem onClick={handleClose}>Mitt tipssaldo</MenuItem>
-             <MenuItem onClick={handleClose}>Tipsbolagen</MenuItem>
-             <MenuItem onClick={handleTipsprogramClick}>Tipsprogram</MenuItem>
-             <MenuItem onClick={handleClose}>Administration</MenuItem>
-             {authenticationContent}
-     </Menu>
+     <div className="column-header1">
+         <img src="menu.png" onClick={handleClick} aria-controls="simple-menu" aria-haspopup="true" alt="Meny"/>
+         <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+                 <MenuItem onClick={handleHemClick}>Hem</MenuItem>
+                 <MenuItem onClick={handleClose}>Mitt tipssaldo</MenuItem>
+                 <MenuItem onClick={handleClose}>Tipsbolagen</MenuItem>
+                 <MenuItem onClick={handleTipsprogramClick}>Tipsprogram</MenuItem>
+                 <MenuItem onClick={handleClose}>Administration</MenuItem>
+                 {authenticationContent}
+         </Menu>
      </div>
-     <div className="column">
+     <div className="column-header2">
         <h1>Spelbolagsajten</h1>
-        Inloggad som: {username}
+        <i>Inloggad som: {username}</i>
      </div>
     </div>
   );
