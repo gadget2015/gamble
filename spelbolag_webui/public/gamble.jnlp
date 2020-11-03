@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for Gamble Application -->
+<jnlp spec="1.0+" codebase="http://www.stryktipsbolag.se/" href="gamble.jnlp">
+    <information>
+        <title>Gamble Application</title>
+        <vendor>Robert Georen Siwerz</vendor>
+        <homepager href="docs/help.html"/>
+        <description>Gamble Application</description>
+        <description kind="short">A gamble application</description>
+        <icon href="gambleicon.gif"/>
+        <icon kind="splash" href="splashscreen.gif"/>
+        <offline-allowed/>
+        <shortcut>
+           <desktop/>
+        </shortcut>
+    </information>
+    <security>
+        <all-permissions/>
+    </security>
+    <resources>
+        <j2se version="1.6"/>
+        <jar href="tips-1.0.jar"/>
+        <jar href="xercesImpl-2.6.2.jar"/> 
+        <jar href="xmlParserAPIs-2.0.0.jar"/> 
+        <!-- <jar href="documentation.jar"/> --> 
+    </resources>
+    <application-desc main-class="org.robert.tips.Main"/>
+</jnlp>
+

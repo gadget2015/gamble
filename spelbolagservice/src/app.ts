@@ -17,8 +17,8 @@ app.use(function(req, res, next) {
 
 app.get('/api/v1/transactions/:id', (req, res) => {
     const spelbolagservice = new Spelbolagservice();
-
-    spelbolagservice.getTransaction(req, res).then( (result) => {
+    const transactionsId = req.params.id;
+    spelbolagservice.getTransaction(transactionsId).then( (result) => {
             const theNote = result['queryResult'];
             res.status(200).send({
                             success: 'true',
@@ -33,6 +33,10 @@ app.get('/api/v1/transactions/:id', (req, res) => {
         });
 });
 
+app.get('/bff/v1/tipsbolagen', (req, res) => {
+    console.log('BFF called.');
+
+});
 
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}.`);
