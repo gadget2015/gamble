@@ -9,6 +9,7 @@ function MyMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [inloggad, setInloggad] = useState(false);
   const [username, setUsername] = useState('');
+
   const loginService = new OAuth2ImplicitFlow(setInloggad, setUsername);
   loginService.handleClientLoad();  // Förbereder inloggning mot Google med Oauth2 Implicit Flow.
 
@@ -17,27 +18,26 @@ function MyMenu(props) {
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    resetMenuChooice();
   };
 
   const handleLogin = () => {
-    setAnchorEl(null);
+    resetMenuChooice();
     loginService.login();
   };
 
   const handleLogout = () => {
-    setAnchorEl(null);
+    resetMenuChooice();
     loginService.logout();
   }
 
   const handleTipsprogramClick = () => {
-    setAnchorEl(null);
+    resetMenuChooice();
     props.setShowTipsprogram(true);
-    props.setShowIntro(false);
   }
 
   const handleHemClick = () => {
-        setAnchorEl(null);
+        resetMenuChooice();
         props.setShowIntro(true);
   }
 
@@ -50,6 +50,18 @@ function MyMenu(props) {
         authenticationContent = (<MenuItem onClick={handleLogout}>Logout</MenuItem>);
     }
 
+  const handleVisaTipsbolagen = () => {
+    resetMenuChooice();
+    props.setShowTipsbolag(true);
+  }
+
+  const resetMenuChooice = () => {
+    setAnchorEl(null);
+    props.setShowTipsprogram(false);
+    props.setShowIntro(false);
+    props.setShowTipsbolag(false);
+  }
+
   return (
     <div className="MenuStyle row">
      <div className="column-header1">
@@ -57,7 +69,7 @@ function MyMenu(props) {
          <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                  <MenuItem onClick={handleHemClick}>Hem</MenuItem>
                  <MenuItem onClick={handleClose}>Mitt tipssaldo</MenuItem>
-                 <MenuItem onClick={handleClose}>Tipsbolagen</MenuItem>
+                 <MenuItem onClick={handleVisaTipsbolagen}>Tipsbolagen</MenuItem>
                  <MenuItem onClick={handleTipsprogramClick}>Tipsprogram</MenuItem>
                  <MenuItem onClick={handleClose}>Administration</MenuItem>
                  {authenticationContent}

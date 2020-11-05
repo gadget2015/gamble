@@ -9,6 +9,11 @@ Tjänsten är en REST-tjänst som körs i en Express server med Node.js version 
 
 http://localhost:4001/api/v1/spelbolag/5
 
+Vid utveckling så startas tjänsten i development mode med hotreload/watch.
+
+> npm run dev
+
+
 # Testning
 * Använder Jest, https://basarat.gitbooks.io/typescript/content/docs/testing/jest.html
 * Mockar Request och Response med https://www.npmjs.com/package/node-mocks-http.

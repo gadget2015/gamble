@@ -1,32 +1,20 @@
-import {Spelbolagservice} from './spelbolagservice';
+import {BFF} from './BFF';
 import mock = jest.mock;
 import * as httpMocks from 'node-mocks-http';
 
-test('Dummy test', () => {
-});
-/**
-test('Leta fram en transaktion med givet ID.', async () => {
+test('Hämtar initial vy för spelbolag sidan', async () => {
     // Given
-    const service = new Spelbolagservice();
-
-    let req = httpMocks.createRequest({
-        method: 'GET',
-        url: '/api/v1/transactions/',
-        params: {
-            id: 1
-        }
-    });
-
-    let res = httpMocks.createResponse();
+    const service = new BFF();
 
     // When
-    const result = await service.getTransaction(req, res);
+    const result = await service.getInitialVyForSpelbolag();
 
     // Then
-    expect(result['queryResult'][0]['beskrivning']).toBe('Spelar stryktipset');
+    expect(result['bffResult'][0]['namn']).toBe('The gamblers');
+    expect(result['bffResult'][0]['antalSpelare']).toBe(3);
 });
 
-
+/**
 test('Kan inte hitta en transaktion med givet ID.', async () => {
     // Given
     const service = new Spelbolagservice();

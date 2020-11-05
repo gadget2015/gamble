@@ -1,5 +1,6 @@
 import express from 'express';
 import {Spelbolagservice} from "./spelbolagservice";
+import {BFF} from './BFF';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
@@ -33,9 +34,22 @@ app.get('/api/v1/transactions/:id', (req, res) => {
         });
 });
 
-app.get('/bff/v1/tipsbolagen', (req, res) => {
-    console.log('BFF called.');
+app.get('/bff/v1/tipsbolag/', (req, res) => {
+    const bffService = new BFF();
 
+    bffService.getInitialVyForSpelbolag().then( (result) => {
+            const spelbolag = result['bffResult'];
+            res.status(200).send({
+                            success: 'true',
+                            message: 'Hämtat initial vydata för Spelbolag sidan, ' + spelbolag.length + ' Spelbolag hittade.',
+                            data: spelbolag
+                        });
+        }, rejection => {
+            res.status(200).send({
+                                success: 'false',
+                                message: 'Error while query database.'
+                            });
+        });
 });
 
 app.listen(port, () => {

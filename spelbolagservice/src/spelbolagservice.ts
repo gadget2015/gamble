@@ -95,6 +95,18 @@ export class Spelbolagservice {
         return sqlpromise;
     }
 
+
+    /**
+    * Hämtar alla spelbolag.
+    */
+    getAllaSpelbolag() {
+        const con = this.connectToDb();
+        const sql = 'select * from stryktipsbolag.spelbolag;';
+        let sqlpromise = this.createSQLPromise(sql, con);
+
+        return sqlpromise;
+    }
+
     /**
     * Lägg in en transaktionpost på givet kontonummer.
     */

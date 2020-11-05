@@ -139,6 +139,17 @@ test('Ta betalt av alla seplare i ett spelbolag', async () => {
     expect(await service.getSaldo('88') - spelbolagSaldo).toBe(150);
 });
 
+test('Hämtar alla spelbolag.', async () => {
+    // Given
+    const service = new Spelbolagservice();
+
+    // When
+    const result = await service.getAllaSpelbolag();
+
+    // Then
+    expect(result['queryResult'].length).toBe(2);
+});
+
 /**
 * Skriver ut resultset.
 */
