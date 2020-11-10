@@ -52,6 +52,25 @@ app.get('/bff/v1/tipsbolag/', (req, res) => {
         });
 });
 
+app.get('/bff/v1/tipsbolag/transaktioner/:kontonummer', (req, res) => {
+    const bffService = new BFF();
+    const kontonummer = req.params.kontonummer;
+
+    bffService.transaktionerForEttKonto(kontonummer).then( (result) => {
+            const bffResult = result['bffResult'];
+            res.status(200).send({
+                            success: 'true',
+                            message: 'Hämtat transaktioner för ett spelbolag.',
+                            data: bffResult
+                        });
+        }, rejection => {
+            res.status(200).send({
+                                success: 'false',
+                                message: 'Error while query database.'
+                            });
+        });
+});
+
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}.`);
     });
