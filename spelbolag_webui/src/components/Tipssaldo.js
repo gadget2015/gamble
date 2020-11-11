@@ -2,48 +2,36 @@ import React from 'react';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import {BFF} from './../service/BFF';
-import './Tipsbolag.css';
+import './Tipssaldo.css';
 
-function Tipsbolag() {
+function Tipssaldo() {
     const [rerun] = useState(false);  // Ska bara hämta data en gång.
-    const [spelbolag, setSpelbolag] = useState([]);
     const [transaktioner, setTransaktioner] = useState([]);
     const [saldo, setSaldo] = useState(0);
+    const [message, setMessage] = useState('');
 
     // Laddar in vy data.
     useEffect( () => {
         const bffService = new BFF();
-        bffService.spelbolagStartSida().then((vydata) => {
-            setSpelbolag(vydata['data']);
+
+        bffService.tipssaldoStartSida().then((vydata) => {
+            const notAuthenticated = vydata['error'];
+            if (notAuthenticated !== null) {
+                setMessage('Du måste logga in för att kunna se ditt saldo.');
+            } else {
+                setTransaktioner(vydata['data']['transaktioner']);
+                setSaldo(vydata['data']['saldo']);
+                console.log('saldo=' + vydata['data']['saldo']);
+            }
         }, (failed) => {
             alert('Network connection error when calling REST API, status code = ' + failed);
         });
     }, [rerun]);
 
-    const visaTransaktioner = function(kontonummer) {
-        const bffService = new BFF();
-                bffService.transaktionerForSpelboalg(kontonummer).then((vydata) => {
-                    setTransaktioner(vydata['data']['transaktioner']);
-                    setSaldo(vydata['data']['saldo']);
-                    console.log('saldo=' + vydata['data']['saldo']);
-                }, (failed) => {
-                    alert('Network connection error when calling REST API, status code = ' + failed);
-                });
-    };
-
     return (
         <div>
-        Här är alla aktiva spelbolag.
-         <ul>
-            {
-
-                spelbolag.map((currentValue, index) => {
-                        return (<li key={index}>
-                            <div onClick={() => visaTransaktioner(currentValue['kontonummer'])} className="linkclick">{currentValue['namn']}</div>Insats {currentValue['insatsperomgang']} kr per omgång, och tipssaldo {currentValue['saldo']} kr.</li>
-                            );
-                        })
-            }
-         </ul>
+        <div className="message">{message}</div>
+        Här är alla dina transaktioner.
 
          Saldo: <b>{saldo} kr</b>.<br></br><br></br>
          <b>Transaktioner:</b>
@@ -76,4 +64,4 @@ function Tipsbolag() {
       );
 }
 
-export {Tipsbolag};
+export {Tipssaldo};

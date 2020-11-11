@@ -38,7 +38,7 @@ class GoogleAuthenticationMiddleware {
                 let error = json['error'];
 
                 if ( error === 'invalid_token') {
-                    res.status(200).send('Du är inte autentiserad.');
+                    res.status(200).send({error: 'Du är inte autentiserad.'});
                 } else {
                     let userid = json['email'];
                     console.log('Du är autentiserad som ' + userid + '.');

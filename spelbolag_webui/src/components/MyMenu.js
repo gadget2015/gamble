@@ -55,11 +55,17 @@ function MyMenu(props) {
     props.setShowTipsbolag(true);
   }
 
+  const handleVisaTipssaldo = () => {
+    resetMenuChooice();
+    props.setShowTipssaldo(true);
+  }
+
   const resetMenuChooice = () => {
     setAnchorEl(null);
     props.setShowTipsprogram(false);
     props.setShowIntro(false);
     props.setShowTipsbolag(false);
+    props.setShowTipssaldo(false);
   }
 
   return (
@@ -68,7 +74,7 @@ function MyMenu(props) {
          <img src="menu.png" onClick={handleClick} aria-controls="simple-menu" aria-haspopup="true" alt="Meny"/>
          <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                  <MenuItem onClick={handleHemClick}>Hem</MenuItem>
-                 <MenuItem onClick={handleClose}>Mitt tipssaldo</MenuItem>
+                 <MenuItem onClick={handleVisaTipssaldo}>Mitt tipssaldo</MenuItem>
                  <MenuItem onClick={handleVisaTipsbolagen}>Tipsbolagen</MenuItem>
                  <MenuItem onClick={handleTipsprogramClick}>Tipsprogram</MenuItem>
                  <MenuItem onClick={handleClose}>Administration</MenuItem>
