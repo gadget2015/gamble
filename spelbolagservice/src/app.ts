@@ -1,37 +1,29 @@
 import express from 'express';
 import {Spelbolagservice} from "./spelbolagservice";
 import {BFF} from './BFF';
+import {GoogleAuthenticationMiddleware} from './GoogleAuthenticationMiddleware';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+const cookieParser = require('cookie-parser')
+const oauth2 = new GoogleAuthenticationMiddleware();
 const app = express();
 const port = 4001;
 
 // https://medium.com/@purposenigeria/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb
 app.use(bodyParser.json());
 app.use(cors());
+app.use(cookieParser());
+// Middleware log request.
 app.use(function(req, res, next) {
 	console.log('Server called with URL:' + req.url);
 	next();
 });
 
+app.use(oauth2.authentication());   // Authentication middleware
 
-app.get('/api/v1/transactions/:id', (req, res) => {
-    const spelbolagservice = new Spelbolagservice();
-    const transactionsId = req.params.id;
-    spelbolagservice.getTransaction(transactionsId).then( (result) => {
-            const theNote = result['queryResult'];
-            res.status(200).send({
-                            success: 'true',
-                            message: 'Transaktion retrieved successfully',
-                            note: theNote
-                        });
-        }, rejection => {
-            res.status(200).send({
-                                success: 'false',
-                                message: 'Error while query database.'
-                            });
-        });
+app.get('/bff/v1/mittsaldo', (req, res) => {
+    res.status(200).send('Hello world.' + req['userid']);
 });
 
 app.get('/bff/v1/tipsbolag/', (req, res) => {

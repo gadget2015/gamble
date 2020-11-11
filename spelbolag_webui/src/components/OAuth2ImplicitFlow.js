@@ -12,8 +12,6 @@ class OAuth2ImplicitFlow {
     }
 
     initClient(parent) {
-        //console.log('initClient(): Callback från gapi.load = ' + this.SCOPE);
-
         // Initialize the gapi.client object, which app uses to make API requests.
         // Get API key and client ID from API Console.
         // 'scope' field specifies space-delimited list of access scopes.
@@ -26,7 +24,6 @@ class OAuth2ImplicitFlow {
             parent.GoogleAuth = window.gapi.auth2.getAuthInstance();
 
             // Listen for sign-in state changes.
-            //parent.GoogleAuth.isSignedIn.listen(parent.updateSigninStatus);
             parent.GoogleAuth.isSignedIn.listen(parent.createSigninStatusCallbackFunction(parent));
 
             // Handle initial sign-in state. (Determine if user is already signed in.)
@@ -81,13 +78,26 @@ class OAuth2ImplicitFlow {
         if (isAuthorized) {
             var username = user.getBasicProfile().getEmail();
             console.log('Inloggad med email =' + username);
-            //console.log('id_token' + user.getAuthResponse().id_token);
+            this.setCookie('access_token_by_robert', user.getAuthResponse().id_token, 1);
             this.setUsername(username);
             this.setInloggad(true);
         } else {
             this.setUsername('');
             this.setInloggad(false);
         }
+    }
+
+    /**
+     * Set Cookie, function kopierad ifrån https://www.w3schools.com/js/js_cookies.asp.
+     * The parameters of the function above are the name of the cookie (cname), the value of the cookie (cvalue),
+     * and the number of days until the cookie should expire (exdays).
+     * The function sets a cookie by adding together the cookiename, the cookie value, and the expires string.
+     */
+    setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 
     login() {
