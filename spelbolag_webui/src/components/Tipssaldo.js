@@ -28,9 +28,10 @@ function Tipssaldo() {
         });
     }, [rerun]);
 
-    return (
-        <div>
-        <div className="message">{message}</div>
+    console.log('execute Tipssaldo function');
+
+    const transaktionerUI = function() {
+        return (<div>
         Här är alla dina transaktioner.
 
          Saldo: <b>{saldo} kr</b>.<br></br><br></br>
@@ -60,6 +61,30 @@ function Tipssaldo() {
                 }
               </tbody>
          </table>
+         </div>
+        )
+    };
+
+    const error = function() {
+        return (<div>
+                <div className="message">{message}</div>
+            </div>
+        );
+    };
+
+    // Visar olika UI delar beroende på om man är inloggad eller inte = conditional rendering.
+    let uiContent;
+
+    if (message !== null) {
+        uiContent = error();
+        setMessage(null);   // Visar bara meddelandet en gång.
+    } else {
+        uiContent = transaktionerUI();
+    }
+
+    return (
+        <div>
+            {uiContent}
         </div>
       );
 }

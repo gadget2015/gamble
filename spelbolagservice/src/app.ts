@@ -23,7 +23,21 @@ app.use(function(req, res, next) {
 app.use(oauth2.authentication());   // Authentication middleware
 
 app.get('/bff/v1/mittsaldo', (req, res) => {
-    res.status(200).send('Hello world.' + req['userid']);
+    const bffService = new BFF();
+
+    bffService.getInitialVyForMittsaldo(req['userid']).then( (result) => {
+            const mittsaldoVy = result['bffResult'];
+            res.status(200).send({
+                            success: 'true',
+                            message: 'Hämtat initial vydata för Mitt saldo sidan.',
+                            data: mittsaldoVy
+                        });
+        }, rejection => {
+            res.status(200).send({
+                                success: 'false',
+                                message: 'Error while query database.' + rejection
+                            });
+        });
 });
 
 app.get('/bff/v1/tipsbolag/', (req, res) => {

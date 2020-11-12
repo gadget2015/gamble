@@ -5,7 +5,7 @@ import {Spelbolagservice} from './spelbolagservice';
 class BFF {
 
     /**
-    * Skapar ett Promise som hämtar presentationsdata.
+    * Skapar ett Promise som hämtar presentationsdata för Spelbolags sidan.
     */
     async getInitialVyForSpelbolag() {
         const bffPromise = new Promise(async (resolve, reject) => {
@@ -53,12 +53,7 @@ class BFF {
                 // Hämtar alla transaktioner
                 const transaktionerResult = await spelbolagservice.getTransactions(kontonummer);
                 let transaktioner = transaktionerResult['queryResult'];
-                let i = 0;
-
-                for (i =0; i < transaktioner.length; i++) {
-                    let transaktionerDate = new Date(transaktioner[i].tid).toISOString().slice(0,10);
-                    transaktioner[i].datum = transaktionerDate;
-                }
+                this.formateraTransaktionsDatum(transaktioner);
 
                 // Sorterar transaktioner med datum med stigande datum, dvs. 2020-11-04 kommer före 2020-11-08.
                 // Används för att beräkna ifrån början till fram till idag/senast tid,
@@ -73,6 +68,7 @@ class BFF {
 
                 // Räknar ut saldo för varje transaktion.
                 let saldo = 0;
+                let i;
                 for (i =0; i < transaktioner.length; i++) {
                     let transaktionensSaldo = 0;
                     transaktionensSaldo += transaktioner[i].debet - transaktioner[i].kredit;
@@ -80,13 +76,7 @@ class BFF {
                     transaktioner[i].saldo = saldo;
                 };
 
-                // Sorterar transaktioner med datum med fallande datum, dvs. 2020-12-04 kommer före 2020-11-08.
-                // Används för att få en bra presentation.
-                transaktioner.sort(function(a,b) {
-                    let dateA = Date.parse(a.tid);
-                    let dateB = Date.parse(b.tid);
-                    return (dateB - dateA);
-                });
+                this.sorteraTransaktionerFallande(transaktioner);
 
                 resolve({bffResult: {'saldo': sum, transaktioner: transaktioner}});
             } catch(e) {
@@ -95,6 +85,68 @@ class BFF {
         });
 
         return bffPromise;
+    }
+
+    /**
+    * Skapar ett promise för Mitt Saldo sidan.
+    */
+    async getInitialVyForMittsaldo(userid : string) {
+        const bffPromise = new Promise(async (resolve, reject) => {
+            const spelbolagservice = new Spelbolagservice();
+
+            try {
+                // Hämtar alla Saldo för spelaren
+                const spelareResult = await spelbolagservice.getSpelare(userid);
+                const spelare = spelareResult['queryResult'];
+
+                const kontoResult = await spelbolagservice.getKontoByID(spelare[0].konto_id);
+                const konto = kontoResult['queryResult'];
+                const kontonummer = konto[0]['kontonr'];
+
+                // Hämtar saldo för alla transaktioner
+                const saldo = await spelbolagservice.getSaldo(kontonummer);
+                let bffResult = {saldo: saldo};
+
+                // Hämtar alla transaktioner.
+                const transaktionerResult = await spelbolagservice.getTransactions(kontonummer);
+                const transaktioner = transaktionerResult['queryResult'];
+
+                this.formateraTransaktionsDatum(transaktioner);
+                this.sorteraTransaktionerFallande(transaktioner);
+
+                bffResult['transaktioner'] = transaktioner;
+
+                resolve({bffResult: bffResult});
+            } catch(e) {
+                reject('Kan inte hämta information till Mitt Saldo sidan.');
+            }
+        });
+
+        return bffPromise;
+    }
+
+    /**
+    * Sorterar transaktioner med datum med fallande datum, dvs. 2020-12-04 kommer före 2020-11-08.
+    * Används för att få en bra presentation.
+    */
+    sorteraTransaktionerFallande(transaktioner) {
+        transaktioner.sort(function(a,b) {
+            let dateA = Date.parse(a.tid);
+            let dateB = Date.parse(b.tid);
+            return (dateB - dateA);
+        });
+    }
+
+    /**
+    * Formaterar datum för transaktioner.
+    */
+    formateraTransaktionsDatum(transaktioner) {
+        let i = 0;
+
+        for (i =0; i < transaktioner.length; i++) {
+            let transaktionerDate = new Date(transaktioner[i].tid).toISOString().slice(0,10);
+            transaktioner[i].datum = transaktionerDate;
+        }
     }
 }
 
