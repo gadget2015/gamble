@@ -67,15 +67,7 @@ class BFF {
                 const sum = await spelbolagservice.getSaldo(kontonummer);
 
                 // Räknar ut saldo för varje transaktion.
-                let saldo = 0;
-                let i;
-                for (i =0; i < transaktioner.length; i++) {
-                    let transaktionensSaldo = 0;
-                    transaktionensSaldo += transaktioner[i].debet - transaktioner[i].kredit;
-                    saldo = saldo + transaktionensSaldo;
-                    transaktioner[i].saldo = saldo;
-                };
-
+                this.beraknaSaldoPerTransaktion(transaktioner);
                 this.sorteraTransaktionerFallande(transaktioner);
 
                 resolve({bffResult: {'saldo': sum, transaktioner: transaktioner}});
@@ -103,7 +95,7 @@ class BFF {
                 const konto = kontoResult['queryResult'];
                 const kontonummer = konto[0]['kontonr'];
 
-                // Hämtar saldo för alla transaktioner
+                 // Räknar ut totalt saldo
                 const saldo = await spelbolagservice.getSaldo(kontonummer);
                 let bffResult = {saldo: saldo};
 
@@ -111,6 +103,8 @@ class BFF {
                 const transaktionerResult = await spelbolagservice.getTransactions(kontonummer);
                 const transaktioner = transaktionerResult['queryResult'];
 
+                 // Räknar ut saldo för varje transaktion.
+                this.beraknaSaldoPerTransaktion(transaktioner);
                 this.formateraTransaktionsDatum(transaktioner);
                 this.sorteraTransaktionerFallande(transaktioner);
 
@@ -147,6 +141,21 @@ class BFF {
             let transaktionerDate = new Date(transaktioner[i].tid).toISOString().slice(0,10);
             transaktioner[i].datum = transaktionerDate;
         }
+    }
+
+    /**
+    * Räknar ut saldo för varje transaktion.
+    */
+    beraknaSaldoPerTransaktion(transaktioner){
+        let saldo = 0;
+        let i;
+
+        for (i =0; i < transaktioner.length; i++) {
+            let transaktionensSaldo = 0;
+            transaktionensSaldo += transaktioner[i].debet - transaktioner[i].kredit;
+            saldo = saldo + transaktionensSaldo;
+            transaktioner[i].saldo = saldo;
+        };
     }
 }
 

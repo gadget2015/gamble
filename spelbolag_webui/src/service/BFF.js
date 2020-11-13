@@ -55,10 +55,10 @@ class BFF {
         const fetchDataPromise = new Promise((resolve, reject) => {
             const urlToBFF = this.getServerHost() + '/bff/v1/mittsaldo/';
 
-            fetch(urlToBFF)
+            fetch(urlToBFF, {credentials: "same-origin"})
                 .then(async response => {
                     if (!response.ok) {
-                          console.log('Dåligt nätverk: response was not ok, code = ' + response);
+                          console.log('Dåligt nätverk: response was not ok, code = ' + JSON.stringify(response));
                           reject(0);
                     } else {
                         const data = await response.json();
@@ -80,7 +80,7 @@ class BFF {
     getServerHost() {
         if (document.location.port) {
             // Development mode.
-            return document.location.protocol + '//' + document.location.hostname + ':4001';
+            return document.location.protocol + '//' + document.location.hostname + ':' + document.location.port;
         } else {
            return document.location.protocol + '//' + document.location.hostname;
         }

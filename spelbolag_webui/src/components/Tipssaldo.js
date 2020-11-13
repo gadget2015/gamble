@@ -15,20 +15,18 @@ function Tipssaldo() {
         const bffService = new BFF();
 
         bffService.tipssaldoStartSida().then((vydata) => {
-            const notAuthenticated = vydata['error'];
-            if (notAuthenticated !== null) {
+            const authenticated = vydata['success'];
+
+            if (authenticated === false) {
                 setMessage('Du måste logga in för att kunna se ditt saldo.');
             } else {
                 setTransaktioner(vydata['data']['transaktioner']);
                 setSaldo(vydata['data']['saldo']);
-                console.log('saldo=' + vydata['data']['saldo']);
             }
         }, (failed) => {
             alert('Network connection error when calling REST API, status code = ' + failed);
         });
     }, [rerun]);
-
-    console.log('execute Tipssaldo function');
 
     const transaktionerUI = function() {
         return (<div>
@@ -49,7 +47,7 @@ function Tipssaldo() {
             <tbody>
                 {
                     transaktioner.map((currentValue) => {
-                        return (<tr>
+                        return (<tr key={currentValue['ID']}>
                           <td>{currentValue['datum']}</td>
                           <td>{currentValue['beskrivning']}</td>
                           <td>{currentValue['kredit']}</td>

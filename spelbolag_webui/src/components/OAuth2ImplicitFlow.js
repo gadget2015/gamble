@@ -69,6 +69,8 @@ class OAuth2ImplicitFlow {
     }
 
     /**
+     * Listen for sign-in state changes som pluggas in i Google ramverk.
+     *
      * Uppdaterar om användaren är inloggad, och då med vilket email/username.
      */
     setSigninStatus() {
@@ -77,13 +79,15 @@ class OAuth2ImplicitFlow {
 
         if (isAuthorized) {
             var username = user.getBasicProfile().getEmail();
-            console.log('Inloggad med email =' + username);
+            //console.log('Inloggad med email =' + username);
             this.setCookie('access_token_by_robert', user.getAuthResponse().id_token, 1);
             this.setUsername(username);
             this.setInloggad(true);
         } else {
+            //console.log('Utloggad.');
             this.setUsername('');
             this.setInloggad(false);
+            this.deleteCookie('access_token_by_robert'); // Återställer access_token.
         }
     }
 
@@ -94,10 +98,16 @@ class OAuth2ImplicitFlow {
      * The function sets a cookie by adding together the cookiename, the cookie value, and the expires string.
      */
     setCookie(cname, cvalue, exdays) {
-        var d = new Date();
+        let d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        var expires = "expires="+ d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        let expires = "expires="+ d.toUTCString();
+        let theCookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+
+        document.cookie = theCookie;
+    }
+
+    deleteCookie(cookieName) {
+       document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/";
     }
 
     login() {
@@ -106,6 +116,7 @@ class OAuth2ImplicitFlow {
 
     logout() {
         this.GoogleAuth.signOut();
+
     }
 };
 

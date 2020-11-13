@@ -25,7 +25,6 @@ function Tipsbolag() {
                 bffService.transaktionerForSpelboalg(kontonummer).then((vydata) => {
                     setTransaktioner(vydata['data']['transaktioner']);
                     setSaldo(vydata['data']['saldo']);
-                    console.log('saldo=' + vydata['data']['saldo']);
                 }, (failed) => {
                     alert('Network connection error when calling REST API, status code = ' + failed);
                 });
@@ -60,7 +59,7 @@ function Tipsbolag() {
             <tbody>
                 {
                     transaktioner.map((currentValue) => {
-                        return (<tr>
+                        return (<tr key={currentValue['ID']}>
                           <td>{currentValue['datum']}</td>
                           <td>{currentValue['beskrivning']}</td>
                           <td>{currentValue['kredit']}</td>
