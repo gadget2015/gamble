@@ -22,6 +22,7 @@ function Tipssaldo() {
             } else {
                 setTransaktioner(vydata['data']['transaktioner']);
                 setSaldo(vydata['data']['saldo']);
+                setMessage(null);
             }
         }, (failed) => {
             alert('Network connection error when calling REST API, status code = ' + failed);
@@ -75,7 +76,6 @@ function Tipssaldo() {
 
     if (message !== null) {
         uiContent = error();
-        setMessage(null);   // Visar bara meddelandet en gång.
     } else {
         uiContent = transaktionerUI();
     }
