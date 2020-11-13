@@ -73,6 +73,30 @@ class BFF {
 
         return fetchDataPromise;
     }
+
+    administrationStartSida() {
+        const fetchDataPromise = new Promise((resolve, reject) => {
+            const urlToBFF = this.getServerHost() + '/bff/v1/administration/';
+
+            fetch(urlToBFF, {credentials: "same-origin"})
+                .then(async response => {
+                    if (!response.ok) {
+                          console.log('Dåligt nätverk: response was not ok, code = ' + JSON.stringify(response));
+                          reject(0);
+                    } else {
+                        const data = await response.json();
+                        resolve(data);
+                    }
+                }, rejectedMessage => {
+                    console.log('Jättefel på nätverket, beskrivning = ' + rejectedMessage.message);
+
+                    reject(0);
+                });
+        });
+
+        return fetchDataPromise;
+    }
+
    /**
     * Get hostname for backend-services. Different depending if it's development mode
     * or production.

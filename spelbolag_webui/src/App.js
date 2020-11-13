@@ -6,12 +6,14 @@ import {MyMenu} from './components/MyMenu';
 import {Tipsprogram} from './components/Tipsprogram';
 import {Tipsbolag} from './components/Tipsbolag';
 import {Tipssaldo} from './components/Tipssaldo';
+import {Administration} from './components/Administration';
 
 function App() {
     const [showIntro, setShowIntro] = useState(true);
     const [showTipsprogram, setShowTipsprogram] = useState(false);
     const [showTipsbolag, setShowTipsbolag] = useState(false);
     const [showTipssaldo, setShowTipssaldo] = useState(false);
+    const [showAdministration, setShowAdministration] = useState(false);
 
     let content;
 
@@ -23,13 +25,15 @@ function App() {
         content = (<Tipsbolag/>);
     } else if( showTipssaldo === true) {
         content = (<Tipssaldo/>);
+    } else if( showAdministration === true) {
+        content = (<Administration/>);
     }
 
 
 
   return (
     <div>
-        <MyMenu setShowIntro={setShowIntro} setShowTipsprogram={setShowTipsprogram} setShowTipsbolag={setShowTipsbolag} setShowTipssaldo={setShowTipssaldo}/>
+        <MyMenu setShowIntro={setShowIntro} setShowTipsprogram={setShowTipsprogram} setShowTipsbolag={setShowTipsbolag} setShowTipssaldo={setShowTipssaldo} setShowAdministration={setShowAdministration}/>
 
         <div className="content">
             {content}

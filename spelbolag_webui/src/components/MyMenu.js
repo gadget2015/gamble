@@ -60,12 +60,18 @@ function MyMenu(props) {
     props.setShowTipssaldo(true);
   }
 
+  const handleAdministrationClick = () => {
+    resetMenuChooice();
+    props.setShowAdministration(true);
+  }
+
   const resetMenuChooice = () => {
     setAnchorEl(null);
     props.setShowTipsprogram(false);
     props.setShowIntro(false);
     props.setShowTipsbolag(false);
     props.setShowTipssaldo(false);
+    props.setShowAdministration(false);
   }
 
   return (
@@ -77,7 +83,7 @@ function MyMenu(props) {
                  <MenuItem onClick={handleVisaTipssaldo}>Mitt tipssaldo</MenuItem>
                  <MenuItem onClick={handleVisaTipsbolagen}>Tipsbolagen</MenuItem>
                  <MenuItem onClick={handleTipsprogramClick}>Tipsprogram</MenuItem>
-                 <MenuItem onClick={handleClose}>Administration</MenuItem>
+                 <MenuItem onClick={handleAdministrationClick}>Administration</MenuItem>
                  {authenticationContent}
          </Menu>
      </div>
