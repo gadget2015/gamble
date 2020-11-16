@@ -8,6 +8,10 @@ function Administration() {
     const [message, setMessage] = useState('');
     const [rerun] = useState(false);  // Ska bara hämta data en gång.
     const [namn, setNamn] = useState();
+    const [insatsperomgang, setInsatsperomgang] = useState(0);
+    const [datum, setDatum] = useState();
+    const [kredit, setKredit] = useState(0);
+    const [debet, setDebet] = useState(0);
 
     // Laddar in vy data.
     useEffect( () => {
@@ -21,6 +25,8 @@ function Administration() {
             } else {
             console.log('retData=' + JSON.stringify(vydata));
                 setNamn(vydata['data']['namn']);
+                setInsatsperomgang(vydata['data']['insatsperomgang']);
+                setDatum('2020-11-16T05:08:20.000Z');
                 setMessage(null);
             }
         }, (failed) => {
@@ -35,10 +41,25 @@ function Administration() {
         );
     };
 
+    const laggTillTransaktion = function (event) {
+        console.log('Lägger till en transaktion.');
+        event.preventDefault();
+    }
+
     const inloggadContent = function () {
         return (<div>
-            Administrera spelbolag:
-            {namn}
+            <b>Administrera spelbolag:</b> {namn}.<br/>
+            <b>Insats per omgång:</b> {insatsperomgang} kr.<br/>
+            ----------------------------------------------------<br/>
+            <b>Ny transaktion:</b><br/>
+            <form onSubmit={laggTillTransaktion}>
+                <label>Datum:<input type="text" name='datum' defaultValue={datum} onChange={event => setDatum(event.target.value)} />
+                </label><br/>
+                <label>Kredit:<input type="text" defaultValue={kredit} name='kredit' onChange={event => setKredit(event.target.value)} />
+                </label><br/>
+                <label>Debet:<input type="text" defaultValue={debet} name='debet' onChange={event => setDebet(event.target.value)} /></label>
+               <input type="submit" value="Lägg till transaktion" />
+            </form>
             </div>
         );
     }
@@ -53,7 +74,6 @@ function Administration() {
 
     return (
         <div>
-            Administration
              {uiContent}
         </div>
     );
