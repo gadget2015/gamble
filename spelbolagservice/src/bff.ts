@@ -87,7 +87,7 @@ class BFF {
             const spelbolagservice = new Spelbolagservice();
 
             try {
-                // Hämtar alla Saldo för spelaren
+                // Hämtar totalt saldo för spelaren
                 const spelareResult = await spelbolagservice.getSpelare(userid);
                 const spelare = spelareResult['queryResult'];
 
@@ -156,6 +156,49 @@ class BFF {
             saldo = saldo + transaktionensSaldo;
             transaktioner[i].saldo = saldo;
         };
+    }
+
+   /**
+    * Skapar ett promise för den initiala vyn i Administrationsidan.
+    */
+    async getInitialVyForAdministration(userid : string) {
+        const bffPromise = new Promise(async (resolve, reject) => {
+            const spelbolagservice = new Spelbolagservice();
+
+            try {
+                // Hämtar saldo för Spelbolaget som spelaren är
+                // administratör för.
+                const spelareResult = await spelbolagservice.getSpelare(userid);
+                const spelare = spelareResult['queryResult'];
+                const administratorforspelbolag_id = spelare[0]['administratorforspelbolag_id'];
+
+                const allaSpelbolagResult = await spelbolagservice.getAllaSpelbolag();
+                const allaSpelbolag = allaSpelbolagResult['queryResult'];
+                let i, spelbolag;
+
+                for (i = 0; i< allaSpelbolag.length; i++) {
+                    if(allaSpelbolag[i]['ID'] === administratorforspelbolag_id) {
+                        spelbolag = allaSpelbolag[i];
+                    }
+                }
+                let bffResult = {};
+                bffResult['namn'] = spelbolag.namn;
+                bffResult['insatsperomgang'] = spelbolag.insatsperomgang;
+
+                 // Räknar ut totalt saldo
+                const kontoResult = await spelbolagservice.getKontoByID(spelbolag.konto_id);
+                const konto = kontoResult['queryResult'];
+                const kontonummer = konto[0]['kontonr'];
+                const saldo = await spelbolagservice.getSaldo(kontonummer);
+                bffResult['saldo'] = saldo;
+
+                resolve({bffResult: bffResult});
+            } catch(e) {
+                reject('Kan inte hämta information till Administrationsidan.');
+            }
+        });
+
+        return bffPromise;
     }
 }
 

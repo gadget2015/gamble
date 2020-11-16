@@ -4,10 +4,10 @@ class GoogleAuthenticationMiddleware {
 
     authentication() {
         return function(req, res, next) {
-            if (req.url.startsWith('/bff/v1/mittsaldo')) {
+            if (req.url.startsWith('/bff/v1/mittsaldo') ||
+                req.url.startsWith('/bff/v1/administration')) {
                 let access_token = req.cookies['access_token_by_robert'];
                 console.log('Detta anrop kräver att användaren är autentiserad.');
-                console.log('Cookies=' + JSON.stringify(req.cookies));
 
                 let util = new GoogleAuthenticationMiddleware();
                 util.verifyUserAccessToken(access_token, req, res, next);
@@ -18,7 +18,6 @@ class GoogleAuthenticationMiddleware {
     }
 
     verifyUserAccessToken(access_token, req, res, next) {
-        console.log('access_token=' + access_token);
         // Verifiera token mot https://oauth2.googleapis.com/tokeninfo?id_token=eyJhbGci
         const options = {
           hostname: 'oauth2.googleapis.com',
@@ -35,7 +34,7 @@ class GoogleAuthenticationMiddleware {
             });
 
             respone.on('end', function() {
-                console.log('responseString=' + responseString);
+                //console.log('responseString=' + responseString);
                 let json = JSON.parse(responseString);
                 let error = json['error'];
 

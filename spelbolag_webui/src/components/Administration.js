@@ -7,6 +7,7 @@ import {BFF} from './../service/BFF';
 function Administration() {
     const [message, setMessage] = useState('');
     const [rerun] = useState(false);  // Ska bara hämta data en gång.
+    const [namn, setNamn] = useState();
 
     // Laddar in vy data.
     useEffect( () => {
@@ -15,10 +16,11 @@ function Administration() {
         bffService.administrationStartSida().then((vydata) => {
             const authenticated = vydata['success'];
 
-            if (authenticated === false) {
+            if (authenticated === 'false') {
                 setMessage('Du måste logga in för att kunna se ditt saldo.');
             } else {
-
+            console.log('retData=' + JSON.stringify(vydata));
+                setNamn(vydata['data']['namn']);
                 setMessage(null);
             }
         }, (failed) => {
@@ -33,13 +35,20 @@ function Administration() {
         );
     };
 
+    const inloggadContent = function () {
+        return (<div>
+            Administrera spelbolag:
+            {namn}
+            </div>
+        );
+    }
     // Visar olika UI delar beroende på om man är inloggad eller inte = conditional rendering.
     let uiContent;
 
     if (message !== null) {
         uiContent = error();
     } else {
-        console.log('Visa innehållet.');
+        uiContent = inloggadContent();
     }
 
     return (
