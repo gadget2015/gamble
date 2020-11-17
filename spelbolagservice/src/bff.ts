@@ -168,8 +168,8 @@ class BFF {
             try {
                 // Hämtar saldo för Spelbolaget som spelaren är
                 // administratör för.
-                const spelareResult = await spelbolagservice.getSpelare(userid);
-                const spelare = spelareResult['queryResult'];
+                let spelareResult = await spelbolagservice.getSpelare(userid);
+                let spelare = spelareResult['queryResult'];
                 const administratorforspelbolag_id = spelare[0]['administratorforspelbolag_id'];
 
                 const allaSpelbolagResult = await spelbolagservice.getAllaSpelbolag();
@@ -192,6 +192,25 @@ class BFF {
                 const saldo = await spelbolagservice.getSaldo(kontonummer);
                 bffResult['saldo'] = saldo;
 
+                // Hämtar alla spelare som ingår i spelbolaget.
+                spelareResult = await spelbolagservice.getAllaSpelareForSpelbolag(spelbolag.ID);
+                spelare = spelareResult['queryResult'];
+                let spelarInfo = [];
+
+                for(i=0; i<spelare.length; i++) {
+                    const userid = spelare[i]['userid'];
+                    const kontoResult = await spelbolagservice.getKontoByID(spelare[i]['konto_id']);
+                    const konto = kontoResult['queryResult'];
+                    const kontonummer = konto[0]['kontonr'];
+                    const spelarSaldo = await spelbolagservice.getSaldo(kontonummer);
+
+                    const spelareBffData = { userid: userid, saldo: spelarSaldo};
+                    spelarInfo.push(spelareBffData);
+                }
+
+                bffResult['spelarInfo'] = spelarInfo;
+
+                // Returnerar data till vyn.
                 resolve({bffResult: bffResult});
             } catch(e) {
                 reject('Kan inte hämta information till Administrationsidan.');
