@@ -15,6 +15,8 @@ function Administration() {
     const [beskrivning, setBeskrivning] = useState('');
     const [saldo, setSaldo] = useState(0);
     const [spelare, setSpelare] = useState([]);
+    const [transaktioner, setTransaktioner] = useState([]);
+    const [valdSeplare, setValdSpelare] = useState();
 
     // Laddar in vy data - bara en gång.
     useEffect( () => {
@@ -26,7 +28,6 @@ function Administration() {
             if (authenticated === 'false') {
                 setMessage('Du måste logga in för att kunna se ditt saldo.');
             } else {
-            console.log('retData=' + JSON.stringify(vydata));
                 setNamn(vydata['data']['namn']);
                 setInsatsperomgang(vydata['data']['insatsperomgang']);
                 setSaldo(vydata['data']['saldo']);
@@ -40,18 +41,36 @@ function Administration() {
         });
     }, [rerun]);
 
-    const laggTillTransaktion = function (event) {
-        console.log('Lägger till en transaktion.');
+    const laggTillTransaktionForSpelbolag = function (event) {
+        console.log('Lägger till en transaktion för spelbolag');
         event.preventDefault();
     }
 
+    const laggTillTransaktionForSpelare = function (event) {
+        console.log('Lägger till en transaktion för en spelare.');
+        event.preventDefault();
+    }
     const taBetaltAvAllaSpelare = function (event) {
         console.log('Ta betalt av alla spelare.');
         event.preventDefault();
     }
 
-    const visaTransaktioner = function (userid) {
+    const visaTransaktioner = function (kontonummer, userid) {
         console.log('Visa transaktioner för ' + userid);
+        setValdSpelare(userid);
+        const bffService = new BFF();
+        bffService.transaktionerForKontonummer(kontonummer).then((vydata) => {
+            const authenticated = vydata['success'];
+
+            if (authenticated === 'false') {
+                setMessage('Du måste vara administratör för att använda denna sidan.');
+            } else {
+                setTransaktioner(vydata['data']['transaktioner']);
+                setMessage(null);
+            }
+        }, (failed) => {
+            alert('Network connection error when calling REST API, status code = ' + failed);
+        });
     }
 
     //
@@ -66,38 +85,91 @@ function Administration() {
 
     const inloggadContent = function () {
         return (<div>
-            <b>Administrera spelbolag:</b> {namn}.<br/>
-            <b>Insats per omgång:</b> {insatsperomgang} kr.<br/>
-            <b>Saldo:</b> {saldo} kr.<br/>
-            ----------------------------------------------------<br/>
-            <b>Ny transaktion</b><br/>
-            <form onSubmit={laggTillTransaktion}>
-                <label>Datum:<input type="text" name='datum' defaultValue={datum} onChange={event => setDatum(event.target.value)} />
-                (ISO 8601 datumformat)</label><br/>
-                <label>Beskrivning:<input type="text" name='beskrivning' maxLength='50' style = {{width: 400}} defaultValue={beskrivning} onChange={event => setBeskrivning(event.target.value)} />
-                </label><br/>
-                <label>Kredit:<input type="text" maxLength='5' style = {{width: 50}} defaultValue={kredit} name='kredit' onChange={event => setKredit(event.target.value)} />
-                </label><br/>
-                <label>Debet:<input type="text" maxLength='5' style = {{width: 50}}  defaultValue={debet} name='debet' onChange={event => setDebet(event.target.value)} /></label><br/>
-               <input type="submit" value="Lägg till transaktion" />
-            </form>
-            ----------------------------------------------------<br/>
-            <b>Ta betalt av alla spelare</b><br/>
-            <form onSubmit={taBetaltAvAllaSpelare}>
-                Det kommer att dras {insatsperomgang} kr ifrån varje spelare som är med i spelbolag {namn}.<br/>
-               <input type="submit" value="Ta betalt" />
-            </form>
-             ----------------------------------------------------<br/>
-             <b>Alla spelare som ingår i spelbolag</b><br/>
-            <ul>
-            {
-                spelare.map((currentValue, index) => {
-                        return (<li key={index}>
-                            <div onClick={() => visaTransaktioner(currentValue['userid'])} className="linkclick">{currentValue['userid']}</div>Saldo {currentValue['saldo']} kr.</li>
-                            );
-                        })
-            }
-         </ul>
+            <div  className='formarea'>
+                <b>Administrera spelbolag:</b> {namn}.<br/>
+                <b>Insats per omgång:</b> {insatsperomgang} kr.<br/>
+                <b>Saldo:</b> {saldo} kr.<br/>
+                ----------------------------------------------------<br/>
+                <b>Ny transaktion</b><br/>
+                <form onSubmit={laggTillTransaktionForSpelbolag}>
+                    <label>Datum:<input type="text" name='datum' defaultValue={datum} onChange={event => setDatum(event.target.value)} />
+                    (ISO 8601 datumformat)</label><br/>
+                    <label>Beskrivning:<input type="text" name='beskrivning' maxLength='50' style = {{width: 400}} defaultValue={beskrivning} onChange={event => setBeskrivning(event.target.value)} />
+                    </label><br/>
+                    <label>Kredit:<input type="text" maxLength='5' style = {{width: 50}} defaultValue={kredit} name='kredit' onChange={event => setKredit(event.target.value)} />
+                    </label><br/>
+                    <label>Debet:<input type="text" maxLength='5' style = {{width: 50}}  defaultValue={debet} name='debet' onChange={event => setDebet(event.target.value)} /></label><br/>
+                   <input type="submit" value="Lägg till transaktion" />
+                </form>
+                ----------------------------------------------------<br/>
+                <b>Ta betalt av alla spelare</b><br/>
+                <form onSubmit={taBetaltAvAllaSpelare}>
+                    Det kommer att dras {insatsperomgang} kr ifrån varje spelare som är med i spelbolag {namn}.<br/>
+                   <input type="submit" value="Ta betalt" />
+                </form>
+             </div>
+             <br/><br/>
+             <div  className='formarea'>
+                 <b>Alla spelare som ingår i spelbolaget</b><br/>
+                  <table>
+                     <thead>
+                         <tr>
+                             <th>Användarid</th>
+                             <th>Saldo</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         {
+                             spelare.map((currentValue) => {
+                                 return (<tr key={currentValue['userid']} onClick={() => visaTransaktioner(currentValue['kontonummer'], currentValue['userid'])}>
+                                    <td>{currentValue['userid']}</td>
+                                    <td>{currentValue['saldo']}</td>
+                                 </tr>
+                                 );
+                             })
+                         }
+                       </tbody>
+                  </table>
+                  ----------------------------------------------------<br/>
+                  Administrera {valdSeplare}.<br/>
+                  <b>Ny transaktion</b><br/>
+                  <form onSubmit={laggTillTransaktionForSpelare}>
+                      <label>Datum:<input type="text" name='datum' defaultValue={datum} onChange={event => setDatum(event.target.value)} />
+                      (ISO 8601 datumformat)</label><br/>
+                      <label>Beskrivning:<input type="text" name='beskrivning' maxLength='50' style = {{width: 400}} defaultValue={beskrivning} onChange={event => setBeskrivning(event.target.value)} />
+                      </label><br/>
+                      <label>Kredit:<input type="text" maxLength='5' style = {{width: 50}} defaultValue={kredit} name='kredit' onChange={event => setKredit(event.target.value)} />
+                      </label><br/>
+                      <label>Debet:<input type="text" maxLength='5' style = {{width: 50}}  defaultValue={debet} name='debet' onChange={event => setDebet(event.target.value)} /></label><br/>
+                     <input type="submit" value="Lägg till transaktion" />
+                  </form>
+                   <b>Transaktioner:</b>
+                    <table>
+                      <thead>
+                          <tr>
+                              <th>Datum</th>
+                              <th>Beskrivning</th>
+                              <th>Kredit</th>
+                              <th>Debet</th>
+                              <th>Saldo</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {
+                              transaktioner.map((currentValue) => {
+                                  return (<tr key={currentValue['ID']}>
+                                    <td>{currentValue['datum']}</td>
+                                    <td>{currentValue['beskrivning']}</td>
+                                    <td>{currentValue['kredit']}</td>
+                                    <td>{currentValue['debet']}</td>
+                                    <td>{currentValue['saldo']}</td>
+                                  </tr>
+                                  );
+                              })
+                          }
+                        </tbody>
+                    </table>
+              </div>
             </div>
         );
     }

@@ -204,7 +204,7 @@ class BFF {
                     const kontonummer = konto[0]['kontonr'];
                     const spelarSaldo = await spelbolagservice.getSaldo(kontonummer);
 
-                    const spelareBffData = { userid: userid, saldo: spelarSaldo};
+                    const spelareBffData = { userid: userid, saldo: spelarSaldo, kontonummer: kontonummer};
                     spelarInfo.push(spelareBffData);
                 }
 

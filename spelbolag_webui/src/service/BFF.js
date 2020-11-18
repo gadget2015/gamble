@@ -5,96 +5,19 @@
  */
 class BFF {
     spelbolagStartSida() {
-        const fetchDataPromise = new Promise((resolve, reject) => {
-            const urlToBFF = this.getServerHost() + '/bff/v1/tipsbolag/';
-
-            fetch(urlToBFF)
-                .then(async response => {
-                    if (!response.ok) {
-                          console.log('Dåligt nätverk: response was not ok, code = ' + response);
-                          reject(0);
-                    } else {
-                        const data = await response.json();
-                        resolve(data);
-                    }
-                }, rejectedMessage => {
-                    console.log('Jättefel på nätverket, beskrivning = ' + rejectedMessage.message);
-
-                    reject(0);
-                });
-        });
-
-        return fetchDataPromise;
+        return this.createFetchDataPromise('/bff/v1/tipsbolag/');
     }
 
-    transaktionerForSpelboalg(kontonummer) {
-            const fetchDataPromise = new Promise((resolve, reject) => {
-                const urlToBFF = this.getServerHost() + '/bff/v1/tipsbolag/transaktioner/' + kontonummer;
-
-                fetch(urlToBFF)
-                    .then(async response => {
-                        if (!response.ok) {
-                              console.log('Dåligt nätverk: response was not ok, code = ' + response);
-                              reject(0);
-                        } else {
-                            const data = await response.json();
-
-                            resolve(data);
-                        }
-                    }, rejectedMessage => {
-                        console.log('Jättefel på nätverket, beskrivning = ' + rejectedMessage.message);
-
-                        reject(0);
-                    });
-            });
-
-            return fetchDataPromise;
+    transaktionerForKontonummer(kontonummer) {
+        return this.createFetchDataPromise('/bff/v1/transaktioner/' + kontonummer);
     }
 
     tipssaldoStartSida() {
-        const fetchDataPromise = new Promise((resolve, reject) => {
-            const urlToBFF = this.getServerHost() + '/bff/v1/mittsaldo/';
-
-            fetch(urlToBFF, {credentials: "same-origin"})
-                .then(async response => {
-                    if (!response.ok) {
-                          console.log('Dåligt nätverk: response was not ok, code = ' + JSON.stringify(response));
-                          reject(0);
-                    } else {
-                        const data = await response.json();
-                        resolve(data);
-                    }
-                }, rejectedMessage => {
-                    console.log('Jättefel på nätverket, beskrivning = ' + rejectedMessage.message);
-
-                    reject(0);
-                });
-        });
-
-        return fetchDataPromise;
+        return this.createFetchDataPromise('/bff/v1/mittsaldo/');
     }
 
     administrationStartSida() {
-        const fetchDataPromise = new Promise((resolve, reject) => {
-            const urlToBFF = this.getServerHost() + '/bff/v1/administration/';
-
-            fetch(urlToBFF, {credentials: "same-origin"})
-                .then(async response => {
-                    if (!response.ok) {
-                          console.log('Dåligt nätverk: response was not ok, code = ' + JSON.stringify(response));
-                          reject(0);
-                    } else {
-                        const data = await response.json();
-                        resolve(data);
-                    }
-                }, rejectedMessage => {
-                    console.log('Jättefel på nätverket, beskrivning = ' + rejectedMessage.message);
-
-                    reject(0);
-                });
-        });
-
-        return fetchDataPromise;
+        return this.createFetchDataPromise('/bff/v1/administration/');
     }
 
    /**
@@ -108,6 +31,32 @@ class BFF {
         } else {
            return document.location.protocol + '//' + document.location.hostname;
         }
+    }
+
+    /**
+    * Skapar ett generellt Promise för att anropa backend/BFF.
+    */
+    createFetchDataPromise(bffEndpoint) {
+        const fetchDataPromise = new Promise((resolve, reject) => {
+            const urlToBFF = this.getServerHost() + bffEndpoint;
+
+            fetch(urlToBFF, {credentials: "same-origin"})
+                .then(async response => {
+                    if (!response.ok) {
+                          console.log('Dåligt nätverk: response was not ok, code = ' + JSON.stringify(response));
+                          reject(0);
+                    } else {
+                        const data = await response.json();
+                        resolve(data);
+                    }
+                }, rejectedMessage => {
+                    console.log('Jättefel på nätverket, beskrivning = ' + rejectedMessage.message);
+
+                    reject(0);
+                });
+        });
+
+        return fetchDataPromise;
     }
 }
 

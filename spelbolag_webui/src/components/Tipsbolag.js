@@ -22,7 +22,7 @@ function Tipsbolag() {
 
     const visaTransaktioner = function(kontonummer) {
         const bffService = new BFF();
-                bffService.transaktionerForSpelboalg(kontonummer).then((vydata) => {
+                bffService.transaktionerForKontonummer(kontonummer).then((vydata) => {
                     setTransaktioner(vydata['data']['transaktioner']);
                     setSaldo(vydata['data']['saldo']);
                 }, (failed) => {

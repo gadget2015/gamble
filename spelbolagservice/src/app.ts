@@ -58,7 +58,7 @@ app.get('/bff/v1/tipsbolag/', (req, res) => {
         });
 });
 
-app.get('/bff/v1/tipsbolag/transaktioner/:kontonummer', (req, res) => {
+app.get('/bff/v1/transaktioner/:kontonummer', (req, res) => {
     const bffService = new BFF();
     const kontonummer = req.params.kontonummer;
 
@@ -66,7 +66,7 @@ app.get('/bff/v1/tipsbolag/transaktioner/:kontonummer', (req, res) => {
             const bffResult = result['bffResult'];
             res.status(200).send({
                             success: 'true',
-                            message: 'Hämtat transaktioner för ett spelbolag.',
+                            message: 'Hämtat transaktioner för kontonummer ' + kontonummer +'.',
                             data: bffResult
                         });
         }, rejection => {
