@@ -95,6 +95,37 @@ app.get('/bff/v1/administration', (req, res) => {
         });
 });
 
+app.post('/api/v1/transaktioner/', (req, res) => {
+    // Skapar en ny transaktion.
+    const bffService = new BFF();
+    const beskrivning = req.body['beskrivning'];
+    const kredit = req.body['kredit'];
+    const debet = req.body['debet'];
+    const kontonummer = req.body['kontonummer'];
+
+    bffService.addTransaktion(beskrivning, kredit, debet, kontonummer).then( (result) => {
+         const retData = result['bffResult'];
+         const affectedRows = retData.affectedRows;
+
+         if (affectedRows === 1) {
+            res.status(200).send({
+                 success: 'true',
+                 message: 'Transaktion tillagd.'
+             });
+         } else {
+             res.status(200).send({
+                  success: 'false',
+                  message: 'Failed to spara en ny transaktion.'
+              });
+         }
+     }, rejection => {
+         res.status(200).send({
+                             success: 'false',
+                             message: 'Error while query database.'
+                         });
+     });
+});
+
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}.`);
     });

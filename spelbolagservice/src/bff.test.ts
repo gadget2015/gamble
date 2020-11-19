@@ -37,3 +37,15 @@ test('Hämtar initial vy för Administration sidan', async () => {
     expect(result['bffResult']['saldo']).toBeGreaterThan(0);
     expect(result['bffResult']['namn']).toBe('The gamblers');
 });
+
+test('Ta betalt av alla spelare i ett givet Spelbolag', async () => {
+    // Given
+    const service = new BFF();
+
+    // When
+//    const result = await service.getInitialVyForAdministration('robert.georen@gmail.com');
+
+    // Then
+//    expect(result['bffResult']['saldo']).toBeGreaterThan(0);
+//    expect(result['bffResult']['namn']).toBe('The gamblers');
+});

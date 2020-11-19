@@ -20,6 +20,34 @@ class BFF {
         return this.createFetchDataPromise('/bff/v1/administration/');
     }
 
+    laggTillTransaktion(beskrivning, kredit, debet, kontonummer) {
+        const fetchDataPromise = new Promise((resolve, reject) => {
+            const data = {'beskrivning': beskrivning, 'kredit': kredit, 'debet': debet, 'kontonummer': kontonummer};
+            console.log('Lägger till ny transaktion = ' + JSON.stringify(data));
+
+            fetch(this.getServerHost() + '/api/v1/transaktioner/', {
+                   method: 'POST',
+                   headers: {
+                         'Content-Type': 'application/json'
+                       },
+                   body: JSON.stringify(data) })
+                   .then( async (response) => {
+                        // Hämtar ut returdata
+                        await response.json().then( (resolved) => {
+                                resolve(resolved);
+                            }, (rejectedMessage) => {
+                                console.log('Rejected when parsing return data, message = ' + rejectedMessage);
+                                reject(0);
+                            });
+                   }, (rejectedMessage) => {
+                        console.log('Rejected when posting note to server, message = ' + rejectedMessage);
+                        reject(0);
+                   });
+        });
+
+        return fetchDataPromise;
+    }
+
    /**
     * Get hostname for backend-services. Different depending if it's development mode
     * or production.

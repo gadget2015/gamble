@@ -191,6 +191,7 @@ class BFF {
                 const kontonummer = konto[0]['kontonr'];
                 const saldo = await spelbolagservice.getSaldo(kontonummer);
                 bffResult['saldo'] = saldo;
+                bffResult['kontonummer'] = kontonummer;
 
                 // Hämtar alla spelare som ingår i spelbolaget.
                 spelareResult = await spelbolagservice.getAllaSpelareForSpelbolag(spelbolag.ID);
@@ -214,6 +215,27 @@ class BFF {
                 resolve({bffResult: bffResult});
             } catch(e) {
                 reject('Kan inte hämta information till Administrationsidan.');
+            }
+        });
+
+        return bffPromise;
+    }
+
+    /**
+    * Hämtar transaktioner för givet kontonummer.
+    */
+    addTransaktion(beskrivning: string, kredit: string, debet: string, kontonummer : string) {
+        const bffPromise = new Promise(async (resolve, reject) => {
+            const spelbolagservice = new Spelbolagservice();
+            try{
+                // Hämtar alla transaktioner
+                const transaktionerResult = await spelbolagservice.addTransaktion(beskrivning, kredit, debet, kontonummer);
+                let transaktioner = transaktionerResult['queryResult'];
+                let affectedRows = transaktioner.affectedRows;
+
+                resolve({bffResult: {'affectedRows': affectedRows}});
+            } catch(e) {
+                reject('Kan inte hämta transaktioner för givet konto.' + JSON.stringify(e));
             }
         });
 

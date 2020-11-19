@@ -9,7 +9,7 @@ function Administration() {
     const [rerun] = useState(false);  // Ska bara hämta data en gång.
     const [namn, setNamn] = useState();
     const [insatsperomgang, setInsatsperomgang] = useState(0);
-    const [datum, setDatum] = useState();
+    const [spelbolagetsKontonummer, setSpelbolagetsKontonummer] = useState();
     const [kredit, setKredit] = useState(0);
     const [debet, setDebet] = useState(0);
     const [beskrivning, setBeskrivning] = useState('');
@@ -17,6 +17,10 @@ function Administration() {
     const [spelare, setSpelare] = useState([]);
     const [transaktioner, setTransaktioner] = useState([]);
     const [valdSeplare, setValdSpelare] = useState();
+    const [spelareDatum, setSpelareDatum] = useState();
+    const [spelareBeskrivning, setSpelareBeskrivning] = useState('');
+    const [spelareKredit, setSpelareKredit] = useState();
+    const [spelareDebet, setSpelareDebet] = useState();
 
     // Laddar in vy data - bara en gång.
     useEffect( () => {
@@ -31,9 +35,8 @@ function Administration() {
                 setNamn(vydata['data']['namn']);
                 setInsatsperomgang(vydata['data']['insatsperomgang']);
                 setSaldo(vydata['data']['saldo']);
+                setSpelbolagetsKontonummer(vydata['data']['kontonummer']);
                 setSpelare(vydata['data']['spelarInfo']);
-                let now = new Date();
-                setDatum(now.toISOString());
                 setMessage(null);
             }
         }, (failed) => {
@@ -42,7 +45,27 @@ function Administration() {
     }, [rerun]);
 
     const laggTillTransaktionForSpelbolag = function (event) {
-        console.log('Lägger till en transaktion för spelbolag');
+        const bffService = new BFF();
+        bffService.laggTillTransaktion(beskrivning, kredit, debet, spelbolagetsKontonummer).then((vydata) => {
+            const authenticated = vydata['success'];
+
+            if (authenticated === 'false') {
+                setMessage('Du måste vara administratör för att använda denna sidan.');
+            } else {
+                // räknar ut nytt saldo.
+                const nyttSaldo = Number(saldo) + Number(debet) - Number(kredit);
+                setSaldo(nyttSaldo);
+
+                // reset values
+                setBeskrivning('');
+                setKredit(0);
+                setDebet(0);
+                setMessage(null);
+            }
+        }, (failed) => {
+            setMessage('Network connection error when calling REST API, status code = ' + failed);
+        });
+
         event.preventDefault();
     }
 
@@ -52,11 +75,12 @@ function Administration() {
     }
     const taBetaltAvAllaSpelare = function (event) {
         console.log('Ta betalt av alla spelare.');
+
+
         event.preventDefault();
     }
 
     const visaTransaktioner = function (kontonummer, userid) {
-        console.log('Visa transaktioner för ' + userid);
         setValdSpelare(userid);
         const bffService = new BFF();
         bffService.transaktionerForKontonummer(kontonummer).then((vydata) => {
@@ -74,7 +98,7 @@ function Administration() {
     }
 
     //
-    // Presentation logik
+    // Presentationslogik
     //
     const error = function() {
         return (<div>
@@ -92,13 +116,15 @@ function Administration() {
                 ----------------------------------------------------<br/>
                 <b>Ny transaktion</b><br/>
                 <form onSubmit={laggTillTransaktionForSpelbolag}>
-                    <label>Datum:<input type="text" name='datum' defaultValue={datum} onChange={event => setDatum(event.target.value)} />
-                    (ISO 8601 datumformat)</label><br/>
-                    <label>Beskrivning:<input type="text" name='beskrivning' maxLength='50' style = {{width: 400}} defaultValue={beskrivning} onChange={event => setBeskrivning(event.target.value)} />
+                    <label>Beskrivning:<input type="text" value={beskrivning}
+                                    name='beskrivning' maxLength='50' style = {{width: 400}} defaultValue={beskrivning}
+                                    onChange={event => setBeskrivning(event.target.value)} />
                     </label><br/>
-                    <label>Kredit:<input type="text" maxLength='5' style = {{width: 50}} defaultValue={kredit} name='kredit' onChange={event => setKredit(event.target.value)} />
+                    <label>Kredit (- på kontot):<input type="text" maxLength='5' value={kredit} style = {{width: 50}} defaultValue={kredit}
+                                    name='kredit' onChange={event => setKredit(event.target.value)} />
                     </label><br/>
-                    <label>Debet:<input type="text" maxLength='5' style = {{width: 50}}  defaultValue={debet} name='debet' onChange={event => setDebet(event.target.value)} /></label><br/>
+                    <label>Debet (+ på kontot):<input type="text" maxLength='5' value={debet} style = {{width: 50}}  defaultValue={debet}
+                                    name='debet' onChange={event => setDebet(event.target.value)} /></label><br/>
                    <input type="submit" value="Lägg till transaktion" />
                 </form>
                 ----------------------------------------------------<br/>
@@ -134,13 +160,20 @@ function Administration() {
                   Administrera {valdSeplare}.<br/>
                   <b>Ny transaktion</b><br/>
                   <form onSubmit={laggTillTransaktionForSpelare}>
-                      <label>Datum:<input type="text" name='datum' defaultValue={datum} onChange={event => setDatum(event.target.value)} />
+                      <label>Datum:<input type="text" name='spelaredatum' defaultValue={spelareDatum}
+                                value={spelareDatum} onChange={event => setSpelareDatum(event.target.value)} />
                       (ISO 8601 datumformat)</label><br/>
-                      <label>Beskrivning:<input type="text" name='beskrivning' maxLength='50' style = {{width: 400}} defaultValue={beskrivning} onChange={event => setBeskrivning(event.target.value)} />
+                      <label>Beskrivning:<input type="text" name='spelarebeskrivning' maxLength='50'
+                                style = {{width: 400}} value={spelareBeskrivning}
+                                onChange={event => setSpelareBeskrivning(event.target.value)} />
                       </label><br/>
-                      <label>Kredit:<input type="text" maxLength='5' style = {{width: 50}} defaultValue={kredit} name='kredit' onChange={event => setKredit(event.target.value)} />
+                      <label>Kredit:<input type="text" maxLength='5' style = {{width: 50}}
+                                 name='spelarekredit' value={spelareKredit}
+                                onChange={event => setSpelareKredit(event.target.value)} />
                       </label><br/>
-                      <label>Debet:<input type="text" maxLength='5' style = {{width: 50}}  defaultValue={debet} name='debet' onChange={event => setDebet(event.target.value)} /></label><br/>
+                      <label>Debet:<input type="text" maxLength='5' style = {{width: 50}}
+                             name='spelaredebet' value={spelareDebet}
+                            onChange={event => setSpelareDebet(event.target.value)} /></label><br/>
                      <input type="submit" value="Lägg till transaktion" />
                   </form>
                    <b>Transaktioner:</b>
@@ -149,8 +182,8 @@ function Administration() {
                           <tr>
                               <th>Datum</th>
                               <th>Beskrivning</th>
-                              <th>Kredit</th>
-                              <th>Debet</th>
+                              <th>Debet (+)</th>
+                              <th>Kredit (-)</th>
                               <th>Saldo</th>
                           </tr>
                       </thead>
@@ -160,8 +193,8 @@ function Administration() {
                                   return (<tr key={currentValue['ID']}>
                                     <td>{currentValue['datum']}</td>
                                     <td>{currentValue['beskrivning']}</td>
-                                    <td>{currentValue['kredit']}</td>
                                     <td>{currentValue['debet']}</td>
+                                    <td>{currentValue['kredit']}</td>
                                     <td>{currentValue['saldo']}</td>
                                   </tr>
                                   );

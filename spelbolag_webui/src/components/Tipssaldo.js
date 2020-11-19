@@ -40,8 +40,8 @@ function Tipssaldo() {
                 <tr>
                     <th>Datum</th>
                     <th>Beskrivning</th>
-                    <th>Kredit</th>
-                    <th>Debet</th>
+                    <th>Debet (+)</th>
+                    <th>Kredit (-)</th>
                     <th>Saldo</th>
                 </tr>
             </thead>
@@ -51,8 +51,8 @@ function Tipssaldo() {
                         return (<tr key={currentValue['ID']}>
                           <td>{currentValue['datum']}</td>
                           <td>{currentValue['beskrivning']}</td>
-                          <td>{currentValue['kredit']}</td>
                           <td>{currentValue['debet']}</td>
+                          <td>{currentValue['kredit']}</td>
                           <td>{currentValue['saldo']}</td>
                         </tr>
                         );
