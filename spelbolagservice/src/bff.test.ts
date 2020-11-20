@@ -43,9 +43,9 @@ test('Ta betalt av alla spelare i ett givet Spelbolag', async () => {
     const service = new BFF();
 
     // When
-//    const result = await service.getInitialVyForAdministration('robert.georen@gmail.com');
+    const result = await service.taBetaltAvSpelare('The gamblers');
 
     // Then
-//    expect(result['bffResult']['saldo']).toBeGreaterThan(0);
-//    expect(result['bffResult']['namn']).toBe('The gamblers');
+    expect(result['bffResult']['saldo']).toBeGreaterThan(0);
+    expect(result['bffResult']['spelarInfo'].length).toBe(3);
 });

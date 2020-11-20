@@ -21,31 +21,15 @@ class BFF {
     }
 
     laggTillTransaktion(beskrivning, kredit, debet, kontonummer) {
-        const fetchDataPromise = new Promise((resolve, reject) => {
-            const data = {'beskrivning': beskrivning, 'kredit': kredit, 'debet': debet, 'kontonummer': kontonummer};
-            console.log('Lägger till ny transaktion = ' + JSON.stringify(data));
+        const data = {'beskrivning': beskrivning, 'kredit': kredit, 'debet': debet, 'kontonummer': kontonummer};
 
-            fetch(this.getServerHost() + '/api/v1/transaktioner/', {
-                   method: 'POST',
-                   headers: {
-                         'Content-Type': 'application/json'
-                       },
-                   body: JSON.stringify(data) })
-                   .then( async (response) => {
-                        // Hämtar ut returdata
-                        await response.json().then( (resolved) => {
-                                resolve(resolved);
-                            }, (rejectedMessage) => {
-                                console.log('Rejected when parsing return data, message = ' + rejectedMessage);
-                                reject(0);
-                            });
-                   }, (rejectedMessage) => {
-                        console.log('Rejected when posting note to server, message = ' + rejectedMessage);
-                        reject(0);
-                   });
-        });
+        return this.createPOSTPromise('/api/v1/transaktioner/', data);
+    }
 
-        return fetchDataPromise;
+    taBetaltAvAllaSpelare(spelbolagsnamn) {
+        const data = {'spelbolagsnamn': spelbolagsnamn};
+
+        return this.createPOSTPromise('/api/v1/spelbolag/', data);
     }
 
    /**
@@ -62,7 +46,7 @@ class BFF {
     }
 
     /**
-    * Skapar ett generellt Promise för att anropa backend/BFF.
+    * Skapar ett generellt Promise för att anropa backend/BFF med HTTP GET metoden.
     */
     createFetchDataPromise(bffEndpoint) {
         const fetchDataPromise = new Promise((resolve, reject) => {
@@ -85,6 +69,36 @@ class BFF {
         });
 
         return fetchDataPromise;
+    }
+
+    /**
+    * Skapar ett generellt Promise för POST HTTP method.
+    */
+    createPOSTPromise(bffEndpoint, data) {
+        const postDataPromise = new Promise((resolve, reject) => {
+            const urlToBFF = this.getServerHost() + bffEndpoint;
+
+            fetch(urlToBFF, {
+                   method: 'POST',
+                   headers: {
+                         'Content-Type': 'application/json'
+                       },
+                   body: JSON.stringify(data) })
+                   .then( async (response) => {
+                        // Hämtar ut returdata
+                        await response.json().then( (resolved) => {
+                                resolve(resolved);
+                            }, (rejectedMessage) => {
+                                console.log('Rejected when parsing return data, message = ' + rejectedMessage);
+                                reject(0);
+                            });
+                   }, (rejectedMessage) => {
+                        console.log('Rejected when posting note to server, message = ' + rejectedMessage);
+                        reject(0);
+                   });
+        });
+
+        return postDataPromise;
     }
 }
 

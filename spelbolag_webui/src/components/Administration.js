@@ -74,8 +74,21 @@ function Administration() {
         event.preventDefault();
     }
     const taBetaltAvAllaSpelare = function (event) {
-        console.log('Ta betalt av alla spelare.');
+        event.preventDefault();
+        const bffService = new BFF();
+        bffService.taBetaltAvAllaSpelare(namn).then((vydata) => {
+            const authenticated = vydata['success'];
 
+            if (authenticated === 'false') {
+                setMessage('Du måste vara administratör för att använda denna funktion.');
+            } else {
+                setSaldo(vydata['data']['saldo']);
+                setSpelare(vydata['data']['spelarInfo']);
+                setMessage(null);
+            }
+        }, (failed) => {
+            setMessage('Network connection error when calling REST API, status code = ' + failed);
+        });
 
         event.preventDefault();
     }
@@ -117,13 +130,13 @@ function Administration() {
                 <b>Ny transaktion</b><br/>
                 <form onSubmit={laggTillTransaktionForSpelbolag}>
                     <label>Beskrivning:<input type="text" value={beskrivning}
-                                    name='beskrivning' maxLength='50' style = {{width: 400}} defaultValue={beskrivning}
+                                    name='beskrivning' maxLength='50' style = {{width: 400}}
                                     onChange={event => setBeskrivning(event.target.value)} />
                     </label><br/>
-                    <label>Kredit (- på kontot):<input type="text" maxLength='5' value={kredit} style = {{width: 50}} defaultValue={kredit}
+                    <label>Kredit (- på kontot):<input type="text" maxLength='5' value={kredit} style = {{width: 50}}
                                     name='kredit' onChange={event => setKredit(event.target.value)} />
                     </label><br/>
-                    <label>Debet (+ på kontot):<input type="text" maxLength='5' value={debet} style = {{width: 50}}  defaultValue={debet}
+                    <label>Debet (+ på kontot):<input type="text" maxLength='5' value={debet} style = {{width: 50}}
                                     name='debet' onChange={event => setDebet(event.target.value)} /></label><br/>
                    <input type="submit" value="Lägg till transaktion" />
                 </form>
@@ -160,7 +173,7 @@ function Administration() {
                   Administrera {valdSeplare}.<br/>
                   <b>Ny transaktion</b><br/>
                   <form onSubmit={laggTillTransaktionForSpelare}>
-                      <label>Datum:<input type="text" name='spelaredatum' defaultValue={spelareDatum}
+                      <label>Datum:<input type="text" name='spelaredatum'
                                 value={spelareDatum} onChange={event => setSpelareDatum(event.target.value)} />
                       (ISO 8601 datumformat)</label><br/>
                       <label>Beskrivning:<input type="text" name='spelarebeskrivning' maxLength='50'

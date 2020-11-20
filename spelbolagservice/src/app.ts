@@ -126,6 +126,29 @@ app.post('/api/v1/transaktioner/', (req, res) => {
      });
 });
 
+app.post('/api/v1/spelbolag/', (req, res) => {
+    // tar betalt av alla spelare.
+    const bffService = new BFF();
+    const spelbolagsnamn = req.body['spelbolagsnamn'];
+
+    bffService.taBetaltAvSpelare(spelbolagsnamn).then( (result) => {
+         const retData = result['bffResult'];
+
+         res.status(200).send({
+             success: 'true',
+             message: 'Transaktion tillagd.',
+             data: retData
+         });
+     }, rejection => {
+         res.status(200).send({
+                             success: 'false',
+                             message: 'Error while query database.'
+                         });
+     });
+});
+
+
+// Start servern
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}.`);
-    });
+});

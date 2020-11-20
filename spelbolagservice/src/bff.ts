@@ -123,7 +123,7 @@ class BFF {
     * Sorterar transaktioner med datum med fallande datum, dvs. 2020-12-04 kommer före 2020-11-08.
     * Används för att få en bra presentation.
     */
-    sorteraTransaktionerFallande(transaktioner) {
+    private sorteraTransaktionerFallande(transaktioner) {
         transaktioner.sort(function(a,b) {
             let dateA = Date.parse(a.tid);
             let dateB = Date.parse(b.tid);
@@ -134,7 +134,7 @@ class BFF {
     /**
     * Formaterar datum för transaktioner.
     */
-    formateraTransaktionsDatum(transaktioner) {
+    private formateraTransaktionsDatum(transaktioner) {
         let i = 0;
 
         for (i =0; i < transaktioner.length; i++) {
@@ -146,7 +146,7 @@ class BFF {
     /**
     * Räknar ut saldo för varje transaktion.
     */
-    beraknaSaldoPerTransaktion(transaktioner){
+    private beraknaSaldoPerTransaktion(transaktioner){
         let saldo = 0;
         let i;
 
@@ -193,23 +193,9 @@ class BFF {
                 bffResult['saldo'] = saldo;
                 bffResult['kontonummer'] = kontonummer;
 
-                // Hämtar alla spelare som ingår i spelbolaget.
-                spelareResult = await spelbolagservice.getAllaSpelareForSpelbolag(spelbolag.ID);
-                spelare = spelareResult['queryResult'];
-                let spelarInfo = [];
-
-                for(i=0; i<spelare.length; i++) {
-                    const userid = spelare[i]['userid'];
-                    const kontoResult = await spelbolagservice.getKontoByID(spelare[i]['konto_id']);
-                    const konto = kontoResult['queryResult'];
-                    const kontonummer = konto[0]['kontonr'];
-                    const spelarSaldo = await spelbolagservice.getSaldo(kontonummer);
-
-                    const spelareBffData = { userid: userid, saldo: spelarSaldo, kontonummer: kontonummer};
-                    spelarInfo.push(spelareBffData);
-                }
-
-                bffResult['spelarInfo'] = spelarInfo;
+                // Hämtar alla spelare som ingår i spelbolaget och lägger in saldo per spelare.
+                const allaSpelare = await this.hamtaAllaSpelareMedSaldo(spelbolag.ID);
+                bffResult['spelarInfo'] = allaSpelare;
 
                 // Returnerar data till vyn.
                 resolve({bffResult: bffResult});
@@ -240,6 +226,64 @@ class BFF {
         });
 
         return bffPromise;
+    }
+
+    /**
+    * Ta betalt av alla spelare i givet spelbolag.
+    */
+    taBetaltAvSpelare(spelbolagsnamn : string) {
+        const bffPromise = new Promise(async (resolve, reject) => {
+            const spelbolagservice = new Spelbolagservice();
+            try{
+                // Tar betalt av alla spelare som ingår i spelbolaget.
+                const now = new Date();
+                const result = await spelbolagservice.taBetaltForEnOmgang(spelbolagsnamn, now.toISOString());
+
+                // Räkna ut nytt saldo.
+                const spelbolagResult = await spelbolagservice.getSpelbolag(spelbolagsnamn);
+                const spelbolag = spelbolagResult['queryResult'][0];
+                const kontoResult = await spelbolagservice.getKontoByID(spelbolag.konto_id);
+                const konto = kontoResult['queryResult'];
+                const kontonummer = konto[0]['kontonr'];
+                const saldo = await spelbolagservice.getSaldo(kontonummer);
+                let bffResult = {saldo:0, spelarInfo: []};
+                bffResult.saldo = saldo;
+
+                // Hämta alla spelarna med uppdaterat saldo på.
+                const allaSpelare = await this.hamtaAllaSpelareMedSaldo(spelbolag.ID);
+                bffResult.spelarInfo = allaSpelare;
+
+                resolve({bffResult: bffResult});
+            } catch(e) {
+                reject('Kan inte hämta transaktioner för givet konto.' + JSON.stringify(e));
+            }
+        });
+
+        return bffPromise;
+    }
+
+    /**
+    * Utility metod för att hämta alla spelare i givet spelbolag, och även beräkna saldo för respektive spelare.
+    */
+    private async hamtaAllaSpelareMedSaldo(spelbolagid) {
+        const spelbolagservice = new Spelbolagservice();
+        const spelareResult = await spelbolagservice.getAllaSpelareForSpelbolag(spelbolagid);
+        const spelare = spelareResult['queryResult'];
+        let spelarInfo = [];
+        let i;
+
+        for(i=0; i<spelare.length; i++) {
+            const userid = spelare[i]['userid'];
+            const kontoResult = await spelbolagservice.getKontoByID(spelare[i]['konto_id']);
+            const konto = kontoResult['queryResult'];
+            const kontonummer = konto[0]['kontonr'];
+            const spelarSaldo = await spelbolagservice.getSaldo(kontonummer);
+
+            const spelareBffData = { userid: userid, saldo: spelarSaldo, kontonummer: kontonummer};
+            spelarInfo.push(spelareBffData);
+        }
+
+        return spelarInfo;
     }
 }
 

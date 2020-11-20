@@ -210,7 +210,7 @@ export class Spelbolagservice {
              const kontonummer = konto['queryResult'][0].kontonr;
 
              await this.addTransaktion(text, kredit, debet, kontonummer);
-             await this.addTransaktion('Får betalt av spelare' + spelare['queryResult'][i].userid, 0, insatsperomgang, spelbolagKontonummer);
+             await this.addTransaktion('Får betalt av spelaren ' + spelare['queryResult'][i].userid, 0, insatsperomgang, spelbolagKontonummer);
           }
     }
 
