@@ -40,7 +40,8 @@ test('Hämtar initial vy för Administration sidan', async () => {
 
 test('Ta betalt av alla spelare i ett givet Spelbolag', async () => {
     // OBS! Detta testet körs samtidigt som andra tester av Jest, så
-    // det går inte att ha aktivt!
+    // det går inte att ha aktivt eftersom det påverkar andra viktigare tester.
+    // främtst testet i spelbolagservice.taBetaltForEnOmgang.
     // Given
     const service = new BFF();
 

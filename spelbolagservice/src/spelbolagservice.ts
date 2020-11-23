@@ -116,24 +116,21 @@ export class Spelbolagservice {
             let result = await transaktionIDPromise;
             const id = parseInt(result['queryResult'][0].ID, 10);
             const nextTransaktionId = id + 1;
-            console.log('nextTransaktionId = ' + nextTransaktionId);
 
             // Lägger in en ny transaktion i databasen. Timestamp har formatet YYYY-MM-DD hh:mm:ss.fraction
             const sqlInsertTransaktion = 'INSERT INTO stryktipsbolag.transaktion (ID, BESKRIVNING, DEBET,KREDIT, TID) ' +
                         'VALUES (' + nextTransaktionId + ', \'' + beskrivning + '\',' + debet + ', ' + kredit + ', \'' + tidpunkt +'\');';
-            const insertTransaktionPromise = this.createSQLPromise(sqlInsertTransaktion, true);
+            const insertTransaktionPromise = this.createSQLPromise(sqlInsertTransaktion);
             await insertTransaktionPromise;
-            console.log('addTransaktion.betalt klar.');
+
             // Lägger in relation mellan konto och transaktion.
             const konto = await this.getKonto(kontonummer);
             const konto_id = konto['queryResult'][0]['ID'];
             const sqlInsertRelation = 'INSERT INTO stryktipsbolag.konto_transaktion (konto_id, transaktioner_id) ' +
                         'VALUES (' + konto_id + ', ' + nextTransaktionId +');';
-            const insertRelationPromise = this.createSQLPromise(sqlInsertRelation, true);
+            const insertRelationPromise = this.createSQLPromise(sqlInsertRelation);
             await insertRelationPromise;
 
-            console.log('addTransaktion.relation klar.');
-            //console.log('Båda insert klara.');
             return {queryResult:{affectedRows:1}};
         } catch(e) {
             console.log('Major error while inserting transaction.' + JSON.stringify(e));
@@ -191,7 +188,6 @@ export class Spelbolagservice {
 
         // Lägger till en kredit (-) för varje spelare och debet (+) för spelbolaget.
         for (var i = 0; i < spelare['queryResult'].length; i++) {
-            console.log('Spelare #' + i);
              const text = 'Tar betalt av '+ spelare['queryResult'][i].userid + ' för spelbolaget ' + spelbolagnamn;
              const kredit = insatsperomgang;
              const debet = 0;
@@ -201,9 +197,7 @@ export class Spelbolagservice {
 
             try {
              await this.addTransaktion(text, kredit, debet, kontonummer);
-             console.log('Betalt av spelare klart.');
              await this.addTransaktion('Får betalt av spelaren ' + spelare['queryResult'][i].userid, 0, insatsperomgang, spelbolagKontonummer);
-             console.log('Spelare # ' + i + ' transaktion inlagda.');
             } catch(e){
                 console.log('Major error: Kan inte ta betalt av spelare. Trace=' + JSON.stringify(e) );
                 throw new Error(e);
@@ -234,7 +228,7 @@ export class Spelbolagservice {
     /**
      * Skapar ett Promise som exekverar ett SQL statement.
      */
-     createSQLPromise(sql, debug = false) {
+     createSQLPromise(sql) {
         let sqlpromise = new Promise((resolve, reject) => {
              const con = this.connectToDb();
              con.query(sql, function (err, result) {
@@ -245,7 +239,6 @@ export class Spelbolagservice {
                      reject('SQLerror' + JSON.stringify(err));
                  } else {
                     con.end();
-                    if(debug){console.log('SQL query completed: ' + sql);}
 
                     resolve({queryResult: result});
                  }
