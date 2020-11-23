@@ -16,10 +16,9 @@ export class Spelbolagservice {
     getTransaction(id_param : string) {
         const id = parseInt(id_param, 10);
         console.log('Search for transaction with id = ' + id);
-        const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.transaktion where id = ' + id + ';';
 
-        let sqlpromise = this.createSQLPromise(sql, con);
+        let sqlpromise = this.createSQLPromise(sql);
 
         return sqlpromise;
     }
@@ -29,8 +28,7 @@ export class Spelbolagservice {
     */
     getTransactions(kontonr_param : string) {
         const id = parseInt(kontonr_param, 10);
-        console.log('Search for transaction with kontonr = ' + id);
-        const con = this.connectToDb();
+        console.log('Search for transactions with kontonr = ' + id);
         const sql = `SELECT stryktipsbolag.transaktion.ID, stryktipsbolag.transaktion.beskrivning, stryktipsbolag.transaktion.debet,
                             stryktipsbolag.transaktion.kredit, stryktipsbolag.transaktion.tid,
                     		stryktipsbolag.konto_transaktion.konto_id, stryktipsbolag.konto.kontonr
@@ -40,7 +38,7 @@ export class Spelbolagservice {
                         WHERE stryktipsbolag.konto.kontonr = ` + id +
                         ' ORDER BY  stryktipsbolag.transaktion.TID ASC;';
 
-        let sqlpromise = this.createSQLPromise(sql, con);
+        let sqlpromise = this.createSQLPromise(sql);
 
         return sqlpromise;
     }
@@ -51,10 +49,9 @@ export class Spelbolagservice {
     getSpelare(userid_params : string) {
         const userid = userid_params;
         console.log('Hämtar en Spelare med userid = ' + userid);
-        const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.spelare where userid = "' + userid + '";';
 
-        let sqlpromise = this.createSQLPromise(sql, con);
+        let sqlpromise = this.createSQLPromise(sql);
 
         return sqlpromise;
     }
@@ -65,10 +62,9 @@ export class Spelbolagservice {
     getSpelbolag(namn_params : string) {
         const namn = (namn_params == null) ? '%': namn_params;
         console.log('Hämtar ett Spelbolag med namn = ' + namn);
-        const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.spelbolag where namn LIKE "' + namn + '";';
 
-        let sqlpromise = this.createSQLPromise(sql, con);
+        let sqlpromise = this.createSQLPromise(sql);
 
         return sqlpromise;
     }
@@ -77,9 +73,8 @@ export class Spelbolagservice {
     * Hämtar ett konto för givet kontonummer.
     */
     getKonto(kontonummer : string) {
-        const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.konto where kontonr = ' + kontonummer + ';';
-        let sqlpromise = this.createSQLPromise(sql, con);
+        let sqlpromise = this.createSQLPromise(sql);
 
         return sqlpromise;
     }
@@ -88,9 +83,8 @@ export class Spelbolagservice {
     * Hämtar ett konto för givet ID.
     */
     getKontoByID(id : string) {
-        const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.konto where ID = ' + id + ';';
-        let sqlpromise = this.createSQLPromise(sql, con);
+        let sqlpromise = this.createSQLPromise(sql);
 
         return sqlpromise;
     }
@@ -100,9 +94,8 @@ export class Spelbolagservice {
     * Hämtar alla spelbolag.
     */
     getAllaSpelbolag() {
-        const con = this.connectToDb();
         const sql = 'select * from stryktipsbolag.spelbolag;';
-        let sqlpromise = this.createSQLPromise(sql, con);
+        let sqlpromise = this.createSQLPromise(sql);
 
         return sqlpromise;
     }
@@ -110,45 +103,42 @@ export class Spelbolagservice {
     /**
     * Lägg in en transaktionpost på givet kontonummer.
     */
-    async addTransaktion(beskrivning_params, kredit_params, debit_params, kontonummer_params) {
-        const beskrivning = beskrivning_params;
+    async addTransaktion(beskrivning, kredit_params, debit_params, kontonummer_params, tidpunkt = this.convertToMySqlDate(new Date())) {
         const debet = (debit_params == null) ? 0: debit_params;
         const kredit = (kredit_params == null) ? 0: kredit_params;
         const kontonummer = kontonummer_params;
-        console.log('Skapar en transaktion med {beskrivning:' + beskrivning + ', debet:' + debet + ', kredit:' + kredit +', kontonummer:' + kontonummer + '}.');
+        console.log('Skapar en transaktion med {beskrivning:' + beskrivning + ', debet:' + debet + ', kredit:' + kredit +', kontonummer:' + kontonummer + ', tid:' + tidpunkt +'}.');
 
-        let con = this.connectToDb();
+        try {
+            // Calculate the next sequnece ID used in the sql insert into statement for transaktion.
+            const sqlLastID = 'SELECT ID FROM stryktipsbolag.transaktion ORDER BY ID DESC LIMIT 1;';
+            const transaktionIDPromise = this.createSQLPromise(sqlLastID);
+            let result = await transaktionIDPromise;
+            const id = parseInt(result['queryResult'][0].ID, 10);
+            const nextTransaktionId = id + 1;
+            console.log('nextTransaktionId = ' + nextTransaktionId);
 
-        // Calculate the next sequnece ID used in the sql insert into statement for transaktion.
-        const sqlLastID = 'SELECT ID FROM stryktipsbolag.transaktion ORDER BY ID DESC LIMIT 1;';
-        let transaktionIDPromise = this.createSQLPromise(sqlLastID, con);
-        let result = await transaktionIDPromise;
-        const id = parseInt(result['queryResult'][0].ID, 10);
-        const nextTransaktionId = id + 1;
+            // Lägger in en ny transaktion i databasen. Timestamp har formatet YYYY-MM-DD hh:mm:ss.fraction
+            const sqlInsertTransaktion = 'INSERT INTO stryktipsbolag.transaktion (ID, BESKRIVNING, DEBET,KREDIT, TID) ' +
+                        'VALUES (' + nextTransaktionId + ', \'' + beskrivning + '\',' + debet + ', ' + kredit + ', \'' + tidpunkt +'\');';
+            const insertTransaktionPromise = this.createSQLPromise(sqlInsertTransaktion, true);
+            await insertTransaktionPromise;
+            console.log('addTransaktion.betalt klar.');
+            // Lägger in relation mellan konto och transaktion.
+            const konto = await this.getKonto(kontonummer);
+            const konto_id = konto['queryResult'][0]['ID'];
+            const sqlInsertRelation = 'INSERT INTO stryktipsbolag.konto_transaktion (konto_id, transaktioner_id) ' +
+                        'VALUES (' + konto_id + ', ' + nextTransaktionId +');';
+            const insertRelationPromise = this.createSQLPromise(sqlInsertRelation, true);
+            await insertRelationPromise;
 
-
-        // Lägger in en ny transaktion i databasen.
-        con = this.connectToDb();   // need new connection to db, the previous is stalled.
-        const sqlInsertTransaktion = 'INSERT INTO stryktipsbolag.transaktion (ID, BESKRIVNING, DEBET,KREDIT, TID) ' +
-                    'VALUES (' + nextTransaktionId + ', \'' + beskrivning + '\',' + debet + ', ' + kredit + ',CURRENT_TIMESTAMP);';
-        let insertTransaktionPromise = this.createSQLPromise(sqlInsertTransaktion, con);
-
-        // Lägger in relation mellan konto och transaktion.
-        const konto = await this.getKonto(kontonummer);
-        const konto_id = konto['queryResult'][0]['ID'];
-        let conRelation = this.connectToDb();   // need new connection to db, the previous is stalled.
-        const sqlInsertRelation = 'INSERT INTO stryktipsbolag.konto_transaktion (konto_id, transaktioner_id) ' +
-                    'VALUES (' + konto_id + ', ' + nextTransaktionId +');';
-        let insertRelationPromise = this.createSQLPromise(sqlInsertRelation, conRelation);
-
-        // Skapar ett promise för båda insert statements.
-        const insertPromise = new Promise(async (resolve, reject) => {
-           await insertTransaktionPromise;
-           const result = await insertRelationPromise;
-           resolve(result);
-        });
-
-        return insertPromise;
+            console.log('addTransaktion.relation klar.');
+            //console.log('Båda insert klara.');
+            return {queryResult:{affectedRows:1}};
+        } catch(e) {
+            console.log('Major error while inserting transaction.' + JSON.stringify(e));
+            throw e;
+        }
     }
 
     /**
@@ -162,8 +152,7 @@ export class Spelbolagservice {
                                                   INNER JOIN stryktipsbolag.spelbolag_spelare ON stryktipsbolag.spelbolag_spelare.spelare_id = stryktipsbolag.spelare.ID
                                                   WHERE stryktipsbolag.spelbolag_spelare.spelbolag_id = ` +
                                                   id_param +';';
-        const con = this.connectToDb();
-        const queryPromise = this.createSQLPromise(sqlQuery, con);
+        const queryPromise = this.createSQLPromise(sqlQuery);
 
         return queryPromise;
     }
@@ -202,15 +191,23 @@ export class Spelbolagservice {
 
         // Lägger till en kredit (-) för varje spelare och debet (+) för spelbolaget.
         for (var i = 0; i < spelare['queryResult'].length; i++) {
-             const text = 'Tar betalt av spelare för spelbolaget ' + spelbolagnamn;
+            console.log('Spelare #' + i);
+             const text = 'Tar betalt av '+ spelare['queryResult'][i].userid + ' för spelbolaget ' + spelbolagnamn;
              const kredit = insatsperomgang;
              const debet = 0;
              const konto_id = spelare['queryResult'] [i].konto_id;
              const konto = await this.getKontoByID(konto_id);
              const kontonummer = konto['queryResult'][0].kontonr;
 
+            try {
              await this.addTransaktion(text, kredit, debet, kontonummer);
+             console.log('Betalt av spelare klart.');
              await this.addTransaktion('Får betalt av spelaren ' + spelare['queryResult'][i].userid, 0, insatsperomgang, spelbolagKontonummer);
+             console.log('Spelare # ' + i + ' transaktion inlagda.');
+            } catch(e){
+                console.log('Major error: Kan inte ta betalt av spelare. Trace=' + JSON.stringify(e) );
+                throw new Error(e);
+            }
           }
     }
 
@@ -237,21 +234,33 @@ export class Spelbolagservice {
     /**
      * Skapar ett Promise som exekverar ett SQL statement.
      */
-     createSQLPromise(sql, con) {
+     createSQLPromise(sql, debug = false) {
         let sqlpromise = new Promise((resolve, reject) => {
+             const con = this.connectToDb();
              con.query(sql, function (err, result) {
                  if (err) {
-                     console.log('Error: ' + err);
-                     reject('SQLerror');
+                     console.log('Connection.Error: ' + err);
+                     console.log('Connection.Error.SQL query: ' + sql);
+                     con.end();
+                     reject('SQLerror' + JSON.stringify(err));
+                 } else {
+                    con.end();
+                    if(debug){console.log('SQL query completed: ' + sql);}
+
+                    resolve({queryResult: result});
                  }
-
-                 resolve({queryResult: result});
              });
-
-             con.end();
          });
 
          return sqlpromise;
+     }
+
+     /**
+     * Konverterar JavaScript datum till MySQL datumformat, dvs. ISO 8601 datum (2020-11-20T08:30:05.823Z) till
+     * mysql datum (2020-11-20 08:30.05.823)
+     */
+     private convertToMySqlDate(jsDate: Date) {
+        return jsDate.toLocaleString( 'sv' ) + '.'+ jsDate.getMilliseconds();
      }
 }
 

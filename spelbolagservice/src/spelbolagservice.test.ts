@@ -8,7 +8,9 @@ test('Leta fram en transaktion med givet ID.', async () => {
 
     // When
     const result = await service.getTransaction('1');
-
+    console.log('En transaktion=' + JSON.stringify(result));
+    const now = new Date();
+    console.log('JS datum=' + now.toISOString());
     // Then
     expect(result['queryResult'][0]['beskrivning']).toBe('Spelar stryktipset');
 });
@@ -19,7 +21,7 @@ test('Kan inte hitta en transaktion med givet ID.', async () => {
     const service = new Spelbolagservice();
 
     // When
-    const result = await service.getTransaction('1967');
+    const result = await service.getTransaction('196700');
 
     // Then
     expect(result['queryResult'].length).toBeLessThan(1);
@@ -133,10 +135,14 @@ test('Ta betalt av alla seplare i ett spelbolag', async () => {
     const result = await service.taBetaltForEnOmgang('The gamblers', '2020-10-21 08:00:00');
 
     // Then
-    expect(await service.getSaldo('234') - spelare1Saldo).toBe(-50);    // Det borde dragits 50 ifrån spelarkontot.
-    expect(await service.getSaldo('89') - spelare2Saldo).toBe(-50);    // Det borde dragits 50 ifrån spelarkontot.
-    expect(await service.getSaldo('90') - spelare3Saldo).toBe(-50);    // Det borde dragits 50 ifrån spelarkontot.
-    expect(await service.getSaldo('88') - spelbolagSaldo).toBe(150);
+    const spelare1SaldoAfter = await service.getSaldo('234');
+    const spelare2SaldoAfter = await service.getSaldo('89');
+    const spelare3SaldoAfter = await service.getSaldo('90');
+    const spelbolagSaldoAfter = await service.getSaldo('88');
+    expect(spelare1SaldoAfter - spelare1Saldo).toBe(-50);    // Det borde dragits 50 ifrån spelarkontot.
+    expect(spelare2SaldoAfter - spelare2Saldo).toBe(-50);    // Det borde dragits 50 ifrån spelarkontot.
+    expect(spelare3SaldoAfter - spelare3Saldo).toBe(-50);    // Det borde dragits 50 ifrån spelarkontot.
+    expect(spelbolagSaldoAfter - spelbolagSaldo).toBe(150);
 });
 
 test('Hämtar alla spelbolag.', async () => {
