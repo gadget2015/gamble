@@ -4,11 +4,29 @@ import {BFF} from './BFF';
 import {GoogleAuthenticationMiddleware} from './GoogleAuthenticationMiddleware';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import winston from 'winston';
+import {format} from 'logform';
 
 const cookieParser = require('cookie-parser')
-const oauth2 = new GoogleAuthenticationMiddleware();
+
 const app = express();
 const port = 4001;
+
+// Skapar en logger med Winston.
+const myFormat = format.printf(({ level, message, label, timestamp }) => {
+  return `${timestamp} ${level}: ${message}`;
+});
+
+const logger = winston.createLogger({
+  level: 'debug',
+  format: format.combine(format.timestamp(), myFormat),
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'spelbolagservice.log' })
+  ]
+});
+
+const oauth2 = new GoogleAuthenticationMiddleware(logger);
 
 // https://medium.com/@purposenigeria/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb
 app.use(bodyParser.json());
@@ -16,14 +34,14 @@ app.use(cors());
 app.use(cookieParser());
 // Middleware log request.
 app.use(function(req, res, next) {
-	console.log('Server called with URL:' + req.url);
+	logger.info('Server called with URL:' + req.url);
 	next();
 });
 
 app.use(oauth2.authentication());   // Authentication middleware
 
 app.get('/bff/v1/mittsaldo', (req, res) => {
-    const bffService = new BFF();
+    const bffService = new BFF(logger);
 
     bffService.getInitialVyForMittsaldo(req['userid']).then( (result) => {
             const mittsaldoVy = result['bffResult'];
@@ -41,7 +59,7 @@ app.get('/bff/v1/mittsaldo', (req, res) => {
 });
 
 app.get('/bff/v1/tipsbolag/', (req, res) => {
-    const bffService = new BFF();
+    const bffService = new BFF(logger);
 
     bffService.getInitialVyForSpelbolag().then( (result) => {
             const spelbolag = result['bffResult'];
@@ -59,7 +77,7 @@ app.get('/bff/v1/tipsbolag/', (req, res) => {
 });
 
 app.get('/bff/v1/transaktioner/:kontonummer', (req, res) => {
-    const bffService = new BFF();
+    const bffService = new BFF(logger);
     const kontonummer = req.params.kontonummer;
 
     bffService.transaktionerForEttKonto(kontonummer).then( (result) => {
@@ -78,7 +96,7 @@ app.get('/bff/v1/transaktioner/:kontonummer', (req, res) => {
 });
 
 app.get('/bff/v1/administration', (req, res) => {
-    const bffService = new BFF();
+    const bffService = new BFF(logger);
 
     bffService.getInitialVyForAdministration(req['userid']).then( (result) => {
             const administrationVy = result['bffResult'];
@@ -97,7 +115,7 @@ app.get('/bff/v1/administration', (req, res) => {
 
 app.post('/api/v1/transaktioner/', (req, res) => {
     // Skapar en ny transaktion.
-    const bffService = new BFF();
+    const bffService = new BFF(logger);
     const beskrivning = req.body['beskrivning'];
     const kredit = req.body['kredit'];
     const debet = req.body['debet'];
@@ -128,7 +146,7 @@ app.post('/api/v1/transaktioner/', (req, res) => {
 
 app.post('/api/v1/spelbolag/', (req, res) => {
     // tar betalt av alla spelare.
-    const bffService = new BFF();
+    const bffService = new BFF(logger);
     const spelbolagsnamn = req.body['spelbolagsnamn'];
 
     bffService.taBetaltAvSpelare(spelbolagsnamn).then( (result) => {

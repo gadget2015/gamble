@@ -1,10 +1,25 @@
 import {BFF} from './BFF';
 import mock = jest.mock;
 import * as httpMocks from 'node-mocks-http';
+import winston from 'winston';
+import {format} from 'logform';
+
+// Skapar en logger med Winston.
+const myFormat = format.printf(({ level, message, label, timestamp }) => {
+  return `${timestamp} ${level}: ${message}`;
+});
+
+const logger = winston.createLogger({
+  format: format.combine(format.timestamp(), myFormat),
+  transports: [
+    new winston.transports.Console()
+  ]
+});
+
 
 test('Hämtar initial vy för spelbolag sidan', async () => {
     // Given
-    const service = new BFF();
+    const service = new BFF(logger);
 
     // When
     const result = await service.getInitialVyForSpelbolag();
@@ -16,7 +31,7 @@ test('Hämtar initial vy för spelbolag sidan', async () => {
 
 test('Hämtar initial vy för Mitt saldo sidan', async () => {
     // Given
-    const service = new BFF();
+    const service = new BFF(logger);
 
     // When
     const result = await service.getInitialVyForMittsaldo('robert.georen@gmail.com');
@@ -28,7 +43,7 @@ test('Hämtar initial vy för Mitt saldo sidan', async () => {
 
 test('Hämtar initial vy för Administration sidan', async () => {
     // Given
-    const service = new BFF();
+    const service = new BFF(logger);
 
     // When
     const result = await service.getInitialVyForAdministration('robert.georen@gmail.com');
@@ -43,7 +58,7 @@ test('Ta betalt av alla spelare i ett givet Spelbolag', async () => {
     // det går inte att ha aktivt eftersom det påverkar andra viktigare tester.
     // främtst testet i spelbolagservice.taBetaltForEnOmgang.
     // Given
-    const service = new BFF();
+    const service = new BFF(logger);
 
     // When
 //    const myPromise = service.taBetaltAvSpelare('The gamblers');

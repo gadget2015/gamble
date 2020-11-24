@@ -1,13 +1,17 @@
 import {Request, Response} from 'express';
 import * as db from 'mysql';
 import myprops = require('properties-reader');
+import {Logger} from 'winston';
 
 /**
  * The Spelbolag service, that handles CRUD operations.
  *
  */
 export class Spelbolagservice {
-    constructor() {
+    logger: Logger;
+
+    constructor(logger : Logger) {
+        this.logger = logger;
     }
 
     /**
@@ -15,7 +19,7 @@ export class Spelbolagservice {
     */
     getTransaction(id_param : string) {
         const id = parseInt(id_param, 10);
-        console.log('Search for transaction with id = ' + id);
+        this.logger.info('Search for transaction with id = ' + id);
         const sql = 'select * from stryktipsbolag.transaktion where id = ' + id + ';';
 
         let sqlpromise = this.createSQLPromise(sql);
@@ -28,7 +32,7 @@ export class Spelbolagservice {
     */
     getTransactions(kontonr_param : string) {
         const id = parseInt(kontonr_param, 10);
-        console.log('Search for transactions with kontonr = ' + id);
+        this.logger.debug('Search for transactions with kontonr = ' + id);
         const sql = `SELECT stryktipsbolag.transaktion.ID, stryktipsbolag.transaktion.beskrivning, stryktipsbolag.transaktion.debet,
                             stryktipsbolag.transaktion.kredit, stryktipsbolag.transaktion.tid,
                     		stryktipsbolag.konto_transaktion.konto_id, stryktipsbolag.konto.kontonr
@@ -48,7 +52,7 @@ export class Spelbolagservice {
     */
     getSpelare(userid_params : string) {
         const userid = userid_params;
-        console.log('Hämtar en Spelare med userid = ' + userid);
+        this.logger.debug('Hämtar en Spelare med userid = ' + userid);
         const sql = 'select * from stryktipsbolag.spelare where userid = "' + userid + '";';
 
         let sqlpromise = this.createSQLPromise(sql);
@@ -61,7 +65,7 @@ export class Spelbolagservice {
     */
     getSpelbolag(namn_params : string) {
         const namn = (namn_params == null) ? '%': namn_params;
-        console.log('Hämtar ett Spelbolag med namn = ' + namn);
+        this.logger.debug('Hämtar ett Spelbolag med namn = ' + namn);
         const sql = 'select * from stryktipsbolag.spelbolag where namn LIKE "' + namn + '";';
 
         let sqlpromise = this.createSQLPromise(sql);
@@ -107,7 +111,7 @@ export class Spelbolagservice {
         const debet = (debit_params == null) ? 0: debit_params;
         const kredit = (kredit_params == null) ? 0: kredit_params;
         const kontonummer = kontonummer_params;
-        console.log('Skapar en transaktion med {beskrivning:' + beskrivning + ', debet:' + debet + ', kredit:' + kredit +', kontonummer:' + kontonummer + ', tid:' + tidpunkt +'}.');
+        this.logger.info('Skapar en transaktion med {beskrivning:' + beskrivning + ', debet:' + debet + ', kredit:' + kredit +', kontonummer:' + kontonummer + ', tid:' + tidpunkt +'}.');
 
         try {
             // Calculate the next sequnece ID used in the sql insert into statement for transaktion.
@@ -142,7 +146,7 @@ export class Spelbolagservice {
     * Hämtar alla spelare som är med i givet spelbolag id.
     */
     async getAllaSpelareForSpelbolag(id_param : string) {
-        console.log('Hämtar alla spelare för givet spelbolag ID(' + id_param + ').');
+        this.logger.debug('Hämtar alla spelare för givet spelbolag ID(' + id_param + ').');
 
         const sqlQuery = `SELECT stryktipsbolag.spelare.ID, stryktipsbolag.spelare.userid, stryktipsbolag.spelare.administratorforspelbolag_id, stryktipsbolag.spelare.konto_id
                                               	FROM stryktipsbolag.spelare
@@ -199,7 +203,7 @@ export class Spelbolagservice {
              await this.addTransaktion(text, kredit, debet, kontonummer);
              await this.addTransaktion('Får betalt av spelaren ' + spelare['queryResult'][i].userid, 0, insatsperomgang, spelbolagKontonummer);
             } catch(e){
-                console.log('Major error: Kan inte ta betalt av spelare. Trace=' + JSON.stringify(e) );
+                this.logger.error('Major error: Kan inte ta betalt av spelare. Trace=' + JSON.stringify(e) );
                 throw new Error(e);
             }
           }
@@ -233,8 +237,8 @@ export class Spelbolagservice {
              const con = this.connectToDb();
              con.query(sql, function (err, result) {
                  if (err) {
-                     console.log('Connection.Error: ' + err);
-                     console.log('Connection.Error.SQL query: ' + sql);
+                     this.logger.error('Connection.Error: ' + err);
+                     this.logger.error('Connection.Error.SQL query: ' + sql);
                      con.end();
                      reject('SQLerror' + JSON.stringify(err));
                  } else {
@@ -254,18 +258,5 @@ export class Spelbolagservice {
      */
      private convertToMySqlDate(jsDate: Date) {
         return jsDate.toLocaleString( 'sv' ) + '.'+ jsDate.getMilliseconds();
-     }
-}
-
-/**
-* Skriver ut resultset.
-*/
-function printResult(result) {
-    for (var i = 0; i < result['queryResult'].length; i++) {
-        console.log('Rad #' + i + ' = ' + result['queryResult'] [i].ID  + ' | ' + result['queryResult'][i].beskrivning
-        + ' | ' + result['queryResult'][i].debit
-        + ' | ' + result['queryResult'][i].kredit
-        + ' | ' + result['queryResult'][i].tid
-        + ' | ' + result['queryResult'][i].kontonr);
      }
 }

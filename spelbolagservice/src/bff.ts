@@ -1,15 +1,21 @@
 import {Spelbolagservice} from './spelbolagservice';
+import {Logger} from 'winston';
+
 /**
 * BFF layer for do operations on spelbolag regestry.
 */
 class BFF {
+    logger: Logger;
 
+    constructor(logger: Logger) {
+        this.logger = logger;
+    }
     /**
     * Skapar ett Promise som hämtar presentationsdata för Spelbolags sidan.
     */
     async getInitialVyForSpelbolag() {
         const bffPromise = new Promise(async (resolve, reject) => {
-            const spelbolagservice = new Spelbolagservice();
+            const spelbolagservice = new Spelbolagservice(this.logger);
 
             try {
                 // Hämtar alla spelbolag
@@ -48,7 +54,7 @@ class BFF {
     */
     transaktionerForEttKonto(kontonummer : string) {
         const bffPromise = new Promise(async (resolve, reject) => {
-            const spelbolagservice = new Spelbolagservice();
+            const spelbolagservice = new Spelbolagservice(this.logger);
             try{
                 // Hämtar alla transaktioner
                 const transaktionerResult = await spelbolagservice.getTransactions(kontonummer);
@@ -84,7 +90,7 @@ class BFF {
     */
     async getInitialVyForMittsaldo(userid : string) {
         const bffPromise = new Promise(async (resolve, reject) => {
-            const spelbolagservice = new Spelbolagservice();
+            const spelbolagservice = new Spelbolagservice(this.logger);
 
             try {
                 // Hämtar totalt saldo för spelaren
@@ -163,7 +169,7 @@ class BFF {
     */
     async getInitialVyForAdministration(userid : string) {
         const bffPromise = new Promise(async (resolve, reject) => {
-            const spelbolagservice = new Spelbolagservice();
+            const spelbolagservice = new Spelbolagservice(this.logger);
 
             try {
                 // Hämtar saldo för Spelbolaget som spelaren är
@@ -212,7 +218,7 @@ class BFF {
     */
     addTransaktion(beskrivning: string, kredit: string, debet: string, kontonummer : string) {
         const bffPromise = new Promise(async (resolve, reject) => {
-            const spelbolagservice = new Spelbolagservice();
+            const spelbolagservice = new Spelbolagservice(this.logger);
             try{
                 // Hämtar alla transaktioner
                 const transaktionerResult = await spelbolagservice.addTransaktion(beskrivning, kredit, debet, kontonummer);
@@ -233,7 +239,7 @@ class BFF {
     */
     taBetaltAvSpelare(spelbolagsnamn : string) {
         const bffPromise = new Promise(async (resolve, reject) => {
-            const spelbolagservice = new Spelbolagservice();
+            const spelbolagservice = new Spelbolagservice(this.logger);
             try{
                 // Tar betalt av alla spelare som ingår i spelbolaget.
                 const now = new Date();
@@ -266,7 +272,7 @@ class BFF {
     * Utility metod för att hämta alla spelare i givet spelbolag, och även beräkna saldo för respektive spelare.
     */
     private async hamtaAllaSpelareMedSaldo(spelbolagid) {
-        const spelbolagservice = new Spelbolagservice();
+        const spelbolagservice = new Spelbolagservice(this.logger);
         const spelareResult = await spelbolagservice.getAllaSpelareForSpelbolag(spelbolagid);
         const spelare = spelareResult['queryResult'];
         let spelarInfo = [];

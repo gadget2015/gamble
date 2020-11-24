@@ -1,10 +1,24 @@
 import {Spelbolagservice} from './spelbolagservice';
 import mock = jest.mock;
 import * as httpMocks from 'node-mocks-http';
+import winston from 'winston';
+import {format} from 'logform';
+
+// Skapar en logger med Winston.
+const myFormat = format.printf(({ level, message, label, timestamp }) => {
+  return `${timestamp} ${level}: ${message}`;
+});
+
+const logger = winston.createLogger({
+  format: format.combine(format.timestamp(), myFormat),
+  transports: [
+    new winston.transports.Console()
+  ]
+});
 
 test('Leta fram en transaktion med givet ID.', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const result = await service.getTransaction('1');
@@ -18,7 +32,7 @@ test('Leta fram en transaktion med givet ID.', async () => {
 
 test('Kan inte hitta en transaktion med givet ID.', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const result = await service.getTransaction('196700');
@@ -30,7 +44,7 @@ test('Kan inte hitta en transaktion med givet ID.', async () => {
 
 test('Hämtar alla transaktioner för ett givet kontonummer.', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const result = await service.getTransactions('234');
@@ -41,7 +55,7 @@ test('Hämtar alla transaktioner för ett givet kontonummer.', async () => {
 
 test('Leta fram en seplare', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const result = await service.getSpelare('robert.georen@gmail.com');
@@ -53,7 +67,7 @@ test('Leta fram en seplare', async () => {
 
 test('Letar fram ett Spelbolag', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const result = await service.getSpelbolag('The gamblers');
@@ -65,7 +79,7 @@ test('Letar fram ett Spelbolag', async () => {
 
 test('Hämtar alla spelbolag', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const result = await service.getSpelbolag(null);
@@ -76,7 +90,7 @@ test('Hämtar alla spelbolag', async () => {
 
 test('Skapa en transaktion för givet kontonummer.', async() => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const result = await service.addTransaktion('Spelar på Stryktipset', 0, 30, 1967);
@@ -88,7 +102,7 @@ test('Skapa en transaktion för givet kontonummer.', async() => {
 
 test('Hämtar alla spelare i ett Spelbolag.', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const result = await service.getAllaSpelareForSpelbolag('1');
@@ -99,7 +113,7 @@ test('Hämtar alla spelare i ett Spelbolag.', async () => {
 
 test('Hämtar saldo för en givet kontonummer efter debet (+)', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const saldoBefore = await service.getSaldo('1967');
@@ -112,7 +126,7 @@ test('Hämtar saldo för en givet kontonummer efter debet (+)', async () => {
 
 test('Hämtar saldo för en givet kontonummer efter kredit (-)', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const saldoBefore = await service.getSaldo('1967');
@@ -125,7 +139,7 @@ test('Hämtar saldo för en givet kontonummer efter kredit (-)', async () => {
 
 test('Ta betalt av alla seplare i ett spelbolag', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
     const spelare1Saldo = await service.getSaldo('234');
     const spelare2Saldo = await service.getSaldo('89');
     const spelare3Saldo = await service.getSaldo('90');
@@ -147,7 +161,7 @@ test('Ta betalt av alla seplare i ett spelbolag', async () => {
 
 test('Hämtar alla spelbolag.', async () => {
     // Given
-    const service = new Spelbolagservice();
+    const service = new Spelbolagservice(logger);
 
     // When
     const result = await service.getAllaSpelbolag();
