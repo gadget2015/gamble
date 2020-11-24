@@ -113,7 +113,7 @@ app.get('/bff/v1/administration', (req, res) => {
         });
 });
 
-app.post('/api/v1/transaktioner/', (req, res) => {
+app.post('/bff/v1/transaktioner/', (req, res) => {
     // Skapar en ny transaktion.
     const bffService = new BFF(logger);
     const beskrivning = req.body['beskrivning'];
@@ -144,7 +144,7 @@ app.post('/api/v1/transaktioner/', (req, res) => {
      });
 });
 
-app.post('/api/v1/spelbolag/', (req, res) => {
+app.post('/bff/v1/spelbolag/', (req, res) => {
     // tar betalt av alla spelare.
     const bffService = new BFF(logger);
     const spelbolagsnamn = req.body['spelbolagsnamn'];
@@ -165,6 +165,37 @@ app.post('/api/v1/spelbolag/', (req, res) => {
      });
 });
 
+app.post('/bff/v1/spelare/transaktioner/', (req, res) => {
+    // Skapar en ny transaktion för en spelare.
+    const bffService= new BFF(logger);
+    const beskrivning = req.body['beskrivning'];
+    const kredit = req.body['kredit'];
+    const debet = req.body['debet'];
+    const userid = req.body['userid'];
+    const datum = req.body['tidpunkt'];
+
+    bffService.addTransaktionForSpelare(datum, beskrivning, kredit, debet, userid).then( (result) => {
+         const retData = result['bffResult'];
+         const affectedRows = retData.affectedRows;
+
+         if (affectedRows === 1) {
+            res.status(200).send({
+                 success: 'true',
+                 message: 'Transaktion tillagd.'
+             });
+         } else {
+             res.status(200).send({
+                  success: 'false',
+                  message: 'Failed to spara en ny transaktion.'
+              });
+         }
+     }, rejection => {
+         res.status(200).send({
+                             success: 'false',
+                             message: 'Error while query database.'
+                         });
+     });
+});
 
 // Start servern
 app.listen(port, () => {

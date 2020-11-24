@@ -214,14 +214,47 @@ class BFF {
     }
 
     /**
-    * Hämtar transaktioner för givet kontonummer.
+    * Lägger in en ny transaktion för givet kontonummer.
     */
     addTransaktion(beskrivning: string, kredit: string, debet: string, kontonummer : string) {
         const bffPromise = new Promise(async (resolve, reject) => {
             const spelbolagservice = new Spelbolagservice(this.logger);
             try{
-                // Hämtar alla transaktioner
+                // Skapar en ny transaktion.
                 const transaktionerResult = await spelbolagservice.addTransaktion(beskrivning, kredit, debet, kontonummer);
+                let transaktioner = transaktionerResult['queryResult'];
+                let affectedRows = transaktioner.affectedRows;
+
+                resolve({bffResult: {'affectedRows': affectedRows}});
+            } catch(e) {
+                reject('Kan inte hämta transaktioner för givet konto.' + JSON.stringify(e));
+            }
+        });
+
+        return bffPromise;
+    }
+
+    /**
+    * Lägger in en ny transaktion för givet kontonummer.
+    */
+    addTransaktionForSpelare(datum: string, beskrivning: string, kredit: string, debet: string, userid : string) {
+        const bffPromise = new Promise(async (resolve, reject) => {
+            const spelbolagservice = new Spelbolagservice(this.logger);
+            const parsedDate = new Date(datum);
+            console.log('parsed date=' + parsedDate + ', orginale=' + datum);
+            try{
+                // Hämtar kontonummer.
+                const spelareResult = await spelbolagservice.getSpelare(userid);
+                console.log('spelare=' + JSON.stringify(spelareResult));
+                const spelare = spelareResult['queryResult'][0];
+                const konto_id = spelare.konto_id;
+                const kontoResult = await spelbolagservice.getKontoByID(konto_id);
+                console.log('konto=' + JSON.stringify(kontoResult));
+                const konto = kontoResult['queryResult'][0];
+                const kontonummer = konto.kontonr;
+
+                // Skapar en ny transaktion.
+                const transaktionerResult = await spelbolagservice.addTransaktion(beskrivning, kredit, debet, kontonummer, parsedDate);
                 let transaktioner = transaktionerResult['queryResult'];
                 let affectedRows = transaktioner.affectedRows;
 

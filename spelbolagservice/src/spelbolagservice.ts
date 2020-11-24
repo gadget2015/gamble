@@ -107,10 +107,12 @@ export class Spelbolagservice {
     /**
     * Lägg in en transaktionpost på givet kontonummer.
     */
-    async addTransaktion(beskrivning, kredit_params, debit_params, kontonummer_params, tidpunkt = this.convertToMySqlDate(new Date())) {
+    async addTransaktion(beskrivning, kredit_params, debit_params, kontonummer_params, tidpunkt_params = new Date()) {
         const debet = (debit_params == null) ? 0: debit_params;
         const kredit = (kredit_params == null) ? 0: kredit_params;
         const kontonummer = kontonummer_params;
+        const tidpunkt = this.convertToMySqlDate(tidpunkt_params);
+
         this.logger.info('Skapar en transaktion med {beskrivning:' + beskrivning + ', debet:' + debet + ', kredit:' + kredit +', kontonummer:' + kontonummer + ', tid:' + tidpunkt +'}.');
 
         try {

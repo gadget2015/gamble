@@ -23,13 +23,19 @@ class BFF {
     laggTillTransaktion(beskrivning, kredit, debet, kontonummer) {
         const data = {'beskrivning': beskrivning, 'kredit': kredit, 'debet': debet, 'kontonummer': kontonummer};
 
-        return this.createPOSTPromise('/api/v1/transaktioner/', data);
+        return this.createPOSTPromise('/bff/v1/transaktioner/', data);
+    }
+
+    laggTillTransaktionForSpelare(datum, beskrivning, kredit, debet, userid) {
+        const data = {'tidpunkt': datum, 'beskrivning': beskrivning, 'kredit': kredit, 'debet': debet, 'userid': userid};
+
+        return this.createPOSTPromise('/bff/v1/spelare/transaktioner/', data);
     }
 
     taBetaltAvAllaSpelare(spelbolagsnamn) {
         const data = {'spelbolagsnamn': spelbolagsnamn};
 
-        return this.createPOSTPromise('/api/v1/spelbolag/', data);
+        return this.createPOSTPromise('/bff/v1/spelbolag/', data);
     }
 
    /**

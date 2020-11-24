@@ -19,8 +19,8 @@ function Administration() {
     const [valdSeplare, setValdSpelare] = useState();
     const [spelareDatum, setSpelareDatum] = useState();
     const [spelareBeskrivning, setSpelareBeskrivning] = useState('');
-    const [spelareKredit, setSpelareKredit] = useState();
-    const [spelareDebet, setSpelareDebet] = useState();
+    const [spelareKredit, setSpelareKredit] = useState(0);
+    const [spelareDebet, setSpelareDebet] = useState(0);
 
     // Laddar in vy data - bara en gång.
     useEffect( () => {
@@ -37,6 +37,7 @@ function Administration() {
                 setSaldo(vydata['data']['saldo']);
                 setSpelbolagetsKontonummer(vydata['data']['kontonummer']);
                 setSpelare(vydata['data']['spelarInfo']);
+                setSpelareDatum(new Date().toISOString());
                 setMessage(null);
             }
         }, (failed) => {
@@ -70,7 +71,23 @@ function Administration() {
     }
 
     const laggTillTransaktionForSpelare = function (event) {
-        console.log('Lägger till en transaktion för en spelare.');
+        const bffService = new BFF();
+
+        bffService.laggTillTransaktionForSpelare(spelareDatum, spelareBeskrivning, spelareKredit, spelareDebet, valdSeplare).then((vydata) => {
+            const authenticated = vydata['success'];
+
+            if (authenticated === 'false') {
+                setMessage('Du måste vara administratör för att använda denna sidan.');
+            } else {
+                // reset values
+                setSpelareBeskrivning('');
+                setSpelareKredit(0);
+                setSpelareDebet(0);
+                setMessage(null);
+            }
+        }, (failed) => {
+            setMessage('Network connection error when calling REST API, status code = ' + failed);
+        });
         event.preventDefault();
     }
     const taBetaltAvAllaSpelare = function (event) {
