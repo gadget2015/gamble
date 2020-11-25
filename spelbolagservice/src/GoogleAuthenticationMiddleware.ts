@@ -10,6 +10,7 @@ class GoogleAuthenticationMiddleware {
 
     authentication() {
         const mylog = this.logger;
+
         return function(req, res, next) {
             if (req.url.startsWith('/bff/v1/mittsaldo') ||
                 req.url.startsWith('/bff/v1/administration') ||
@@ -49,7 +50,7 @@ class GoogleAuthenticationMiddleware {
 
                 if ( error === 'invalid_token') {
                     mylog.error('Användaren är inte autentiserad, svar ifrån Google =' + responseString);
-                    res.status(200).send({success: false, message: 'Du är inte autentiserad.'});
+                    res.status(200).send({success: false, message: 'Du är inte autentiserad, vilket krävs.'});
                 } else {
                     let userid = json['email'];
                     mylog.info('Användaren är autentiserad som ' + userid + '.');

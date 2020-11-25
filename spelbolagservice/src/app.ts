@@ -2,6 +2,7 @@ import express from 'express';
 import {Spelbolagservice} from "./spelbolagservice";
 import {BFF} from './BFF';
 import {GoogleAuthenticationMiddleware} from './GoogleAuthenticationMiddleware';
+import {AuthorizationMiddleware} from './AuthorizationMiddleware';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import winston from 'winston';
@@ -27,6 +28,7 @@ const logger = winston.createLogger({
 });
 
 const oauth2 = new GoogleAuthenticationMiddleware(logger);
+const authz = new AuthorizationMiddleware(logger);
 
 // https://medium.com/@purposenigeria/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb
 app.use(bodyParser.json());
@@ -39,6 +41,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(oauth2.authentication());   // Authentication middleware
+app.use(authz.authorization());     // Authorization middleware
 
 app.get('/bff/v1/mittsaldo', (req, res) => {
     const bffService = new BFF(logger);
@@ -185,12 +188,14 @@ app.post('/bff/v1/spelare/transaktioner/', (req, res) => {
                  data: retData
              });
          } else {
+            logger.error('Ingen transaktion inlagd.');
              res.status(200).send({
                   success: 'false',
                   message: 'Failed to spara en ny transaktion.'
               });
          }
      }, rejection => {
+         logger.error('Error vid spara av en ny transaktion för en spelare.' + JSON.stringify(rejection));
          res.status(200).send({
                              success: 'false',
                              message: 'Error while query database.'

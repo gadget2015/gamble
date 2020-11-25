@@ -28,6 +28,7 @@ Vid utveckling så startas tjänsten i development mode med hotreload/watch.
 ``INSERT INTO `stryktipsbolag`.`konto` (`ID`,`KONTONR`) VALUES (3, 88);``
 ``INSERT INTO `stryktipsbolag`.`konto` (`ID`,`KONTONR`) VALUES (4, 89);``
 ``INSERT INTO `stryktipsbolag`.`konto` (`ID`,`KONTONR`) VALUES (5, 90);``
+``INSERT INTO `stryktipsbolag`.`konto` (`ID`,`KONTONR`) VALUES (6, 201);``
 ``INSERT INTO `stryktipsbolag`.`konto_transaktion` (`KONTO_ID`,`TRANSAKTIONER_ID`) VALUES (1, 1);``
 ``INSERT INTO `stryktipsbolag`.`konto_transaktion` (`KONTO_ID`,`TRANSAKTIONER_ID`) VALUES (1, 2);``
 ``INSERT INTO `stryktipsbolag`.`konto_transaktion` (`KONTO_ID`,`TRANSAKTIONER_ID`) VALUES (2, 3);``
@@ -35,7 +36,7 @@ Vid utveckling så startas tjänsten i development mode med hotreload/watch.
 ``INSERT INTO `stryktipsbolag`.`spelare` (`ID`, `userid`,`administratorforspelbolag_id`,`konto_id`) VALUES (2, 'sune.mags@gmail.com', 0, 4);``
 ``INSERT INTO `stryktipsbolag`.`spelare` (`ID`, `userid`,`administratorforspelbolag_id`,`konto_id`) VALUES (3, 'hjalmar.branting@gmail.com', 0, 5);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag` (`ID`,`insatsperomgang`,`namn`,`konto_id`) VALUES (1, 50, 'The gamblers', 3);``
-``INSERT INTO `stryktipsbolag`.`spelbolag` (`ID`,`insatsperomgang`,`namn`,`konto_id`) VALUES (2, 25, 'Lucky boys', 5);``
+``INSERT INTO `stryktipsbolag`.`spelbolag` (`ID`,`insatsperomgang`,`namn`,`konto_id`) VALUES (2, 25, 'Lucky boys', 6);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag_spelare` (`spelare_id`,`spelbolag_id`) VALUES (1, 1);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag_spelare` (`spelare_id`,`spelbolag_id`) VALUES (2, 1);``
 ``INSERT INTO `stryktipsbolag`.`spelbolag_spelare` (`spelare_id`,`spelbolag_id`) VALUES (3, 1);``

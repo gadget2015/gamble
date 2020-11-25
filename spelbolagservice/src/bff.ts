@@ -59,22 +59,16 @@ class BFF {
                 // Hämtar alla transaktioner
                 const transaktionerResult = await spelbolagservice.getTransactions(kontonummer);
                 let transaktioner = transaktionerResult['queryResult'];
-                this.formateraTransaktionsDatum(transaktioner);
-
-                // Sorterar transaktioner med datum med stigande datum, dvs. 2020-11-04 kommer före 2020-11-08.
-                // Används för att beräkna ifrån början till fram till idag/senast tid,
-                transaktioner.sort(function(a,b) {
-                    let dateA = Date.parse(a.tid);
-                    let dateB = Date.parse(b.tid);
-                    return (dateA - dateB);
-                });
 
                 // Räknar ut totalt saldo
                 const sum = await spelbolagservice.getSaldo(kontonummer);
 
                 // Räknar ut saldo för varje transaktion.
+                this.sorteraTransaktionerStigande(transaktioner);   // Används för att beräkna saldo ifrån start.
                 this.beraknaSaldoPerTransaktion(transaktioner);
                 this.sorteraTransaktionerFallande(transaktioner);
+                this.formateraTransaktionsDatum(transaktioner);
+                transaktioner = this.skapaPresentationslistaAvTransaktioner(transaktioner);
 
                 resolve({bffResult: {'saldo': sum, transaktioner: transaktioner}});
             } catch(e) {
@@ -113,8 +107,7 @@ class BFF {
                 this.beraknaSaldoPerTransaktion(transaktioner);
                 this.formateraTransaktionsDatum(transaktioner);
                 this.sorteraTransaktionerFallande(transaktioner);
-
-                bffResult['transaktioner'] = transaktioner;
+                bffResult['transaktioner'] = this.skapaPresentationslistaAvTransaktioner(transaktioner);
 
                 resolve({bffResult: bffResult});
             } catch(e) {
@@ -123,6 +116,13 @@ class BFF {
         });
 
         return bffPromise;
+    }
+
+    /**
+    * För att presentation av transaktion ska bli överskådlig returneras endast de 50 senaste.
+    */
+    private skapaPresentationslistaAvTransaktioner(transaktioner) {
+        return transaktioner.slice(0,50);
     }
 
     /**
@@ -150,7 +150,7 @@ class BFF {
     }
 
     /**
-    * Formaterar datum för transaktioner.
+    * Formaterar datum för transaktioner enligt ISO standard.
     */
     private formateraTransaktionsDatum(transaktioner) {
         let i = 0;
@@ -286,7 +286,7 @@ class BFF {
                 this.formateraTransaktionsDatum(spelarTransaktioner);
                 this.sorteraTransaktionerFallande(spelarTransaktioner);
 
-                bffResult['transaktioner'] = spelarTransaktioner;
+                bffResult['transaktioner'] = this.skapaPresentationslistaAvTransaktioner(spelarTransaktioner);
 
                 resolve({bffResult: bffResult});
             } catch(e) {
