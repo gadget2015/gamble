@@ -29,8 +29,8 @@ function Administration() {
         bffService.administrationStartSida().then((vydata) => {
             const authenticated = vydata['success'];
 
-            if (authenticated === 'false') {
-                setMessage('Du måste logga in för att kunna se ditt saldo.');
+            if (authenticated === false) {
+                setMessage(vydata['message']);
             } else {
                 setNamn(vydata['data']['namn']);
                 setInsatsperomgang(vydata['data']['insatsperomgang']);
@@ -47,11 +47,11 @@ function Administration() {
 
     const laggTillTransaktionForSpelbolag = function (event) {
         const bffService = new BFF();
-        bffService.laggTillTransaktion(beskrivning, kredit, debet, spelbolagetsKontonummer).then((vydata) => {
+        bffService.laggTillTransaktionForSpelbolag(beskrivning, kredit, debet, spelbolagetsKontonummer).then((vydata) => {
             const authenticated = vydata['success'];
 
-            if (authenticated === 'false') {
-                setMessage('Du måste vara administratör för att använda denna sidan.');
+            if (authenticated === false) {
+                setMessage(vydata['message']);
             } else {
                 // räknar ut nytt saldo.
                 const nyttSaldo = Number(saldo) + Number(debet) - Number(kredit);
@@ -76,8 +76,8 @@ function Administration() {
         bffService.laggTillTransaktionForSpelare(spelareDatum, spelareBeskrivning, spelareKredit, spelareDebet, valdSeplare).then((vydata) => {
             const authenticated = vydata['success'];
 
-            if (authenticated === 'false') {
-                setMessage('Du måste vara administratör för att använda denna sidan.');
+            if (authenticated === false) {
+                setMessage(vydata['message']);
             } else {
                 setSpelare(vydata['data']['spelarInfo']);
                 setTransaktioner(vydata['data']['transaktioner']);
@@ -100,8 +100,8 @@ function Administration() {
         bffService.taBetaltAvAllaSpelare(namn).then((vydata) => {
             const authenticated = vydata['success'];
 
-            if (authenticated === 'false') {
-                setMessage('Du måste vara administratör för att använda denna funktion.');
+            if (authenticated === false) {
+                setMessage(vydata['message']);
             } else {
                 setSaldo(vydata['data']['saldo']);
                 setSpelare(vydata['data']['spelarInfo']);
@@ -120,8 +120,8 @@ function Administration() {
         bffService.transaktionerForKontonummer(kontonummer).then((vydata) => {
             const authenticated = vydata['success'];
 
-            if (authenticated === 'false') {
-                setMessage('Du måste vara administratör för att använda denna sidan.');
+            if (authenticated === false) {
+                setMessage(vydata['message']);
             } else {
                 setTransaktioner(vydata['data']['transaktioner']);
                 setMessage(null);

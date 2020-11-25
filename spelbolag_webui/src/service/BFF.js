@@ -20,10 +20,10 @@ class BFF {
         return this.createFetchDataPromise('/bff/v1/administration/');
     }
 
-    laggTillTransaktion(beskrivning, kredit, debet, kontonummer) {
+    laggTillTransaktionForSpelbolag(beskrivning, kredit, debet, kontonummer) {
         const data = {'beskrivning': beskrivning, 'kredit': kredit, 'debet': debet, 'kontonummer': kontonummer};
 
-        return this.createPOSTPromise('/bff/v1/transaktioner/', data);
+        return this.createPOSTPromise('/bff/v1/spelbolag/transaktioner/', data);
     }
 
     laggTillTransaktionForSpelare(datum, beskrivning, kredit, debet, userid) {

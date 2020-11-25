@@ -3,6 +3,8 @@ import {Spelbolagservice} from "./spelbolagservice";
 import {BFF} from './BFF';
 import {GoogleAuthenticationMiddleware} from './GoogleAuthenticationMiddleware';
 import {AuthorizationMiddleware} from './AuthorizationMiddleware';
+import {RequestLoggerMiddleware} from './RequestLoggerMiddleware';
+import {paketeraSuccessResponse, paketeraFailResponse} from './ResponseUtil';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import winston from 'winston';
@@ -29,96 +31,54 @@ const logger = winston.createLogger({
 
 const oauth2 = new GoogleAuthenticationMiddleware(logger);
 const authz = new AuthorizationMiddleware(logger);
+const reqLogger = new RequestLoggerMiddleware(logger);
 
 // https://medium.com/@purposenigeria/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb
 app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
-// Middleware log request.
-app.use(function(req, res, next) {
-	logger.info('Server called with URL:' + req.url);
-	next();
-});
-
+app.use(reqLogger.requestLogger()); // Loggar inkommande anrop.
 app.use(oauth2.authentication());   // Authentication middleware
 app.use(authz.authorization());     // Authorization middleware
 
+
 app.get('/bff/v1/mittsaldo', (req, res) => {
     const bffService = new BFF(logger);
+    const successCallback = paketeraSuccessResponse(res);
+    const failCallback = paketeraFailResponse(res);
 
-    bffService.getInitialVyForMittsaldo(req['userid']).then( (result) => {
-            const mittsaldoVy = result['bffResult'];
-            res.status(200).send({
-                            success: 'true',
-                            message: 'Hämtat initial vydata för Mitt saldo sidan.',
-                            data: mittsaldoVy
-                        });
-        }, rejection => {
-            res.status(200).send({
-                                success: 'false',
-                                message: 'Error while query database.' + rejection
-                            });
-        });
+    bffService.getInitialVyForMittsaldo(req['userid']).then(successCallback, failCallback);
 });
 
 app.get('/bff/v1/tipsbolag/', (req, res) => {
     const bffService = new BFF(logger);
+    const successCallback = paketeraSuccessResponse(res);
+    const failCallback = paketeraFailResponse(res);
 
-    bffService.getInitialVyForSpelbolag().then( (result) => {
-            const spelbolag = result['bffResult'];
-            res.status(200).send({
-                            success: 'true',
-                            message: 'Hämtat initial vydata för Spelbolag sidan, ' + spelbolag.length + ' Spelbolag hittade.',
-                            data: spelbolag
-                        });
-        }, rejection => {
-            res.status(200).send({
-                                success: 'false',
-                                message: 'Error while query database.'
-                            });
-        });
+    bffService.getInitialVyForSpelbolag().then( successCallback, failCallback);
 });
 
 app.get('/bff/v1/transaktioner/:kontonummer', (req, res) => {
     const bffService = new BFF(logger);
+    const successCallback = paketeraSuccessResponse(res);
+    const failCallback = paketeraFailResponse(res);
     const kontonummer = req.params.kontonummer;
 
-    bffService.transaktionerForEttKonto(kontonummer).then( (result) => {
-            const bffResult = result['bffResult'];
-            res.status(200).send({
-                            success: 'true',
-                            message: 'Hämtat transaktioner för kontonummer ' + kontonummer +'.',
-                            data: bffResult
-                        });
-        }, rejection => {
-            res.status(200).send({
-                                success: 'false',
-                                message: 'Error while query database.'
-                            });
-        });
+    bffService.transaktionerForEttKonto(kontonummer).then( successCallback, failCallback);
 });
 
 app.get('/bff/v1/administration', (req, res) => {
     const bffService = new BFF(logger);
+    const successCallback = paketeraSuccessResponse(res);
+    const failCallback = paketeraFailResponse(res);
 
-    bffService.getInitialVyForAdministration(req['userid']).then( (result) => {
-            const administrationVy = result['bffResult'];
-            res.status(200).send({
-                            success: 'true',
-                            message: 'Hämtat initial vydata för Administration sidan.',
-                            data: administrationVy
-                        });
-        }, rejection => {
-            res.status(200).send({
-                                success: 'false',
-                                message: 'Error while query database.' + rejection
-                            });
-        });
+    bffService.getInitialVyForAdministration(req['userid']).then(successCallback, failCallback);
 });
 
-app.post('/bff/v1/transaktioner/', (req, res) => {
+app.post('/bff/v1/spelbolag/transaktioner/', (req, res) => {
     // Skapar en ny transaktion.
     const bffService = new BFF(logger);
+    const failCallback = paketeraFailResponse(res);
     const beskrivning = req.body['beskrivning'];
     const kredit = req.body['kredit'];
     const debet = req.body['debet'];
@@ -139,38 +99,23 @@ app.post('/bff/v1/transaktioner/', (req, res) => {
                   message: 'Failed to spara en ny transaktion.'
               });
          }
-     }, rejection => {
-         res.status(200).send({
-                             success: 'false',
-                             message: 'Error while query database.'
-                         });
-     });
+     }, failCallback);
 });
 
 app.post('/bff/v1/spelbolag/', (req, res) => {
     // tar betalt av alla spelare.
     const bffService = new BFF(logger);
+    const successCallback = paketeraSuccessResponse(res);
+    const failCallback = paketeraFailResponse(res);
     const spelbolagsnamn = req.body['spelbolagsnamn'];
 
-    bffService.taBetaltAvSpelare(spelbolagsnamn).then( (result) => {
-         const retData = result['bffResult'];
-
-         res.status(200).send({
-             success: 'true',
-             message: 'Transaktion tillagd.',
-             data: retData
-         });
-     }, rejection => {
-         res.status(200).send({
-                             success: 'false',
-                             message: 'Error while query database.'
-                         });
-     });
+    bffService.taBetaltAvSpelare(spelbolagsnamn).then( successCallback, failCallback);
 });
 
 app.post('/bff/v1/spelare/transaktioner/', (req, res) => {
     // Skapar en ny transaktion för en spelare.
     const bffService= new BFF(logger);
+    const failCallback = paketeraFailResponse(res);
     const beskrivning = req.body['beskrivning'];
     const kredit = req.body['kredit'];
     const debet = req.body['debet'];
@@ -194,13 +139,7 @@ app.post('/bff/v1/spelare/transaktioner/', (req, res) => {
                   message: 'Failed to spara en ny transaktion.'
               });
          }
-     }, rejection => {
-         logger.error('Error vid spara av en ny transaktion för en spelare.' + JSON.stringify(rejection));
-         res.status(200).send({
-                             success: 'false',
-                             message: 'Error while query database.'
-                         });
-     });
+     }, failCallback);
 });
 
 // Start servern
