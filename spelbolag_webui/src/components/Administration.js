@@ -79,10 +79,14 @@ function Administration() {
             if (authenticated === 'false') {
                 setMessage('Du måste vara administratör för att använda denna sidan.');
             } else {
+                setSpelare(vydata['data']['spelarInfo']);
+                setTransaktioner(vydata['data']['transaktioner']);
+
                 // reset values
                 setSpelareBeskrivning('');
                 setSpelareKredit(0);
                 setSpelareDebet(0);
+                setSpelareDatum(new Date().toISOString());
                 setMessage(null);
             }
         }, (failed) => {

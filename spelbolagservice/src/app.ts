@@ -174,14 +174,15 @@ app.post('/bff/v1/spelare/transaktioner/', (req, res) => {
     const userid = req.body['userid'];
     const datum = req.body['tidpunkt'];
 
-    bffService.addTransaktionForSpelare(datum, beskrivning, kredit, debet, userid).then( (result) => {
+    bffService.addTransaktionForSpelare(datum, beskrivning, kredit, debet, userid, req['userid']).then( (result) => {
          const retData = result['bffResult'];
          const affectedRows = retData.affectedRows;
 
          if (affectedRows === 1) {
             res.status(200).send({
                  success: 'true',
-                 message: 'Transaktion tillagd.'
+                 message: 'Transaktion tillagd.',
+                 data: retData
              });
          } else {
              res.status(200).send({

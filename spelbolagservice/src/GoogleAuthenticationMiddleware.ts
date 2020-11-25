@@ -12,7 +12,9 @@ class GoogleAuthenticationMiddleware {
         const mylog = this.logger;
         return function(req, res, next) {
             if (req.url.startsWith('/bff/v1/mittsaldo') ||
-                req.url.startsWith('/bff/v1/administration')) {
+                req.url.startsWith('/bff/v1/administration') ||
+                req.url.startsWith('/bff/v1/spelare/transaktioner/')) {
+
                 let access_token = req.cookies['access_token_by_robert'];
                 let util = new GoogleAuthenticationMiddleware(mylog);
                 util.verifyUserAccessToken(access_token, req, res, next);

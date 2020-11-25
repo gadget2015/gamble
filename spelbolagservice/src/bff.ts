@@ -126,7 +126,7 @@ class BFF {
     }
 
     /**
-    * Sorterar transaktioner med datum med fallande datum, dvs. 2020-12-04 kommer före 2020-11-08.
+    * Sorterar transaktioner med fallande datum, dvs. 2020-12-04 kommer före 2020-11-08 i listan.
     * Används för att få en bra presentation.
     */
     private sorteraTransaktionerFallande(transaktioner) {
@@ -134,6 +134,18 @@ class BFF {
             let dateA = Date.parse(a.tid);
             let dateB = Date.parse(b.tid);
             return (dateB - dateA);
+        });
+    }
+
+    /**
+    * Sorterar transaktioner med stigande datum, dvs. 2020-12-04 kommer efter 2020-11-08 i listan.
+    * Används för att få en bra presentation.
+    */
+    private sorteraTransaktionerStigande(transaktioner) {
+        transaktioner.sort(function(a,b) {
+            let dateA = Date.parse(a.tid);
+            let dateB = Date.parse(b.tid);
+            return (dateA - dateB);
         });
     }
 
@@ -235,30 +247,48 @@ class BFF {
     }
 
     /**
-    * Lägger in en ny transaktion för givet kontonummer.
+    * Lägger in en ny transaktion för en spelare.
     */
-    addTransaktionForSpelare(datum: string, beskrivning: string, kredit: string, debet: string, userid : string) {
+    addTransaktionForSpelare(datum: string, beskrivning: string, kredit: string, debet: string, userid : string, inloggadSom : string ){
         const bffPromise = new Promise(async (resolve, reject) => {
             const spelbolagservice = new Spelbolagservice(this.logger);
             const parsedDate = new Date(datum);
-            console.log('parsed date=' + parsedDate + ', orginale=' + datum);
+
             try{
-                // Hämtar kontonummer.
+                 // Skapar en ny transaktion.
                 const spelareResult = await spelbolagservice.getSpelare(userid);
-                console.log('spelare=' + JSON.stringify(spelareResult));
                 const spelare = spelareResult['queryResult'][0];
                 const konto_id = spelare.konto_id;
                 const kontoResult = await spelbolagservice.getKontoByID(konto_id);
-                console.log('konto=' + JSON.stringify(kontoResult));
                 const konto = kontoResult['queryResult'][0];
                 const kontonummer = konto.kontonr;
 
-                // Skapar en ny transaktion.
-                const transaktionerResult = await spelbolagservice.addTransaktion(beskrivning, kredit, debet, kontonummer, parsedDate);
-                let transaktioner = transaktionerResult['queryResult'];
-                let affectedRows = transaktioner.affectedRows;
 
-                resolve({bffResult: {'affectedRows': affectedRows}});
+                const transaktionerResult = await spelbolagservice.addTransaktion(beskrivning, kredit, debet,
+                                                                                 kontonummer, parsedDate);
+                const transaktioner = transaktionerResult['queryResult'];
+                let affectedRows = transaktioner.affectedRows;
+                let bffResult = {'affectedRows': affectedRows};
+
+                // Hämtar alla spelare som ingår i spelbolaget och lägger in saldo per spelare.
+                const administatorResult = await spelbolagservice.getSpelare(inloggadSom);
+                const administrator = administatorResult['queryResult'][0];
+                const allaSpelare = await this.hamtaAllaSpelareMedSaldo(administrator.administratorforspelbolag_id);
+                bffResult['spelarInfo'] = allaSpelare;
+
+                // Hämtar uppdaterad lista med transaktion för spelaren
+                const spelarTransaktionerResult = await spelbolagservice.getTransactions(kontonummer);
+                const spelarTransaktioner = spelarTransaktionerResult['queryResult'];
+
+                 // Räknar ut saldo för varje transaktion.
+                this.sorteraTransaktionerStigande(spelarTransaktioner);
+                this.beraknaSaldoPerTransaktion(spelarTransaktioner);
+                this.formateraTransaktionsDatum(spelarTransaktioner);
+                this.sorteraTransaktionerFallande(spelarTransaktioner);
+
+                bffResult['transaktioner'] = spelarTransaktioner;
+
+                resolve({bffResult: bffResult});
             } catch(e) {
                 reject('Kan inte hämta transaktioner för givet konto.' + JSON.stringify(e));
             }
