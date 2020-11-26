@@ -12,9 +12,11 @@ class GoogleAuthenticationMiddleware {
         const mylog = this.logger;
 
         return function(req, res, next) {
-            if (req.url.startsWith('/bff/v1/mittsaldo') ||
-                req.url.startsWith('/bff/v1/administration') ||
-                req.url.startsWith('/bff/v1/spelare/transaktioner/')) {
+            if (req.url === '/bff/v1/mittsaldo/' ||
+                req.url === '/bff/v1/administration/' ||
+                req.url === '/bff/v1/spelare/transaktioner/' ||
+                req.url === '/bff/v1/spelbolag/' ||
+                req.url === '/bff/v1/spelbolag/transaktioner/') {
 
                 let access_token = req.cookies['access_token_by_robert'];
                 let util = new GoogleAuthenticationMiddleware(mylog);
@@ -44,7 +46,6 @@ class GoogleAuthenticationMiddleware {
             });
 
             respone.on('end', function() {
-                //console.log('responseString=' + responseString);
                 let json = JSON.parse(responseString);
                 let error = json['error'];
 

@@ -13,7 +13,7 @@ import {format} from 'logform';
 const cookieParser = require('cookie-parser')
 
 const app = express();
-const port = 4001;
+const port = 4002;
 
 // Skapar en logger med Winston.
 const myFormat = format.printf(({ level, message, label, timestamp }) => {
@@ -144,5 +144,5 @@ app.post('/bff/v1/spelare/transaktioner/', (req, res) => {
 
 // Start servern
 app.listen(port, () => {
-    return console.log(`Server is listening on ${port}.`);
+    return logger.info(`Server is listening on ${port}.`);
 });
