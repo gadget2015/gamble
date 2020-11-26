@@ -2,7 +2,7 @@ var tar = require('tar');
 tar.c(
   {
     gzip: true,
-    file: 'spelbolagservice.tgz'
+    file: 'spelbolag_ui.tgz'
   },
-  ['dist', 'node_modules']
+  ['build']
 ).then(_ => { console.log('Tarball has been created.');});

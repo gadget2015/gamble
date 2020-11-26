@@ -1,5 +1,5 @@
 > uname -a
- -> Ger att det är 32-bitar arkitektur på min Linux EC2 instance.
+ -> Ger att det ï¿½r 32-bitar arkitektur pï¿½ min Linux EC2 instance.
 https://stackoverflow.com/questions/11565649/how-to-find-if-my-amazon-ec2-instance-is-32-bit-or-64-bit
 
 
@@ -10,5 +10,8 @@ Loggfiler:
 /var/log/my-apps
 
 Konfigurera autostart
-1. Görs med chkconfig -add my-apps
+1. Gï¿½rs med chkconfig -add my-apps
   https://geekflare.com/how-to-auto-start-services-on-boot-in-linux/
+
+
+Amazon region: Stockholm eu-north-1

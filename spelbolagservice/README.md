@@ -56,7 +56,7 @@ MySQL Workbench 8.0 används som GUI mot databasen.
 
 Skapa en databas som heter spelbolag.
 
-`` CREATE SCHEMA `stryktipsbolag;``
+`` CREATE SCHEMA stryktipsbolag;``
 
 Tjänsten består av tabellerna transaktion,   
 <pre>
@@ -128,3 +128,8 @@ CREATE TABLE `spelbolag_spelare` (
 ``tar -xvf spelbolagservice.tgz``
 
 ``node dist/app.js``
+
+Se även start/stop script: /etc/rc.d/init.d/my-apps
+Loggfil vid starup: /var/log/my-apps/spelboalgservice.log
+Loggfil: /var/local/spelbolagservice/spelbolagservice.log
+Öppnat i Amazon Security Groups för port 4002.

@@ -15,9 +15,12 @@ case "$1" in
    cd /var/local/noteservice
    node dist/app.js > /var/log/my-apps/noteservice.log&
 
+   cd /var/local/spelbolagservice
+   node dist/app.js > /var/log/my-apps/spelboalgservice.log
+
    echo "Start webbapps"
    cd /var/local/webapps
-   npx serve build > /var/log/my-apps/my-webapps.log&
+   node build/httpserver > /var/log/my-apps/my-webapps.log&
    ;;
  'stop')
    echo "Stopping my applications.";;

@@ -1,6 +1,6 @@
 import express from 'express';
 import {Spelbolagservice} from "./spelbolagservice";
-import {BFF} from './BFF';
+import {BFF} from './bff';
 import {GoogleAuthenticationMiddleware} from './GoogleAuthenticationMiddleware';
 import {AuthorizationMiddleware} from './AuthorizationMiddleware';
 import {RequestLoggerMiddleware} from './RequestLoggerMiddleware';
