@@ -17,7 +17,7 @@ function Intro() {
         <br/><br/><br/>Är det något som inte fungerar som det borde, maila mig: robert.georen@gmail.com.
         </div>
         <div className="column">
-            <img src="intro_bild.png" alt="Så glada blir vi!"/>
+            <img src="./intro_bild.png" alt="Så glada blir vi!"/>
         </div>
         <i>version 1.0 (2020)</i>
     </div>

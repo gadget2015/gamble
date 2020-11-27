@@ -77,7 +77,7 @@ function MyMenu(props) {
   return (
     <div className="MenuStyle row">
      <div className="column-header1">
-         <img src="menu.png" onClick={handleClick} aria-controls="simple-menu" aria-haspopup="true" alt="Meny"/>
+         <img src="./menu.png" onClick={handleClick} aria-controls="simple-menu" aria-haspopup="true" alt="Meny"/>
          <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                  <MenuItem onClick={handleHemClick}>Hem</MenuItem>
                  <MenuItem onClick={handleVisaTipssaldo}>Mitt tipssaldo</MenuItem>

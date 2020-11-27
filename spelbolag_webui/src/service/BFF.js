@@ -5,37 +5,37 @@
  */
 class BFF {
     spelbolagStartSida() {
-        return this.createFetchDataPromise('/bff/v1/tipsbolag/');
+        return this.createFetchDataPromise('bff/v1/tipsbolag/');
     }
 
     transaktionerForKontonummer(kontonummer) {
-        return this.createFetchDataPromise('/bff/v1/transaktioner/' + kontonummer);
+        return this.createFetchDataPromise('bff/v1/transaktioner/' + kontonummer);
     }
 
     tipssaldoStartSida() {
-        return this.createFetchDataPromise('/bff/v1/mittsaldo/');
+        return this.createFetchDataPromise('bff/v1/mittsaldo/');
     }
 
     administrationStartSida() {
-        return this.createFetchDataPromise('/bff/v1/administration/');
+        return this.createFetchDataPromise('bff/v1/administration/');
     }
 
     laggTillTransaktionForSpelbolag(beskrivning, kredit, debet, kontonummer) {
         const data = {'beskrivning': beskrivning, 'kredit': kredit, 'debet': debet, 'kontonummer': kontonummer};
 
-        return this.createPOSTPromise('/bff/v1/spelbolag/transaktioner/', data);
+        return this.createPOSTPromise('bff/v1/spelbolag/transaktioner/', data);
     }
 
     laggTillTransaktionForSpelare(datum, beskrivning, kredit, debet, userid) {
         const data = {'tidpunkt': datum, 'beskrivning': beskrivning, 'kredit': kredit, 'debet': debet, 'userid': userid};
 
-        return this.createPOSTPromise('/bff/v1/spelare/transaktioner/', data);
+        return this.createPOSTPromise('bff/v1/spelare/transaktioner/', data);
     }
 
     taBetaltAvAllaSpelare(spelbolagsnamn) {
         const data = {'spelbolagsnamn': spelbolagsnamn};
 
-        return this.createPOSTPromise('/bff/v1/spelbolag/', data);
+        return this.createPOSTPromise('bff/v1/spelbolag/', data);
     }
 
    /**
@@ -43,11 +43,13 @@ class BFF {
     * or production.
     */
     getServerHost() {
+        console.log('href=' + window.location.href);
         if (document.location.port) {
             // Development mode.
-            return document.location.protocol + '//' + document.location.hostname + ':' + document.location.port;
+            return window.location.href;
         } else {
-           return document.location.protocol + '//' + document.location.hostname;
+            return window.location.href;
+           //return document.location.protocol + '//' + document.location.hostname;
         }
     }
 

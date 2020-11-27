@@ -11,6 +11,8 @@ https://oauth2.googleapis.com/tokeninfo?id_token=eyJhbGci
 
 Dokumentation: https://developers.google.com/identity/sign-in/web/reference#gapiauth2authresponse
 
+Google Developer console.
+https://console.developers.google.com/apis/dashboard?project=react-ui-spelbolagtest&hl=sv
 ### `npm start`
 
 Runs the app in the development mode.<br />
@@ -33,4 +35,9 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### Deploy
+
+Sker i en subfolder: /spelbolag/
+https://skryvets.com/blog/2018/09/20/an-elegant-solution-of-deploying-react-app-into-a-subdirectory/
 
