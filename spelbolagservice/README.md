@@ -3,6 +3,10 @@ Har några CRUD operationer för att kunna spara och uppdatera TODO's.
 
 
 # Bygga
+> npm run build
+
+
+# Starta
 Tjänsten är en REST-tjänst som körs i en Express server med Node.js version 12.
 
 > npm start
@@ -122,7 +126,11 @@ CREATE TABLE `spelbolag_spelare` (
   CONSTRAINT `spelbolag_FK` FOREIGN KEY (`spelbolag_id`) REFERENCES `spelbolag` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 </pre>
+
 # Deploy
+1. Bygg > npm run build
+2. Paketera > npm run bundle
+
 ``cd /var/local/spelbolagservice``
 
 ``tar -xvf spelbolagservice.tgz``

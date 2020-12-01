@@ -7,7 +7,8 @@
     "start": "tsc && node dist/app.js",
     "dev": "tsc-watch --onSuccess \"node ./dist/app.js\"",
     "test": "jest --watch",
-    "bundle": "node createbundle.js"
+    "bundle": "node createbundle.js",
+    "build": "tsc"
   },
   "author": "Robert Georen",
   "license": "ISC",
