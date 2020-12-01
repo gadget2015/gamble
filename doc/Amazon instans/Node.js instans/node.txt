@@ -1,12 +1,13 @@
+### Installera Node.js
 > uname -a
  -> Ger att det �r 32-bitar arkitektur p� min Linux EC2 instance.
 https://stackoverflow.com/questions/11565649/how-to-find-if-my-amazon-ec2-instance-is-32-bit-or-64-bit
 
 
-Installeras: /var/local
+Installeras i katalogen: /var/local
 Uppdatera .bashrc med: export PATH=$PATH$:/var/local/node-v14.8.0-linux-x64/bin
 
-Loggfiler:
+Boot loggfiler:
 /var/log/my-apps
 
 Konfigurera autostart

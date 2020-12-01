@@ -11,12 +11,12 @@ export PATH=/var/local/node-v14.8.0-linux-x64/bin:$PATH
 
 case "$1" in
  'start')
-   echo "Start Noteservice REST-service" 
+   echo "Start Noteservice REST-service"
    cd /var/local/noteservice
    node dist/app.js > /var/log/my-apps/noteservice.log&
 
    cd /var/local/spelbolagservice
-   node dist/app.js > /var/log/my-apps/spelboalgservice.log
+   node dist/app.js > /var/log/my-apps/spelboalgservice.log&
 
    echo "Start webbapps"
    cd /var/local/webapps
