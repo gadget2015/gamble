@@ -71,7 +71,7 @@ class OAuth2ImplicitFlow {
     /**
      * Listen for sign-in state changes som pluggas in i Google ramverk.
      *
-     * Uppdaterar om användaren är inloggad, och då med vilket email/username.
+     * Uppdaterar om användaren är inloggad, och då med vilket username.
      */
     setSigninStatus() {
         var user = this.GoogleAuth.currentUser.get();
@@ -79,10 +79,11 @@ class OAuth2ImplicitFlow {
 
         if (isAuthorized) {
             var username = user.getBasicProfile().getEmail();
-            //console.log('Inloggad med email =' + username);
             this.setCookie('access_token_by_robert', user.getAuthResponse().id_token, 1);
             this.setUsername(username);
+            //console.log('Inloggad med email =' + username);
             this.setInloggad(true);
+            //this.handleVisaTipssaldo(); // Visar mitt tipssaldo sidan efter lyckad inloggning.
         } else {
             //console.log('Utloggad.');
             this.setUsername('');

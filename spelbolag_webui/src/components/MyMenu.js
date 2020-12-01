@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState} from 'react';
+import {useEffect} from 'react';
 import { Menu } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
 import './MyMenu.css';
@@ -36,6 +37,11 @@ function MyMenu(props) {
     props.setShowTipsprogram(true);
   }
 
+  const handleVisaTipssaldo = () => {
+    resetMenuChooice();
+    props.setShowTipssaldo(true);
+  }
+
   const handleHemClick = () => {
         resetMenuChooice();
         props.setShowIntro(true);
@@ -55,10 +61,7 @@ function MyMenu(props) {
     props.setShowTipsbolag(true);
   }
 
-  const handleVisaTipssaldo = () => {
-    resetMenuChooice();
-    props.setShowTipssaldo(true);
-  }
+
 
   const handleAdministrationClick = () => {
     resetMenuChooice();
@@ -73,6 +76,11 @@ function MyMenu(props) {
     props.setShowTipssaldo(false);
     props.setShowAdministration(false);
   }
+
+    // Visar mitt tipssaldo efter lyckad inloggning, vilket triggas genom att userid sätts.
+    useEffect( () => {
+        handleVisaTipssaldo();
+    }, [username]);
 
   return (
     <div className="MenuStyle row">
