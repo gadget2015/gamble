@@ -2,6 +2,16 @@
 /gamble_website/target/*
 /gamble_website/war/*
 /gamble_website/derby.log
+/db-derby/
+/doc/Amazon instans/Node.js instans/node_server.pem
+/doc/Amazon instans/Node.js instans/node_server.ppk
+/doc/doc/
+/noteservice_reactui/noteservice_ui.tgz
+/spelbolag_webui/spelbolag_ui.tgz
+/stryktipsfinder/target/
+/stryktipsfinder/war/
+/swingGUI/target/
+
 
 // Editors
 .idea
