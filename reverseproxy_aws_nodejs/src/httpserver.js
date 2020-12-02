@@ -37,6 +37,7 @@ app.all("*", function(req, res) {
 
     if (req.hostname === 'stryktipsbolag.se' || req.hostname === 'www.stryktipsbolag.se') {
         if (req.url === '/' ||
+            req.url === '/robots.txt' ||
             req.url === '/bff/v1/mittsaldo/' ||
             req.url === '/bff/v1/tipsbolag/' ||
             req.url.startsWith('/bff/v1/transaktioner/') ||
@@ -53,6 +54,7 @@ app.all("*", function(req, res) {
         }
     } else if(req.hostname === 'noterepo.com' || req.hostname === 'www.noterepo.com'){
         if (req.url === '/' ||
+            req.url === '/robots.txt' ||
             req.url.startsWith('/?noteid=') ||
             req.url.startsWith('/api/v1/note')) {
             console.log('Reverse proxy: Skickar till noterepo, req.url = ' + req.url);
