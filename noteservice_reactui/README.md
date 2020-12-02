@@ -11,7 +11,8 @@ Text editor, https://www.npmjs.com/package/react-quill
 ``npm run bundle``
 
 # Deploy
-``cd /var/local/webapps``
+Deploy sker i katalogen noterepo, vilket kräver konfig (https://skryvets.com/blog/2018/09/20/an-elegant-solution-of-deploying-react-app-into-a-subdirectory/).
+``cd /var/local/webapps/noterepo``
 
 ``tar xvf noteservice_ui.tgz``
 

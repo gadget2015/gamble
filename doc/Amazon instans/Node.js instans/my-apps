@@ -20,7 +20,7 @@ case "$1" in
 
    echo "Start webbapps"
    cd /var/local/webapps
-   node build/httpserver > /var/log/my-apps/my-webapps.log&
+   node src/httpserver > /var/log/my-apps/my-webapps.log&
    ;;
  'stop')
    echo "Stopping my applications.";;
