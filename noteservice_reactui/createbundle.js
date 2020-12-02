@@ -4,5 +4,5 @@ tar.c(
     gzip: true,
     file: 'noteservice_ui.tgz'
   },
-  ['build', 'node_modules']
+  ['build']
 ).then(_ => { console.log('Tarball has been created.');});
