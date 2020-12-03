@@ -1,18 +1,22 @@
 import {Request, Response} from 'express';
 import * as db from 'mysql';
 import myprops = require('properties-reader');
+import {Logger} from 'winston';
 
 /**
  * The Note service, that handles CRUD operations.
  *
  */
 export class Noteservice {
-    constructor() {
+    logger: Logger;
+
+    constructor(logger : Logger) {
+        this.logger = logger;
     }
 
     getNote(req: Request, res: Response) {
         const id = parseInt(req.params.id, 10);
-        console.log('Search for note with id = ' + id);
+        this.logger.debug('Search for note with id = ' + id);
         const con = this.connectToDb();
         const sql = 'select * from noterepo.note where id = ' + id + ';';
 
@@ -34,7 +38,7 @@ export class Noteservice {
 
     async createNote(req: Request, res: Response) {
         const text = req.body['TEXT'];
-        console.log('Create a new note with TEXT = ' + text);
+        this.logger.debug('Create a new note with TEXT = ' + text);
 
         const con = this.connectToDb();
 
@@ -44,7 +48,7 @@ export class Noteservice {
         let sqlpromise = new Promise((resolve, reject) => {
             con.query(sqlLastID, function (err, result) {
                 if (err) {
-                    console.log('Error: ' + err);
+                    this.logger.error('Error while finding last ID: ' + err);
                     throw err;
                 }
 
@@ -62,7 +66,7 @@ export class Noteservice {
         sqlpromise = new Promise((resolve, reject) => {
             con.query(sqlInsert, function (err, result) {
                 if (err) {
-                    console.log('Error: ' + err);
+                    this.logger.error('Error while inserting a Note: ' + err);
                     throw err;
                 }
 
@@ -106,7 +110,7 @@ export class Noteservice {
 
      async searchNote(req: Request, res: Response) {
             const queryString = '%' + req.params.text + '%';
-            console.log('Search for note with text = ' + queryString);
+            this.logger.debug('Search for note with text = ' + queryString);
             const con = this.connectToDb();
             const sql = 'select * from noterepo.note where text LIKE ?';
 
@@ -114,7 +118,7 @@ export class Noteservice {
                 con.query(sql, [queryString], function (err, result) {
 
                     if (err) {
-                        console.log('Error: ' + err);
+                        this.logger.error('Error while searching for a Note: ' + err);
                         throw err;
                     }
 
@@ -141,14 +145,14 @@ export class Noteservice {
         updateNote(req: Request, res: Response) {
             const text = req.body['text'];
             const id = parseInt(req.body['id'], 10);
-            console.log('Update note with id = ' + id + ', and text = ' + text);
+            this.logger.debug('Update note with id = ' + id + ', and text = ' + text);
             const con = this.connectToDb();
             const sql = 'update noterepo.note set TEXT = \'' + text + '\', LASTSAVED = CURRENT_TIMESTAMP where id = ' + id + ';';
 
             let sqlpromise = new Promise((resolve, reject) => {
                 con.query(sql, function (err, result) {
                     if (err) {
-                        console.log('Error: ' + err);
+                        this.logger.error('Error while updating a Note: ' + err);
                         reject('SQLerror');
                     }
 

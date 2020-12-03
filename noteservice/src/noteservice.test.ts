@@ -1,10 +1,24 @@
 import {Noteservice} from './noteservice';
 import mock = jest.mock;
 import * as httpMocks from 'node-mocks-http';
+import winston from 'winston';
+import {format} from 'logform';
+
+// Skapar en logger med Winston.
+const myFormat = format.printf(({ level, message, label, timestamp }) => {
+  return `${timestamp} ${level}: ${message}`;
+});
+
+const logger = winston.createLogger({
+  format: format.combine(format.timestamp(), myFormat),
+  transports: [
+    new winston.transports.Console()
+  ]
+});
 
 test('Find a note with given ID.', async () => {
     // Given
-    const service = new Noteservice();
+    const service = new Noteservice(logger);
 
     let req = httpMocks.createRequest({
         method: 'GET',
@@ -25,7 +39,7 @@ test('Find a note with given ID.', async () => {
 
 test('Cant find note with given ID.', async () => {
     // Given
-    const service = new Noteservice();
+    const service = new Noteservice(logger);
 
     let req = httpMocks.createRequest({
         method: 'GET',
@@ -46,7 +60,7 @@ test('Cant find note with given ID.', async () => {
 
 test('Cant find note with not present note ID (NaN).', async () => {
     // Given
-    const service = new Noteservice();
+    const service = new Noteservice(logger);
 
     let req = httpMocks.createRequest({
         method: 'GET',
@@ -69,7 +83,7 @@ test('Cant find note with not present note ID (NaN).', async () => {
 
 test('Create a new Note.', async ()=> {
    // Given
-    const service = new Noteservice();
+    const service = new Noteservice(logger);
 
     let req = httpMocks.createRequest({
         method: 'POST',
@@ -90,7 +104,7 @@ test('Create a new Note.', async ()=> {
 
 test('Search for a note that contains the given text', async() => {
     // Given
-    const service = new Noteservice();
+    const service = new Noteservice(logger);
 
     let req = httpMocks.createRequest({
         method: 'GET',
@@ -112,7 +126,7 @@ test('Search for a note that contains the given text', async() => {
 
 test('Update a Note.', async ()=> {
    // Given
-    const service = new Noteservice();
+    const service = new Noteservice(logger);
 
     let req = httpMocks.createRequest({
         method: 'PUT',

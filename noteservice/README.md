@@ -44,8 +44,13 @@ Tjänsten består av två tabeller, note och sequence.
 
 
 # Deploy
+1. Bygg > npm start
+2. bundle > npm run bundle
 ``cd /var/local/noteservice
 
 ``tar -xvf noteservice.tgz``
 
 ``node dist/app.js``
+
+
+Loggfil: /var/local/noteservice/noteservice.log

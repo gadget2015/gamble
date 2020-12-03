@@ -13,14 +13,14 @@ case "$1" in
  'start')
    echo "Start Noteservice REST-service"
    cd /var/local/noteservice
-   node dist/app.js > /var/log/my-apps/noteservice.log&
+   node dist/app.js&
 
    cd /var/local/spelbolagservice
-   node dist/app.js > /var/log/my-apps/spelboalgservice.log&
+   node dist/app.js&
 
    echo "Start webbapps"
    cd /var/local/webapps
-   node src/httpserver > /var/log/my-apps/my-webapps.log&
+   node src/httpserver&
    ;;
  'stop')
    echo "Stopping my applications.";;

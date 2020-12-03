@@ -7,8 +7,6 @@ https://stackoverflow.com/questions/11565649/how-to-find-if-my-amazon-ec2-instan
 Installeras i katalogen: /var/local
 Uppdatera .bashrc med: export PATH=$PATH$:/var/local/node-v14.8.0-linux-x64/bin
 
-Boot loggfiler:
-/var/log/my-apps
 
 Konfigurera autostart
 1. G�rs med chkconfig -add my-apps

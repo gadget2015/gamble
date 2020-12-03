@@ -138,6 +138,5 @@ CREATE TABLE `spelbolag_spelare` (
 ``node dist/app.js``
 
 Se även start/stop script: /etc/rc.d/init.d/my-apps
-Loggfil vid starup: /var/log/my-apps/spelboalgservice.log
 Loggfil: /var/local/spelbolagservice/spelbolagservice.log
 Öppnat i Amazon Security Groups för port 4002.

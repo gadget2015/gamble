@@ -23,3 +23,4 @@ eller
 
 ``tar -xvf webserver.tgz``
 
+Loggfil: /var/local/webapps/webserver.log
