@@ -10,6 +10,7 @@ function MyMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [inloggad, setInloggad] = useState(false);
   const [username, setUsername] = useState('');
+  const [access_token_by_robert, setAccess_token_by_robert] = useState();
 
   const loginService = new OAuth2ImplicitFlow(setInloggad, setUsername);
   loginService.handleClientLoad();  // Förbereder inloggning mot Google med Oauth2 Implicit Flow.
@@ -79,7 +80,32 @@ function MyMenu(props) {
 
     // Visar mitt tipssaldo efter lyckad inloggning, vilket triggas genom att userid sätts.
     useEffect( () => {
-        handleVisaTipssaldo();
+       const getCookie = function (cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
+        }
+
+        console.log('useEffect[username]: username = ' + username + '.');
+        console.log('useEffect[username]: access_token_by_robert = ' + getCookie('access_token_by_robert'));
+
+        if (username !== '') {
+            // Visar mittsaldo sidan om man är inloggad och har fått tillbaka username ifrån Google.
+            console.log('useEffect[username]: visar mittsaldo sidan.');
+            handleVisaTipssaldo();
+        } else {
+            console.log('useEffect[username]: usename är tomt.');
+        }
     }, [username]);
 
   return (

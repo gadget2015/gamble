@@ -43,14 +43,8 @@ class BFF {
     * or production.
     */
     getServerHost() {
-        console.log('href=' + window.location.href);
-        if (document.location.port) {
-            // Development mode.
-            return window.location.href;
-        } else {
-            return window.location.href;
-           //return document.location.protocol + '//' + document.location.hostname;
-        }
+        console.log('Call BFF, href=' + window.location.href);
+        return window.location.href;
     }
 
     /**
