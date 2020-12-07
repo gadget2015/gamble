@@ -56,6 +56,12 @@ app.all("*", function(req, res) {
     if (req.hostname === 'stryktipsbolag.se' || req.hostname === 'www.stryktipsbolag.se') {
         if (req.url === '/' ||
             req.url === '/robots.txt' ||
+            req.url === '/gamble.jnlp' ||
+            req.url === '/favicon.png' ||
+            req.url === '/fotboll.png' ||
+            req.url === '/tips-1.0.jar' ||
+            req.url === '/xercesImpl-2.6.2.jar' ||
+            req.url === '/xmlParserAPIs-2.0.0.jar' ||
             req.url === '/bff/v1/mittsaldo/' ||
             req.url === '/bff/v1/tipsbolag/' ||
             req.url.startsWith('/bff/v1/transaktioner/') ||

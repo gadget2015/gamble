@@ -1,1 +1,1 @@
-java -cp target\tips-1.0.jar org.robert.tips.Main
+java -cp target\tips-1.0.jar;ext-libs\xercesImpl-2.6.2.jar;ext-libs\xmlParserAPIs-2.0.0.jar org.robert.tips.Main

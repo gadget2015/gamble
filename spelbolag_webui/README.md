@@ -40,12 +40,13 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### Deploy
 
 1. Bygg gamble Swing GUI, gå till gamble katalogen och skriv > mvn install -Dmaven.test.skip=true
-2. Kopiera över Swing GUI applikationern {tips-1.0.jar, xercesImpl-2.6.2.jar, xmlParserAPIs-2.0.0.jar} 
+2. Signera filerna: signjars.cmd
+3. Kopiera över Swing GUI applikationern {tips-1.0.jar, xercesImpl-2.6.2.jar, xmlParserAPIs-2.0.0.jar} 
    till folder ./public
-3. Bygg först > npm run build
-4. Skapa bundle > npm run bundle
-5. kopiera över till Amazon EC2 i foldern:  /var/local/webapps/spelbolag/
-6. tar xvf spelbolag_ui.tgz
+4. Bygg först > npm run build
+5. Skapa bundle > npm run bundle
+6. kopiera över till Amazon EC2 i foldern:  /var/local/webapps/spelbolag/
+7. tar xvf spelbolag_ui.tgz
 
 Driftsätt i en subfolder: /spelbolag/
 https://skryvets.com/blog/2018/09/20/an-elegant-solution-of-deploying-react-app-into-a-subdirectory/
