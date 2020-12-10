@@ -19,7 +19,12 @@ http://localhost:4000/api/v1/notes/5
 
 Starta testning med .
 > npm test
->
+
+
+Prestandatest:
+for ((i=1;i<=100;i++)); do   curl http://localhost:4000/api/v1/notes/67; done
+
+
 # Databas
 MySQL 5.7.26 används.  
 Den startas med

@@ -47,7 +47,11 @@ Vid utveckling så startas tjänsten i development mode med hotreload/watch.
 
 Starta testning med .
 > npm test
->
+
+Prestandatest:
+for ((i=1;i<=100;i++)); do   curl http://localhost:4002/bff/v1/transaktioner/234; done
+
+
 # Databas
 MySQL 5.7.26 används.  
 Den startas med
