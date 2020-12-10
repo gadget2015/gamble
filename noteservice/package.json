@@ -4,7 +4,7 @@
   "description": "Handle CRUD operations for a Note.",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
+    "start": "tsc && node dist/noteserviceapp.js",
     "test": "jest --watch",
     "bundle": "node createbundle.js"
   },

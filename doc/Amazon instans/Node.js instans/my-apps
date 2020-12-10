@@ -13,7 +13,7 @@ case "$1" in
  'start')
    echo "Start Noteservice REST-service"
    cd /var/local/noteservice
-   node dist/app.js&
+   node dist/noteserviceapp.js&
 
    cd /var/local/spelbolagservice
    node dist/app.js&
