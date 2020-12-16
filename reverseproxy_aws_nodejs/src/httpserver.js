@@ -69,7 +69,7 @@ app.all("*", function(req, res) {
             req.url === '/bff/v1/spelbolag/transaktioner/' ||
             req.url === '/bff/v1/spelbolag/' ||
             req.url === '/bff/v1/spelare/transaktioner/' ) {
-            logger.debug('Reverse proxy: Skickar till spelbolag, req.url = ' + req.url);
+            logger.debug('Reverse proxy: Skickar till spelbolag, req.url = ' + req.url +'.');
             apiProxy.web(req, res, {target: 'http://localhost/spelbolag/'});
         } else {
             logger.error('Ogiltig path till stryktipsbolag.se.');
