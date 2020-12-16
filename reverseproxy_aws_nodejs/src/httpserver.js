@@ -4,6 +4,7 @@ var cors = require('cors');
 var winston = require('winston');
 var httpProxy = require('http-proxy');
 var logform = require('logform');
+const process = require('process');
 
 // globala deklarationer
 var apiProxy = httpProxy.createProxyServer();
@@ -24,6 +25,12 @@ const logger = winston.createLogger({
     new winston.transports.Console(),
     new winston.transports.File({ filename: 'webserver.log' })
   ]
+});
+
+// Crash log
+process.on('uncaughtException', function (exception, origin) {
+  console.log(exception);
+  logger.error('Major error i Node processen. Trace = ' + exception + ', origin = ' + origin);
 });
 
 // Lägger in middleware till Express
