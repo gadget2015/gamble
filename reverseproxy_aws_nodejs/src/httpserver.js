@@ -33,6 +33,14 @@ process.on('uncaughtException', function (exception, origin) {
   logger.error('Major error i Node processen. Trace = ' + exception + ', origin = ' + origin);
 });
 
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled rejection at ' + promise + ', reason=' + reason);
+  logger.error('Unhandled rejection at' + promise + ', reason=' + reason);
+  process.exit(1)
+});
+
+
+
 // Lägger in middleware till Express
 app.use(cors());
 app.use('/noterepo/', express.static('noterepo/build'));
