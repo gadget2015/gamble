@@ -45,7 +45,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
    till folder ./public
 4. Bygg först > npm run build
 5. Skapa bundle > npm run bundle
-6. kopiera över till Amazon EC2 i foldern:  /var/local/webapps/spelbolag/
+6. kopiera över (/home/ec2-user/) till Amazon EC2 i foldern:  /var/local/webapps/spelbolag/
 7. tar xvf spelbolag_ui.tgz
 
 Driftsätt i en subfolder: /spelbolag/
