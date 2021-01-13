@@ -5,6 +5,7 @@ import cors from 'cors';
 import winston from 'winston';
 import {format} from 'logform';
 
+const process = require('process');
 const app = express();
 const port = 4000;
 
@@ -21,6 +22,19 @@ const logger = winston.createLogger({
     new winston.transports.File({ filename: 'noteservice.log' })
   ]
 });
+
+// Crash log
+process.on('uncaughtException', function (exception, origin) {
+  console.log(exception);
+  logger.error('Major error i Node processen. Trace = ' + exception + ', origin = ' + origin);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled rejection at ' + promise + ', reason=' + reason);
+  logger.error('Unhandled rejection at' + promise + ', reason=' + reason);
+  process.exit(1)
+});
+
 
 // https://medium.com/@purposenigeria/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb
 app.use(bodyParser.json());

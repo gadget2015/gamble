@@ -11,7 +11,7 @@ import winston from 'winston';
 import {format} from 'logform';
 
 const cookieParser = require('cookie-parser')
-
+const process = require('process');
 const app = express();
 const port = 4002;
 
@@ -27,6 +27,18 @@ const logger = winston.createLogger({
     new winston.transports.Console(),
     new winston.transports.File({ filename: 'spelbolagservice.log' })
   ]
+});
+
+// Crash log
+process.on('uncaughtException', function (exception, origin) {
+  console.log(exception);
+  logger.error('Major error i Node processen. Trace = ' + exception + ', origin = ' + origin);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled rejection at ' + promise + ', reason=' + reason);
+  logger.error('Unhandled rejection at' + promise + ', reason=' + reason);
+  process.exit(1)
 });
 
 const oauth2 = new GoogleAuthenticationMiddleware(logger);
