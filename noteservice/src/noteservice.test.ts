@@ -147,6 +147,29 @@ test('Update a Note.', async ()=> {
     expect(affectedRows).toEqual(1);
 });
 
+test('Fungerar att uppdater en anteckning trots att den innehåller specialtecken som annars gör SQL statement ogiltigt.', async ()=> {
+   // Given
+    const service = new Noteservice(logger);
+
+    let req = httpMocks.createRequest({
+        method: 'PUT',
+        url: '/api/v1/note/',
+        body: {
+            id: 6,
+            text: "specialtecken enkel citationstecken='"
+        }
+    });
+
+    let res = httpMocks.createResponse();
+
+    // When
+    const result = await service.updateNote(req, res);
+
+    // Then
+    const affectedRows = result['queryResult'].affectedRows;
+    expect(affectedRows).toEqual(1);
+});
+
 /**
 * Skriver ut resultset.
 */

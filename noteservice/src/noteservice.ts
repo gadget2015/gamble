@@ -21,15 +21,7 @@ export class Noteservice {
         const sql = 'select * from noterepo.note where id = ' + id + ';';
 
         let sqlpromise = new Promise((resolve, reject) => {
-            con.query(sql, function (err, result) {
-                if (err) {
-                    console.log('Error: ' + err);
-                    reject('SQLerror');
-                }
-
-                resolve({queryResult: result});
-            });
-
+            con.query(sql, this.createCallbackFunction(resolve, reject, this.logger));
             con.end();
         });
 
@@ -139,29 +131,33 @@ export class Noteservice {
             return result; // Just for the unittests.
         }
 
-/**
-*   Params are case sensitive.
-*/
+        /**
+        *   Params are case sensitive.
+        */
         updateNote(req: Request, res: Response) {
             const text = req.body['text'];
             const id = parseInt(req.body['id'], 10);
             this.logger.debug('Update note with id = ' + id + ', and text = ' + text);
             const con = this.connectToDb();
-            const sql = 'update noterepo.note set TEXT = \'' + text + '\', LASTSAVED = CURRENT_TIMESTAMP where id = ' + id + ';';
+            //const sql = 'update noterepo.note set TEXT = \'' + text + '\', LASTSAVED = CURRENT_TIMESTAMP where id = ' + id + ';';
+            const sql = 'update noterepo.note set TEXT = ' + con.escape(text) + ', LASTSAVED = CURRENT_TIMESTAMP where id = ' + id + ';';
 
             let sqlpromise = new Promise((resolve, reject) => {
-                con.query(sql, function (err, result) {
-                    if (err) {
-                        this.logger.error('Error while updating a Note: ' + err);
-                        reject('SQLerror');
-                    }
-
-                    resolve({queryResult: result});
-                });
-
+                con.query(sql, this.createCallbackFunction(resolve, reject, this.logger));
                 con.end();
             });
 
             return sqlpromise;
+        }
+
+        createCallbackFunction(resolve, reject, logger) {
+            return function(err, result) {
+                if (err) {
+                    logger.error('Error while updating a Note: ' + err);
+                    reject('SQLerror');
+                }
+
+                resolve({queryResult: result});
+            }
         }
 }
