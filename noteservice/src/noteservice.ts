@@ -21,7 +21,7 @@ export class Noteservice {
         const sql = 'select * from noterepo.note where id = ' + id + ';';
 
         let sqlpromise = new Promise((resolve, reject) => {
-            con.query(sql, this.createCallbackFunction(resolve, reject, this.logger));
+            con.query(sql, this.createReadCallbackFunction(resolve, reject, this.logger));
             con.end();
         });
 
@@ -38,32 +38,18 @@ export class Noteservice {
         const sqlLastID = 'SELECT ID FROM noterepo.note ORDER BY ID DESC LIMIT 1;';
 
         let sqlpromise = new Promise((resolve, reject) => {
-            con.query(sqlLastID, function (err, result) {
-                if (err) {
-                    this.logger.error('Error while finding last ID: ' + err);
-                    throw err;
-                }
-
-                resolve(result);
-            });
+            con.query(sqlLastID, this.createReadCallbackFunction(resolve, reject, this.logger));
         });
 
         let result = await sqlpromise;
-        const id = parseInt(result[0]["ID"], 10);
+        const id = parseInt(result['queryResult'][0]["ID"], 10);
         const nextId = id + 1;
 
         // Insert new Note in database.
         const sqlInsert = 'insert into noterepo.note (ID, ADMINUSERID, PRIVATEACCESS, TEXT, LASTSAVED) VALUES (' + nextId + ',\'\', 0, \'' + text + '\', CURRENT_TIMESTAMP);';
 
         sqlpromise = new Promise((resolve, reject) => {
-            con.query(sqlInsert, function (err, result) {
-                if (err) {
-                    this.logger.error('Error while inserting a Note: ' + err);
-                    throw err;
-                }
-
-                resolve(result);
-            });
+            con.query(sqlInsert, this.createInsertCallbackFunction(resolve, reject, this.logger));
 
             con.end();
         });
@@ -139,18 +125,17 @@ export class Noteservice {
             const id = parseInt(req.body['id'], 10);
             this.logger.debug('Update note with id = ' + id + ', and text = ' + text);
             const con = this.connectToDb();
-            //const sql = 'update noterepo.note set TEXT = \'' + text + '\', LASTSAVED = CURRENT_TIMESTAMP where id = ' + id + ';';
             const sql = 'update noterepo.note set TEXT = ' + con.escape(text) + ', LASTSAVED = CURRENT_TIMESTAMP where id = ' + id + ';';
 
             let sqlpromise = new Promise((resolve, reject) => {
-                con.query(sql, this.createCallbackFunction(resolve, reject, this.logger));
+                con.query(sql, this.createReadCallbackFunction(resolve, reject, this.logger));
                 con.end();
             });
 
             return sqlpromise;
         }
 
-        createCallbackFunction(resolve, reject, logger) {
+        createReadCallbackFunction(resolve, reject, logger) {
             return function(err, result) {
                 if (err) {
                     logger.error('Error while updating a Note: ' + err);
@@ -158,6 +143,17 @@ export class Noteservice {
                 }
 
                 resolve({queryResult: result});
+            }
+        }
+
+        createInsertCallbackFunction(resolve, reject, logger) {
+            return function (err, result) {
+                if (err) {
+                    this.logger.error('Error while finding last ID: ' + err);
+                    reject(err);
+                }
+
+                resolve(result);
             }
         }
 }
