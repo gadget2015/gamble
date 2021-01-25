@@ -108,12 +108,6 @@ app.put('/api/v1/note', (req, res) => {
          });;
 });
 
-app.get('/api/v1/notes/text/:text', (req, res) => {
-    const noteservice = new Noteservice(logger);
-
-    return noteservice.searchNote(req, res);
-});
-
 app.listen(port, err => {
     if (err) {
         return console.error(err);

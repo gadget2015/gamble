@@ -87,37 +87,6 @@ export class Noteservice {
         return con;
     }
 
-     async searchNote(req: Request, res: Response) {
-            const queryString = '%' + req.params.text + '%';
-            this.logger.debug('Search for note with text = ' + queryString);
-            const con = this.connectToDb();
-            const sql = 'select * from noterepo.note where text LIKE ?';
-
-            let sqlpromise = new Promise((resolve, reject) => {
-                con.query(sql, [queryString], function (err, result) {
-
-                    if (err) {
-                        this.logger.error('Error while searching for a Note: ' + err);
-                        throw err;
-                    }
-
-                    res.status(200).send({
-                        success: 'true',
-                        message: 'Notes retrieved successfully',
-                        note: result
-                    });
-
-                    resolve({queryResult: result});
-                });
-
-                con.end();
-            });
-
-            let result = await sqlpromise;
-
-            return result; // Just for the unittests.
-        }
-
         /**
         *   Params are case sensitive.
         */

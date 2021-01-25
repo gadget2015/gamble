@@ -102,28 +102,6 @@ test('Create a new Note.', async ()=> {
     expect(noteId).toBeGreaterThan(1);
 });
 
-test('Search for a note that contains the given text', async() => {
-    // Given
-    const service = new Noteservice(logger);
-
-    let req = httpMocks.createRequest({
-        method: 'GET',
-        url: '/api/v1/notes/',
-        params: {
-            text: 'morsning'
-        }
-    });
-
-    let res = httpMocks.createResponse();
-
-    // When
-    const result = await service.searchNote(req, res);
-
-    // Then should return more than one result
-    expect(result['queryResult'].length).toBeGreaterThan(1);
-});
-
-
 test('Update a Note.', async ()=> {
    // Given
     const service = new Noteservice(logger);
