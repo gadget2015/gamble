@@ -67,7 +67,20 @@ app.post('/api/v1/notes', (req, res) => {
     // Skapar en ny anteckning.
     const noteservice = new Noteservice(logger);
 
-    noteservice.createNote(req, res);
+    noteservice.createNote(req, res).then( (result) => {
+        const noteId = result;
+        res.status(200).send({
+                    success: 'true',
+                    message: 'Note saved successfully with Id = ' + noteId + '.',
+                    noteid: noteId
+                });
+
+        }, rejection => {
+            res.status(200).send({
+                success: 'false',
+                message: 'Error while query database.' + JSON.stringify(rejection)
+            });
+        });
 });
 
 app.put('/api/v1/note', (req, res) => {

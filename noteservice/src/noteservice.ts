@@ -50,20 +50,21 @@ export class Noteservice {
 
         sqlpromise = new Promise((resolve, reject) => {
             con.query(sqlInsert, this.createInsertCallbackFunction(resolve, reject, this.logger));
-
             con.end();
         });
 
-        result = await sqlpromise;
+        const returnPromise = new Promise(async (reslove, reject) => {
+            const result = await sqlpromise;
+            const affectedRows = result['affectedRows'];
 
-        res.status(200).send({
-            success: 'true',
-            message: 'Note saved successfully with Id = ' + nextId + '.',
-			noteid: nextId,
-			databaseinformation: JSON.stringify(result)
+            if (affectedRows === 1 ){
+                reslove(nextId);
+            } else {
+                reject('Error while inserting Note.');
+            }
         });
 
-        return nextId;
+        return returnPromise;
     }
 
     /**

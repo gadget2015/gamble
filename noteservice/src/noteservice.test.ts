@@ -96,10 +96,10 @@ test('Create a new Note.', async ()=> {
     let res = httpMocks.createResponse();
 
     // When
-    const result = await service.createNote(req, res);
+    const noteId = await service.createNote(req, res);
 
    // Then
-    expect(result).toBeGreaterThan(1);
+    expect(noteId).toBeGreaterThan(1);
 });
 
 test('Search for a note that contains the given text', async() => {
