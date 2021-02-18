@@ -20,3 +20,5 @@ Restart Linux system or run:
 
 ``node build/httpserver``
 
+# Uppgradera
+Till CRA version 4: https://medium.com/better-programming/upgrade-create-react-app-based-projects-to-version-4-cra-4-d7962aee11a6
