@@ -42,6 +42,7 @@ class BFF {
 
                 resolve({bffResult: spelbolag});
             } catch(e) {
+                this.logger.error('Kan inte hämta alla spelbolag. Trace = ' + JSON.stringify(e));
                 reject('Kan inte hämta alla spelbolag.');
             }
         });
@@ -72,6 +73,7 @@ class BFF {
 
                 resolve({bffResult: {'saldo': sum, transaktioner: transaktioner}});
             } catch(e) {
+                this.logger.error('Kan inte hämta transaktioner för givet konto. Trace = ' + JSON.stringify(e));
                 reject('Kan inte hämta transaktioner för givet konto.' + JSON.stringify(e));
             }
         });
@@ -111,6 +113,7 @@ class BFF {
 
                 resolve({bffResult: bffResult});
             } catch(e) {
+                this.logger.error('Kan inte hämta information till Mitt Saldo sidan. Trace = ' + JSON.stringify(e));
                 reject('Kan inte hämta information till Mitt Saldo sidan.');
             }
         });
@@ -188,6 +191,7 @@ class BFF {
                 // administratör för.
                 let spelareResult = await spelbolagservice.getSpelare(userid);
                 let spelare = spelareResult['queryResult'];
+
                 const administratorforspelbolag_id = spelare[0]['administratorforspelbolag_id'];
 
                 const allaSpelbolagResult = await spelbolagservice.getAllaSpelbolag();
@@ -218,6 +222,7 @@ class BFF {
                 // Returnerar data till vyn.
                 resolve({bffResult: bffResult});
             } catch(e) {
+                this.logger.error('Kan inte hämta information till Administrationsidan. Trace = ' + JSON.stringify(e));
                 reject('Kan inte hämta information till Administrationsidan.');
             }
         });
@@ -239,6 +244,7 @@ class BFF {
 
                 resolve({bffResult: {'affectedRows': affectedRows}});
             } catch(e) {
+                this.logger.error('Kan inte hämta transaktioner för givet konto. Trace = ' + JSON.stringify(e));
                 reject('Kan inte hämta transaktioner för givet konto.' + JSON.stringify(e));
             }
         });
@@ -290,6 +296,7 @@ class BFF {
 
                 resolve({bffResult: bffResult});
             } catch(e) {
+                this.logger.error('Kan inte hämta transaktioner för givet konto. Trace = ' + JSON.stringify(e));
                 reject('Kan inte hämta transaktioner för givet konto.' + JSON.stringify(e));
             }
         });

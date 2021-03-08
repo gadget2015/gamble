@@ -20,16 +20,23 @@ class AuthorizationMiddleware {
                 const userid = req['userid'];
                 const service = new Spelbolagservice(mylog);
                 const spelareResult = await service.getSpelare(userid);
-                const spelare = spelareResult['queryResult'][0];
 
-                if(spelare.administratorforspelbolag_id !== null) {
-                    // Den inloggad är administratör för ett spelbolag = administratör = OK gå vidare.
-                    mylog.debug('Användaren (' + userid + ') är administratör för ett spelbolag.')
-                    next();
+                mylog.debug('Verifierar spelare ' + JSON.stringify(spelareResult));
+                if (spelareResult['queryResult'].length === 0) {
+                    mylog.error('En oregistrerad användare försöker komma åt administratörsfunktioner, userid = ' + userid);
+                    res.status(200).send({success: false, message: 'Du är inte administratör, vilket krävs.'});
                 } else {
-                    // Inloggad är inte administratör.
-                     mylog.error('En användare försöker komma åt administratörsfunktioner utan att vara administratör.');
-                     res.status(200).send({success: false, message: 'Du är inte administratör, vilket krävs.'});
+                    const spelare = spelareResult['queryResult'][0];
+
+                    if(spelare.administratorforspelbolag_id !== null) {
+                        // Den inloggad är administratör för ett spelbolag = administratör = OK gå vidare.
+                        mylog.debug('Användaren (' + userid + ') är administratör för ett spelbolag.')
+                        next();
+                    } else {
+                        // Inloggad är inte administratör.
+                         mylog.error('En användare försöker komma åt administratörsfunktioner utan att vara administratör.');
+                         res.status(200).send({success: false, message: 'Du är inte administratör, vilket krävs.'});
+                    }
                 }
             } else {
                 next();

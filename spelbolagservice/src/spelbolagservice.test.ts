@@ -65,6 +65,17 @@ test('Leta fram en seplare', async () => {
     expect(result['queryResult'][0]['userid']).toBe('robert.georen@gmail.com');
 });
 
+test('Leta fram en seplare, som inte finns', async () => {
+    // Given
+    const service = new Spelbolagservice(logger);
+
+    // When
+    const result = await service.getSpelare('don.corleone@gmail.com');
+
+    // Then
+    expect(result['queryResult'].length).toBe(0);
+});
+
 test('Letar fram ett Spelbolag', async () => {
     // Given
     const service = new Spelbolagservice(logger);
