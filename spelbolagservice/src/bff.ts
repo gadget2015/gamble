@@ -331,7 +331,8 @@ class BFF {
 
                 resolve({bffResult: bffResult});
             } catch(e) {
-                reject('Kan inte hämta transaktioner för givet konto.' + JSON.stringify(e));
+                this.logger.error('Kan inte ta betalt av alla spelare i givet spelbolag. Trace = ' + JSON.stringify(e));
+                reject('Kan inte ta betalt av alla spelare i givet spelbolag.' + JSON.stringify(e));
             }
         });
 
