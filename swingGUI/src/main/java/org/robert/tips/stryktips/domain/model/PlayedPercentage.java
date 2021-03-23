@@ -3,7 +3,6 @@ package org.robert.tips.stryktips.domain.model;
 import org.robert.tips.exceptions.GeneralApplicationException;
 import org.robert.tips.exceptions.NoReducedRowsException;
 import org.robert.tips.exceptions.ReducingParametersNotSetException;
-import org.robert.tips.stryktips.domain.model.reduce.OddsReducer;
 import org.robert.tips.stryktips.domain.model.reduce.PercentageReducer;
 import org.robert.tips.stryktips.exceptions.GameNotSetException;
 import org.robert.tips.types.ReducerIF;
