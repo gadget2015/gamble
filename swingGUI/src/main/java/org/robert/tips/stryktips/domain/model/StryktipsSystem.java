@@ -16,6 +16,7 @@ public class StryktipsSystem {
     private Combination combination;
     private File fileName;			    // Filename
     private Extended  extended;
+    private PlayedPercentage played;
 
     /**
      * Contains the reduced rows. The object type in the container is StryktipsGame.
@@ -29,6 +30,7 @@ public class StryktipsSystem {
         this.banker = new Banker(this);
         this.combination = new Combination(this);
         this.extended = new Extended(this);
+        this.played = new PlayedPercentage(this);
     }
 
     public Odds getOdds() {
@@ -81,5 +83,13 @@ public class StryktipsSystem {
 
     public void setExtended(Extended extended) {
         this.extended = extended;
+    }
+
+    public PlayedPercentage getPlayed() {
+        return played;
+    }
+
+    public void setPlayed(PlayedPercentage played) {
+        this.played = played;
     }
 }
