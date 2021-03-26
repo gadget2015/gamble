@@ -46,4 +46,6 @@ public interface StryktipsTextMessages
 	public static final String EXTENDE_SYSTEM_TITLE = "ExtendedSystemTitle";
 	public static final String TAB_EXTENDED_SYSTEM = "TabExtendedSystem";
 	public static final String EXTENDED_SYSTEM_PARAMETERS = "ExtendedSystemParameters";
-} 
+	public static final String TAB_PLAYEDPERCENTAGE = "TabPlayedPercentage";
+	public static final String PLAYEDPERCENTAGE_TITLE = "PlayedPercentageTitle";
+}

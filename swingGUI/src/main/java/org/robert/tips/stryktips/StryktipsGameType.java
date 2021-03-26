@@ -1,6 +1,7 @@
 package org.robert.tips.stryktips;
 
 import org.robert.tips.GameIF;
+import org.robert.tips.stryktips.ui.desktop.playedpercentage.PlayedPercentageContainer;
 import org.robert.tips.util.TextMessages;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -269,13 +270,15 @@ public class StryktipsGameType implements GameIF,
         constraints.gridy = 0;
         BankersSystemContainer bankersSystemContainer = new BankersSystemContainer(currentDocument);
         bankersContent.add(bankersSystemContainer, constraints);
-
         tabbedPane.add(textMessages.getText(TAB_BANKERS), bankersContent);
 
         // add the odds tab
         OddsSystemContainer oddsSystemContainer = new OddsSystemContainer(currentDocument);
-
         tabbedPane.add(textMessages.getText(TAB_ODDS), oddsSystemContainer);
+
+        // Add the percentage tag
+        PlayedPercentageContainer playedPercentageContainer = new PlayedPercentageContainer(currentDocument);
+        tabbedPane.add(textMessages.getText(TAB_PLAYEDPERCENTAGE), playedPercentageContainer);
 
         // fix up the return content
         JPanel content = new JPanel();
