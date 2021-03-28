@@ -5,8 +5,10 @@ import java.awt.event.FocusEvent;
 import org.robert.tips.stryktips.types.StryktipsOddsField;
 
 /**
- * This is the focus listener added to all odds input fields.
- * Uses the MVC pattern.
+ * This is the focus listener added to all odds input fields, and
+ * it selects the input when focuesed. This will then be easier for
+ * the user to edit the input values.
+ *
  * @author Robert Siwerz.
  */
 class OddsInputFocusListener implements FocusListener

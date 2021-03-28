@@ -50,7 +50,6 @@ public class PercentageInputFieldHandler implements DocumentListener,
     private void updateModel() {
         int position = stryktipsPercentageField.getRownumber();
         String tmpValue = stryktipsPercentageField.getText();
-        System.out.println("Update model: position = " + position + ", value = " + tmpValue);
 
         try
         {

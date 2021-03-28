@@ -14,7 +14,7 @@ import static org.robert.tips.stryktips.types.StryktipsConstants.NUMBER_OF_GAMEO
 import static org.robert.tips.stryktips.types.StryktipsConstants.NUMBER_OF_GAMES;
 
 /**
- * Contains all components that builds up the percentage input fields.
+ * Contains all components that builds up the percentage input fields table.
  *
  * Use MVC pattern to update the percent domain model object (PlayedPercentage).
  * @author Robert Siwerz.
@@ -37,17 +37,24 @@ public class PercentageInputContainer extends JPanel implements StryktipsTextMes
         for ( int i = 0; i < NUMBER_OF_GAMES; i++ ) {
             // one result
             StryktipsPercentageField oneField = new StryktipsPercentageField(i * NUMBER_OF_GAMEOPTIONS);
-            PercentageInputFieldHandler fieldController = new PercentageInputFieldHandler(stryktipsDocument, oneField);
-            oneField.getDocument().addDocumentListener(fieldController);
+            PercentageInputFieldHandler oneFieldController = new PercentageInputFieldHandler(stryktipsDocument, oneField);
+            oneField.getDocument().addDocumentListener(oneFieldController);
+            oneField.addFocusListener(new PercentageFieldInputFocutListener(oneField));
             panel.add(oneField);
 
             // Tied/equal
             StryktipsPercentageField xField = new StryktipsPercentageField(i * NUMBER_OF_GAMEOPTIONS + 1 );
+            PercentageInputFieldHandler xFieldController = new PercentageInputFieldHandler(stryktipsDocument, xField);
+            xField.getDocument().addDocumentListener(xFieldController);
+            xField.addFocusListener(new PercentageFieldInputFocutListener(xField));
             panel.add(xField);
 
             // Lose.
-            StryktipsPercentageField loseField = new StryktipsPercentageField(i * NUMBER_OF_GAMEOPTIONS + 2 );
-            panel.add(loseField );
+            StryktipsPercentageField looseField = new StryktipsPercentageField(i * NUMBER_OF_GAMEOPTIONS + 2 );
+            PercentageInputFieldHandler looseFieldController = new PercentageInputFieldHandler(stryktipsDocument, looseField);
+            looseField.getDocument().addDocumentListener(looseFieldController);
+            looseField.addFocusListener(new PercentageFieldInputFocutListener(looseField));
+            panel.add(looseField);
         }
 
         GridBagConstraints constraints = new GridBagConstraints();

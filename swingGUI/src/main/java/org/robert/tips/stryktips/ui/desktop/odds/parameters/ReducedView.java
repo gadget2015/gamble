@@ -20,7 +20,7 @@ import org.robert.tips.util.TextMessages;
  * Uses the MVC pattern.
  * @author Robert Siwerz.
  */
-class ReducedView extends JPanel implements ChangeListener, 
+public class ReducedView extends JPanel implements ChangeListener,
                                             StryktipsTextMessages,
                                             GameTextMessages
  {

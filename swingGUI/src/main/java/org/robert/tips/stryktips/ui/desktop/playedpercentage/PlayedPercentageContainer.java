@@ -3,6 +3,7 @@ package org.robert.tips.stryktips.ui.desktop.playedpercentage;
 import org.robert.tips.exceptions.GeneralApplicationException;
 import org.robert.tips.stryktips.StryktipsDocument;
 import org.robert.tips.stryktips.types.StryktipsTextMessages;
+import org.robert.tips.stryktips.ui.desktop.playedpercentage.parameters.PercentageParametersContainer;
 import org.robert.tips.stryktips.ui.desktop.playedpercentage.percentageinput.PercentageInputContainer;
 import org.robert.tips.util.TextMessages;
 
@@ -28,5 +29,11 @@ public class PlayedPercentageContainer extends JPanel implements StryktipsTextMe
         constraints.anchor = GridBagConstraints.NORTH;
         add(inputFields, constraints);
 
+        // The parameters used when reducing with percentage strategy.
+        PercentageParametersContainer parametersContainer = new PercentageParametersContainer(stryktipsDocument);
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.anchor = GridBagConstraints.NORTH;
+        add(parametersContainer, constraints);
     }
 }
