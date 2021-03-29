@@ -1,5 +1,7 @@
 package org.robert.tips.stryktips.types;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 /**
   * Interface for defining all text messages for the stryktips document type.
   * @author Robert Georen
@@ -50,4 +52,5 @@ public interface StryktipsTextMessages
 	public static final String PLAYEDPERCENTAGE_TITLE = "PlayedPercentageTitle";
 	public static final String PERCENTAGE_SYSTEM_PARAMETERS_TITLE = "PlayedPercentageParametersTitle";
 	public static final String PERCENTAGE_REVENUE_PARAMETER_LABEL = "PlayedPercentageRevenueParameterLabel";
+	public static final String PERCENTAGE_KOEFFICIENT_PARAMETER_LABEL = "PlayedPercentageKoefficientLabel";
 }

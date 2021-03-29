@@ -28,8 +28,8 @@ public class RevenueInputContainer extends JPanel implements StryktipsTextMessag
         add( label, constraints );
 
         // input
-        JTextField revenueInputField = new JTextField( 5 );
-        revenueInputField.setText( Float.toString( stryktipsDocument.getStryktipsSystem().getPlayed().revenue ) );
+        JTextField revenueInputField = new JTextField( 7 );
+        revenueInputField.setText(String.valueOf(stryktipsDocument.getStryktipsSystem().getPlayed().revenue));
         RevenueInputFieldHandler revenueInputFieldHandler = new RevenueInputFieldHandler(stryktipsDocument, revenueInputField);
         revenueInputField.getDocument().addDocumentListener(revenueInputFieldHandler);
         add( revenueInputField, constraints );

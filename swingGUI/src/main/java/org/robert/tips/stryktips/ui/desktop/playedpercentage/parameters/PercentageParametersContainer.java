@@ -33,18 +33,25 @@ public class PercentageParametersContainer extends JPanel implements StryktipsTe
 
         // Add parameters
         RevenueInputContainer revenueInputContainer = new RevenueInputContainer(stryktipsDocument);
-        constraints.anchor = GridBagConstraints.NORTHWEST;
+        constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        constraints.gridx = 0;
+        constraints.gridy = 0;
         add(revenueInputContainer, constraints);
 
-        // add a line separator
+        KoefficientInputContainer koefficientInputContainer = new KoefficientInputContainer(stryktipsDocument);
+        constraints.gridx = 0;
         constraints.gridy = 1;
+        add(koefficientInputContainer, constraints);
+
+        // add a line separator
+        constraints.gridx = 0;
+        constraints.gridy = 2;
         add( new JLabel( "-----------------------------------------------------------" ), constraints );
 
         // Show number of rows in reduced system
         ReducedView reducedView = new ReducedView( stryktipsDocument );
         constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.anchor = GridBagConstraints.NORTHWEST;
+        constraints.gridy = 3;
         add( reducedView, constraints );
     }
 }
