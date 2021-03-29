@@ -19,4 +19,5 @@ public interface StryktipsErrorMessages
 	public static final String INVALID_RSYSTEM_SET = "InvalidRSystemSet";
 	public static final String MUST_SELECT_EXTENDEDROW = "MustSelectOneExtendedGame";
 	public static final String INVALID_PERCENTAGE_FROMAT = "InvalidPercentageFormat";
+	public static final String INVALID_REVENUE_FORMAT ="InvalidRevenueFormat";
 } 
