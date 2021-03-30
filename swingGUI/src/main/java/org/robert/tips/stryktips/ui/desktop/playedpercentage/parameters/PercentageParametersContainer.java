@@ -43,15 +43,20 @@ public class PercentageParametersContainer extends JPanel implements StryktipsTe
         constraints.gridy = 1;
         add(koefficientInputContainer, constraints);
 
-        // add a line separator
+        NumberOfRightsInputContainer numberOfRightsInputContainer = new NumberOfRightsInputContainer(stryktipsDocument);
         constraints.gridx = 0;
         constraints.gridy = 2;
+        add(numberOfRightsInputContainer, constraints);
+
+        // add a line separator
+        constraints.gridx = 0;
+        constraints.gridy = 3;
         add( new JLabel( "-----------------------------------------------------------" ), constraints );
 
         // Show number of rows in reduced system
         ReducedView reducedView = new ReducedView( stryktipsDocument );
         constraints.gridx = 0;
-        constraints.gridy = 3;
+        constraints.gridy = 4;
         add( reducedView, constraints );
     }
 }

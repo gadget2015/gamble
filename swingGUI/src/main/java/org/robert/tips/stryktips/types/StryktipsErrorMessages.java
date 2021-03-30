@@ -21,4 +21,5 @@ public interface StryktipsErrorMessages
 	public static final String INVALID_PERCENTAGE_FROMAT = "InvalidPercentageFormat";
 	public static final String INVALID_REVENUE_FORMAT ="InvalidRevenueFormat";
 	public static final String INVALID_KOEFFICIENT_FORMAT = "InvalidKoefficientFormat";
+	public static final String INVALID_NUMBER_OF_RIGHTS_FORMAT = "InvalidNumberOfRightsFormat";
 } 

@@ -53,4 +53,5 @@ public interface StryktipsTextMessages
 	public static final String PERCENTAGE_SYSTEM_PARAMETERS_TITLE = "PlayedPercentageParametersTitle";
 	public static final String PERCENTAGE_REVENUE_PARAMETER_LABEL = "PlayedPercentageRevenueParameterLabel";
 	public static final String PERCENTAGE_KOEFFICIENT_PARAMETER_LABEL = "PlayedPercentageKoefficientLabel";
+	public static final String PERCENTAGE_NUMBER_OF_RIGHTS_PARAMETER_LABEL = "PlayedPercentageNumberOfRightsLabel";
 }
