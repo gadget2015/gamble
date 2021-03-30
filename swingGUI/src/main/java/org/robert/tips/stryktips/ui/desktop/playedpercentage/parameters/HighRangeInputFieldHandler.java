@@ -52,7 +52,7 @@ public class HighRangeInputFieldHandler implements DocumentListener,
         {
             tmpValue = ( tmpValue.length() == 0 ) ? "0.0": tmpValue;
             float value = Float.valueOf( tmpValue );
-            System.out.println("update high  model=" + value);
+
             stryktipsDocument.getStryktipsSystem().getPlayed().koefficientMax = value;
             stryktipsDocument.setDocumentIsDirty(true);
         }

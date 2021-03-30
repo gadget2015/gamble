@@ -65,7 +65,7 @@ public class LowNumberOfRightsRangeInputFieldHandler implements DocumentListener
         {
             tmpValue = ( tmpValue.length() == 0 ) ? "0": tmpValue;
             int value = Integer.valueOf( tmpValue );
-            System.out.println("update low number of rights model=" + value);
+
             stryktipsDocument.getStryktipsSystem().getPlayed().minimumNumberOfPeopleWithFullPot = value;
             stryktipsDocument.setDocumentIsDirty(true);
         }

@@ -57,7 +57,7 @@ public class HighNumberOfRightsRangeInputFieldHandler implements DocumentListene
         {
             tmpValue = ( tmpValue.length() == 0 ) ? "0": tmpValue;
             int value = Integer.valueOf( tmpValue );
-            System.out.println("update high number of rights model=" + value);
+
             stryktipsDocument.getStryktipsSystem().getPlayed().maxiumumNumberOfPeopleWithFullPot = value;
             stryktipsDocument.setDocumentIsDirty(true);
         }

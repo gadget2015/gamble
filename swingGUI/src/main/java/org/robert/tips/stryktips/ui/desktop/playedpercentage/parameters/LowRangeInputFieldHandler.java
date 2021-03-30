@@ -57,7 +57,7 @@ public class LowRangeInputFieldHandler implements DocumentListener,
         {
             tmpValue = ( tmpValue.length() == 0 ) ? "0.0": tmpValue;
             float value = Float.valueOf( tmpValue );
-System.out.println("update low  model=" + value);
+
             stryktipsDocument.getStryktipsSystem().getPlayed().koefficientMin = value;
             stryktipsDocument.setDocumentIsDirty(true);
         }
