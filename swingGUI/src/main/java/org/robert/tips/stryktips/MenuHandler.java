@@ -97,6 +97,8 @@ class MenuHandler implements ActionListener,
             showStryktipsHelp();
         } else if (command.equals(HELP_ABOUT)) {
             showAboutDialog();
+        } else if (command.equals(REDUCE_PLAYED_PERCENTAGE_SYSTEM)) {
+            reducePlayedPercentageSystem();
         }
     }
 
@@ -505,5 +507,12 @@ class MenuHandler implements ActionListener,
             }
 
         }
+    }
+
+    /**
+     * Reduce the played percentage system.
+     */
+    private void reducePlayedPercentageSystem() {
+        System.out.println("Reducera played percentage system...");
     }
 }

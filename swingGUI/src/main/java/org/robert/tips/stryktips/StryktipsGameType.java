@@ -203,6 +203,19 @@ public class StryktipsGameType implements GameIF,
         menuCheckReducedSystem.addActionListener(menuHandler);
         menuReduce.add(menuCheckReducedSystem);
 
+
+        // Played percentage menu
+        JMenu playedPercentage = new JMenu();
+        playedPercentage.setText(textMessages.getText(PLAYED_PERCENTAGE));
+
+        // Reduce system.
+        JMenuItem menuReducePercentageSystem = new JMenuItem();
+        menuReducePercentageSystem.setText(textMessages.getText(PLAYED_PERCENTAGE_REDUCE));
+        menuReducePercentageSystem.setActionCommand(REDUCE_PLAYED_PERCENTAGE_SYSTEM);
+        menuReducePercentageSystem.addActionListener(menuHandler);
+        playedPercentage.add(menuReducePercentageSystem);
+
+
         // Help menu      
         JMenu menuHelp = new JMenu();
         menuHelp.setText(textMessages.getText(HELP));
@@ -230,6 +243,7 @@ public class StryktipsGameType implements GameIF,
         menuBar.add(menuBankers);
         menuBar.add(menuOdds);
         menuBar.add(menuReduce);
+        menuBar.add(playedPercentage);
         menuBar.add(menuHelp);
 
         return menuBar;

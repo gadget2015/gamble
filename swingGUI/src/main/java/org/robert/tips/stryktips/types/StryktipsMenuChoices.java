@@ -26,4 +26,5 @@ public interface StryktipsMenuChoices
 	public static final String MENU_HELP_STRYKTIPS = "MenuHelpStryktips";
 	public static final String EXTENDED_SYSTEM = "MenuExtendedSystem";
 	public static final String EXTENDED_CREATE_SYSTEM = "MenuExtendedCreate";
+	public static final String REDUCE_PLAYED_PERCENTAGE_SYSTEM = "MenuReducePlayedPercentageSystem";
 } 

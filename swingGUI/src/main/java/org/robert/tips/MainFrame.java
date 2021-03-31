@@ -33,7 +33,7 @@ public class MainFrame extends JFrame implements MenuChoices,
         super();
 
         getContentPane().setLayout(new BorderLayout());
-        setSize(new Dimension(600, 530));
+        setSize(new Dimension(700, 530));
 
         initMainFrame();
         show();

@@ -20,4 +20,6 @@ public interface MenuChoices
 	public static final String FILE_NEW_MALTIPS = "Menu_NewMaltips";
 	public static final String FILE_NEW_STRYKTIPS = "Menu_NewStryktips";
 	public static final String FILE_CLOSE_DOCUMENT = "Menu_close_document";
+	public static final String PLAYED_PERCENTAGE = "Menu_played_percentage";
+	public static final String PLAYED_PERCENTAGE_REDUCE = "Menu_played_percentage_reduce";
 } 
