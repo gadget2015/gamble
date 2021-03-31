@@ -76,6 +76,7 @@ public class StryktipsSystemRepository implements StryktipsXMLConstants, Strykti
             unmarshallRSystem(document, newStryktipsSystem);
             unmarshallOdds(document, newStryktipsSystem);
             unmarshallExtended(document, newStryktipsSystem);
+            unmarshallPercentage(document, newStryktipsSystem);
 
             return newStryktipsSystem;
         } catch (ParserConfigurationException ex) {
@@ -131,6 +132,10 @@ public class StryktipsSystemRepository implements StryktipsXMLConstants, Strykti
             // add extended system
             Element xmlExtendedSystem = marshallExtended(document, stryktipsSystem);
             root.appendChild(xmlExtendedSystem);
+
+            // Add percentage system
+            Element xmlPercentageSystem = marshallPercentage(document, stryktipsSystem);
+            root.appendChild(xmlPercentageSystem);
 
             // create a string representation of this document, e.g a XML document as a string
             OutputFormat outputFormat = new OutputFormat(METHOD, ENCODING, true);
@@ -314,6 +319,60 @@ public class StryktipsSystemRepository implements StryktipsXMLConstants, Strykti
         xmlOdds.appendChild(xmlOddsSystem);
 
         return xmlOdds;
+    }
+    private Element marshallPercentage(Document document, StryktipsSystem stryktipsSystem) {
+        Element xml = (Element) document.createElement(ROOT_PERCENTAGE);
+
+        // add revenue parameter
+        Element xmlRevenueParameter = (Element) document.createElement(ROOT_PERCENTAGE_REVENUE_PARAMETER);
+        xmlRevenueParameter.appendChild(document.createTextNode(Integer.toString(stryktipsSystem.getPlayed().revenue)));
+        xml.appendChild(xmlRevenueParameter);
+
+        // add koefficient LOW range parameter
+        Element xmlLowRangeKoefficientParameter = (Element) document.createElement(ROOT_PERCENTAGE_KOEFFICIENT_LOW_PARAMETER);
+        xmlLowRangeKoefficientParameter.appendChild(document.createTextNode(Float.toString(stryktipsSystem.getPlayed().koefficientMin)));
+        xml.appendChild(xmlLowRangeKoefficientParameter);
+
+        // add koefficient HIGH range parameter
+        Element xmlHighRangeKoefficientParameter = (Element) document.createElement(ROOT_PERCENTAGE_KOEFFICIENT_HIGH_PARAMETER);
+        xmlHighRangeKoefficientParameter.appendChild(document.createTextNode(Float.toString(stryktipsSystem.getPlayed().koefficientMax)));
+        xml.appendChild(xmlHighRangeKoefficientParameter);
+
+        // Add number of rights LOW range parameter
+        Element xmlLowRangeNumberOfRightsParameter = (Element) document.createElement(ROOT_PERCENTAGE_NUMBER_OF_RIGHTS_LOW_PARAMETER);
+        xmlLowRangeNumberOfRightsParameter.appendChild(document.createTextNode(Integer.toString(stryktipsSystem.getPlayed().minimumNumberOfPeopleWithFullPot)));
+        xml.appendChild(xmlLowRangeNumberOfRightsParameter);
+
+        // Add number of rights HIGH range parameter
+        Element xmlHighRangeNumberOfRightsParameter = (Element) document.createElement(ROOT_PERCENTAGE_NUMBER_OF_RIGHTS_HIGH_PARAMETER);
+        xmlHighRangeNumberOfRightsParameter.appendChild(document.createTextNode(Integer.toString(stryktipsSystem.getPlayed().maxiumumNumberOfPeopleWithFullPot)));
+        xml.appendChild(xmlHighRangeNumberOfRightsParameter);
+
+        // add percentage system
+        Element xmlPercentageSystem = (Element) document.createElement(ROOT_PERCENTAGE_ROWS);
+
+        for (int i = 0; i < NUMBER_OF_GAMES; i++) {
+            Element xmlSystemRow = (Element) document.createElement(ROOT_PERCENTAGE_ROW + i);
+
+            Element xmlSystemRowOne = (Element) document.createElement(ROOT_PERCENTAGE_ROW_ONE);
+            xmlSystemRowOne.appendChild(document.createTextNode(Float.toString(stryktipsSystem.getPlayed().getPercentage(i * NUMBER_OF_GAMEOPTIONS)).toString()));
+
+            Element xmlSystemRowTie = (Element) document.createElement(ROOT_PERCENTAGE_ROW_TIE);
+            xmlSystemRowTie.appendChild(document.createTextNode(Float.toString(stryktipsSystem.getPlayed().getPercentage(i * NUMBER_OF_GAMEOPTIONS + 1)).toString()));
+
+            Element xmlSystemRowTwo = (Element) document.createElement(ROOT_PERCENTAGE_ROW_TWO);
+            xmlSystemRowTwo.appendChild(document.createTextNode(Float.toString(stryktipsSystem.getPlayed().getPercentage(i * NUMBER_OF_GAMEOPTIONS + 2)).toString()));
+
+            xmlSystemRow.appendChild(xmlSystemRowOne);
+            xmlSystemRow.appendChild(xmlSystemRowTie);
+            xmlSystemRow.appendChild(xmlSystemRowTwo);
+
+            xmlPercentageSystem.appendChild(xmlSystemRow);
+        }
+
+        xml.appendChild(xmlPercentageSystem);
+
+        return xml;
     }
 
     private Element marshallRSystem(Document document, StryktipsSystem stryktipsSystem) {
@@ -565,6 +624,69 @@ public class StryktipsSystemRepository implements StryktipsXMLConstants, Strykti
             String two = util.getText(twoNode);
             oddsValue = Float.parseFloat(two);
             newStryktipsSystem.getOdds().setOddsSystem((i * NUMBER_OF_GAMEOPTIONS + 2), oddsValue);
+        }
+    }
+
+    private void unmarshallPercentage(Document document, StryktipsSystem newStryktipsSystem) throws InvalidXMLFormatException {
+        Element root = document.getDocumentElement();
+        NodeList percentageSystemList = root.getElementsByTagName(ROOT_PERCENTAGE);
+        Node percentageSystemNode = percentageSystemList.item(0);   // shall only be one tag with this name.
+
+        DOMUtility util = new DOMUtility();
+
+        // set revenue
+        Node revenueValue = util.findSubNode(ROOT_PERCENTAGE_REVENUE_PARAMETER, percentageSystemNode);
+        String tmpRevenueValue = util.getText(revenueValue);
+        int revenue = Integer.parseInt(tmpRevenueValue);
+        newStryktipsSystem.getPlayed().revenue = revenue;
+
+        // set koefficient low
+        Node lowKoefficient = util.findSubNode(ROOT_PERCENTAGE_KOEFFICIENT_LOW_PARAMETER, percentageSystemNode);
+        String tmpLowKoefficient = util.getText(lowKoefficient);
+        float koefficientMin = Float.parseFloat(tmpLowKoefficient);
+        newStryktipsSystem.getPlayed().koefficientMin = koefficientMin;
+
+        // set koefficient high
+        Node highKoefficient = util.findSubNode(ROOT_PERCENTAGE_KOEFFICIENT_HIGH_PARAMETER, percentageSystemNode);
+        String tmpHighKoefficient = util.getText(highKoefficient);
+        float koefficientMax = Float.parseFloat(tmpHighKoefficient);
+        newStryktipsSystem.getPlayed().koefficientMax = koefficientMax;
+
+        // Set number of rights low.
+        Node numberOfRightsLow = util.findSubNode(ROOT_PERCENTAGE_NUMBER_OF_RIGHTS_LOW_PARAMETER, percentageSystemNode);
+        String tmpNumberOfRightsLow = util.getText(numberOfRightsLow);
+        int minimumNumberOfPeopleWithFullPot = Integer.parseInt(tmpNumberOfRightsLow);
+        newStryktipsSystem.getPlayed().minimumNumberOfPeopleWithFullPot = minimumNumberOfPeopleWithFullPot;
+
+        // Set number of rights high.
+        Node numberOfRightsHigh = util.findSubNode(ROOT_PERCENTAGE_NUMBER_OF_RIGHTS_HIGH_PARAMETER, percentageSystemNode);
+        String tmpNumberOfRightsHigh = util.getText(numberOfRightsHigh);
+        int maxiumumNumberOfPeopleWithFullPot = Integer.parseInt(tmpNumberOfRightsHigh);
+        newStryktipsSystem.getPlayed().maxiumumNumberOfPeopleWithFullPot = maxiumumNumberOfPeopleWithFullPot;
+
+        // set percentage system
+        Node percentageSystemRowsNode = util.findSubNode(ROOT_PERCENTAGE_ROWS, percentageSystemNode);
+
+        for (int i = 0; i < NUMBER_OF_GAMES; i++) {
+            Node currentRow = util.findSubNode((ROOT_PERCENTAGE_ROW + i), percentageSystemRowsNode);
+
+            // one
+            Node oneNode = util.findSubNode(ROOT_PERCENTAGE_ROW_ONE, currentRow);
+            String one = util.getText(oneNode);
+            float value = Float.parseFloat(one);
+            newStryktipsSystem.getPlayed().setPercentage((i * NUMBER_OF_GAMEOPTIONS), value);
+
+            // tie
+            Node tieNode = util.findSubNode(ROOT_PERCENTAGE_ROW_TIE, currentRow);
+            String tie = util.getText(tieNode);
+            value = Float.parseFloat(tie);
+            newStryktipsSystem.getPlayed().setPercentage((i * NUMBER_OF_GAMEOPTIONS + 1), value);
+
+            // two
+            Node twoNode = util.findSubNode(ROOT_PERCENTAGE_ROW_TWO, currentRow);
+            String two = util.getText(twoNode);
+            value = Float.parseFloat(two);
+            newStryktipsSystem.getPlayed().setPercentage((i * NUMBER_OF_GAMEOPTIONS + 2), value);
         }
     }
 

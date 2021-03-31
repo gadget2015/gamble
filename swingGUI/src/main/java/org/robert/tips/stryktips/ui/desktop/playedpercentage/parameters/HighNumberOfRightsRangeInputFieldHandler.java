@@ -24,11 +24,11 @@ public class HighNumberOfRightsRangeInputFieldHandler implements DocumentListene
         ErrorMessages {
 
     private StryktipsDocument stryktipsDocument;
-    private JTextField lowRangeInputField;
+    private JTextField highRangeInputField;
 
-    public HighNumberOfRightsRangeInputFieldHandler(StryktipsDocument stryktipsDocument, JTextField lowRangeInputField) {
+    public HighNumberOfRightsRangeInputFieldHandler(StryktipsDocument stryktipsDocument, JTextField highRangeInputField) {
         this.stryktipsDocument = stryktipsDocument;
-        this.lowRangeInputField = lowRangeInputField;
+        this.highRangeInputField = highRangeInputField;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class HighNumberOfRightsRangeInputFieldHandler implements DocumentListene
      */
     private void updateModel()
     {
-        String tmpValue = lowRangeInputField.getText();
+        String tmpValue = highRangeInputField.getText();
 
         try
         {

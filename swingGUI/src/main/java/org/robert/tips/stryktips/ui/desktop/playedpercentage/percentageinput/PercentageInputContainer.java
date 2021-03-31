@@ -37,6 +37,7 @@ public class PercentageInputContainer extends JPanel implements StryktipsTextMes
         for ( int i = 0; i < NUMBER_OF_GAMES; i++ ) {
             // one result
             StryktipsPercentageField oneField = new StryktipsPercentageField(i * NUMBER_OF_GAMEOPTIONS);
+            oneField.setText( Float.toString(stryktipsDocument.getStryktipsSystem().getPlayed().getPercentage( i *NUMBER_OF_GAMEOPTIONS)));
             PercentageInputFieldHandler oneFieldController = new PercentageInputFieldHandler(stryktipsDocument, oneField);
             oneField.getDocument().addDocumentListener(oneFieldController);
             oneField.addFocusListener(new PercentageFieldInputFocutListener(oneField));
@@ -44,6 +45,7 @@ public class PercentageInputContainer extends JPanel implements StryktipsTextMes
 
             // Tied/equal
             StryktipsPercentageField xField = new StryktipsPercentageField(i * NUMBER_OF_GAMEOPTIONS + 1 );
+            xField.setText( Float.toString(stryktipsDocument.getStryktipsSystem().getPlayed().getPercentage( i *NUMBER_OF_GAMEOPTIONS + 1 )));
             PercentageInputFieldHandler xFieldController = new PercentageInputFieldHandler(stryktipsDocument, xField);
             xField.getDocument().addDocumentListener(xFieldController);
             xField.addFocusListener(new PercentageFieldInputFocutListener(xField));
@@ -51,6 +53,7 @@ public class PercentageInputContainer extends JPanel implements StryktipsTextMes
 
             // Lose.
             StryktipsPercentageField looseField = new StryktipsPercentageField(i * NUMBER_OF_GAMEOPTIONS + 2 );
+            looseField.setText( Float.toString(stryktipsDocument.getStryktipsSystem().getPlayed().getPercentage( i *NUMBER_OF_GAMEOPTIONS + 2 )));
             PercentageInputFieldHandler looseFieldController = new PercentageInputFieldHandler(stryktipsDocument, looseField);
             looseField.getDocument().addDocumentListener(looseFieldController);
             looseField.addFocusListener(new PercentageFieldInputFocutListener(looseField));

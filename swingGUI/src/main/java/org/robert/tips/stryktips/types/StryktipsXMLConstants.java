@@ -46,5 +46,16 @@ public interface StryktipsXMLConstants
     public static final String ROOT_EXTENDEDSYSTEM_SYSTEM_ROW = "EXTENDED_ROW";
     public static final String ROOT_EXTENDEDSYSTEM_SYSTEM_ROW_ONE = "EXTENDED_ROW_ONE";
     public static final String ROOT_EXTENDEDSYSTEM_SYSTEM_ROW_TIE = "EXTENDED_ROW_TIE";
-    public static final String ROOT_EXTENDEDSYSTEM_SYSTEM_ROW_TWO = "EXTENDED_ROW_TWO";    
+    public static final String ROOT_EXTENDEDSYSTEM_SYSTEM_ROW_TWO = "EXTENDED_ROW_TWO";
+    public static final String ROOT_PERCENTAGE = "PLAYED_PERCENTAGE_SYSTEM";
+    public static final String ROOT_PERCENTAGE_REVENUE_PARAMETER = "REVENUE_PARAMETER";
+    public static final String ROOT_PERCENTAGE_KOEFFICIENT_LOW_PARAMETER = "KOEFFICIENT_LOW_PARAMETER";
+    public static final String ROOT_PERCENTAGE_KOEFFICIENT_HIGH_PARAMETER = "KOEFFICIENT_HIGH_PARAMETER";
+    public static final String ROOT_PERCENTAGE_NUMBER_OF_RIGHTS_LOW_PARAMETER = "NUMBER_OF_RIGHTS_LOW_PARAMETER";
+    public static final String ROOT_PERCENTAGE_NUMBER_OF_RIGHTS_HIGH_PARAMETER = "NUMBER_OF_RIGHTS_HIGH_PARAMETER";
+    public static final String ROOT_PERCENTAGE_ROWS = "PLAYED_PERCENTAGE_ROWS";
+    public static final String ROOT_PERCENTAGE_ROW = "PLAYED_PERCENTAGE_ROW";
+    public static final String ROOT_PERCENTAGE_ROW_ONE = "ONE";
+    public static final String ROOT_PERCENTAGE_ROW_TIE = "TIE";
+    public static final String ROOT_PERCENTAGE_ROW_TWO = "TWO";
 }

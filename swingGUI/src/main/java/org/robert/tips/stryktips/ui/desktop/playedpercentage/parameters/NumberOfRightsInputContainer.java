@@ -43,7 +43,7 @@ public class NumberOfRightsInputContainer extends JPanel implements StryktipsTex
         add( label, constraints );
 
         JTextField highRangeInputField = new JTextField( 4 );
-        highRangeInputField.setText(String.valueOf(stryktipsDocument.getStryktipsSystem().getPlayed().minimumNumberOfPeopleWithFullPot));
+        highRangeInputField.setText(String.valueOf(stryktipsDocument.getStryktipsSystem().getPlayed().maxiumumNumberOfPeopleWithFullPot));
         HighNumberOfRightsRangeInputFieldHandler highRangeInputFieldHandler = new HighNumberOfRightsRangeInputFieldHandler(stryktipsDocument, highRangeInputField);
         highRangeInputField.getDocument().addDocumentListener(highRangeInputFieldHandler);
         constraints.gridx = 3;
