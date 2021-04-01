@@ -514,5 +514,32 @@ class MenuHandler implements ActionListener,
      */
     private void reducePlayedPercentageSystem() {
         System.out.println("Reducera played percentage system...");
+        try {
+            StryktipsDocument stryktipsDocument = (StryktipsDocument) stryktipsGameType.getDocument();
+            stryktipsDocument.getStryktipsSystem().getPlayed().reduce();
+            stryktipsDocument.setDocumentIsDirty(true);
+        } catch (ReducingParametersNotSetException e) {
+            TextMessages textMessages;
+            try {
+                textMessages = TextMessages.getInstance();
+                JOptionPane.showMessageDialog(null,
+                        e.getMessage(),
+                        textMessages.getText(DIALOG_ALERT_TITLE),
+                        JOptionPane.ERROR_MESSAGE);
+
+            } catch (GeneralApplicationException ex) {
+                Logger.getLogger(MenuHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception e) {
+            try {
+                TextMessages textMessages = TextMessages.getInstance();
+                JOptionPane.showMessageDialog(null,
+                        "Game not set with message = " + e.getMessage(),
+                        textMessages.getText(DIALOG_ALERT_TITLE),
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (GeneralApplicationException ex) {
+                Logger.getLogger(MenuHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

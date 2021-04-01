@@ -105,6 +105,7 @@ public class PlayedPercentage {
             throw new ReducingParametersNotSetException("The  koefficient Max must be more than Min value.");
         }
 
+System.out.println("Reducerar med parametrar:" + revenue + ", kmin=" + koefficientMin + ", kMax=" + koefficientMax + ", antalMin=" + minimumNumberOfPeopleWithFullPot +", antalMax=" + maxiumumNumberOfPeopleWithFullPot);
         // Reduce
         ReducerIF reducer = new PercentageReducer(stryktipsSystem);
         reducer.reduce();
