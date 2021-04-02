@@ -199,7 +199,7 @@ class MenuHandler implements ActionListener,
         }
 
         // export file.
-        String tmpExportFilename = stryktipsDocument.getStryktipsSystem().getFileName().getAbsolutePath() + ".export";
+        String tmpExportFilename = stryktipsDocument.getStryktipsSystem().getFileName().getAbsolutePath() + ".export.txt";
         File exportFileName = new File(tmpExportFilename);
 
         try {
