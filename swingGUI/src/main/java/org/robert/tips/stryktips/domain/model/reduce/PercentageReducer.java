@@ -53,6 +53,10 @@ public class PercentageReducer implements StryktipsErrorMessages,
         ArrayList newReducedRows = new ArrayList();
         Iterator iterator = currentRows.iterator();
 
+        try (
+                PrintWriter writer = new PrintWriter (new FileWriter("c:\\temp\\temp\\percentage_stat.csv"))) {
+
+
         while (iterator.hasNext()) {
             int row = 0;
             StryktipsGame game = (StryktipsGame) iterator.next();
@@ -87,6 +91,11 @@ public class PercentageReducer implements StryktipsErrorMessages,
                 statistics += ",FAIL";
             }
 
+            writer.println(statistics);
+        }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         stryktipsSystem.setReducedSystem(newReducedRows);
