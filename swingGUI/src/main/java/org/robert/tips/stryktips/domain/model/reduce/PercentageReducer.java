@@ -15,6 +15,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -78,7 +79,16 @@ public class PercentageReducer implements StryktipsErrorMessages,
             long numberOfEqualRowsMin = Math.round(P*koefficientMin*revenue);
             long numberOfEqualRowsMax = Math.round(P*koefficientMax*revenue);
 
-            String statistics = P + "," + numberOfEqualRowsMin + "," + numberOfEqualRowsMax + "," + minimumNumberOfPeopleWithFullPot + "," + maxiumumNumberOfPeopleWithFullPot;
+            // Debug analys
+            String pattern = "#.##############";
+            DecimalFormat decimalFormat = new DecimalFormat(pattern);
+            String pString = decimalFormat.format(P);
+            //int nCalculated= (int) ((0.798580855d*P + 0.000000165169d) * revenue); vecka 14
+            int nCalculated= (int) ((0.73981155d*P + 0.000000197632d) * revenue);
+
+            String statistics = pString + ";" + numberOfEqualRowsMin + ";" + numberOfEqualRowsMax + ";" + minimumNumberOfPeopleWithFullPot + ";" + maxiumumNumberOfPeopleWithFullPot +";" + nCalculated +";END";
+
+
             // Decide if the row should be saved in the new reduced system.
             // 1. Check the low value of number of people that will get full pot.
             // 2. Check the high value of number of people that will get full pot.
