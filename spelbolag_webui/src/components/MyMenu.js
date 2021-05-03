@@ -10,7 +10,7 @@ function MyMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [inloggad, setInloggad] = useState(false);
   const [username, setUsername] = useState('');
-  const [access_token_by_robert, setAccess_token_by_robert] = useState();
+  //const [access_token_by_robert, setAccess_token_by_robert] = useState();
 
   const loginService = new OAuth2ImplicitFlow(setInloggad, setUsername);
   loginService.handleClientLoad();  // Förbereder inloggning mot Google med Oauth2 Implicit Flow.
@@ -78,7 +78,7 @@ function MyMenu(props) {
     props.setShowAdministration(false);
   }
 
-    // Visar mitt tipssaldo efter lyckad inloggning, vilket triggas genom att userid sätts.
+    // Visar mitt tipssaldo efter lyckad inloggning, vilket triggas genom att username sätts.
     useEffect( () => {
        const getCookie = function (cname) {
           var name = cname + "=";

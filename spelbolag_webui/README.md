@@ -39,7 +39,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Deploy
 
-1. Bygg gamble Swing GUI, gå till gamble katalogen och skriv > mvn install -Dmaven.test.skip=true
+1. Bygg gamble Swing GUI med Java8, gå till gamble katalogen och skriv > mvn install -Dmaven.test.skip=true
 2. Signera filerna: signjars.cmd
 3. Kopiera över Swing GUI applikationern {tips-1.0.jar, xercesImpl-2.6.2.jar, xmlParserAPIs-2.0.0.jar} 
    till folder ./public
