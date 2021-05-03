@@ -328,16 +328,6 @@ public class StryktipsSystemRepository implements StryktipsXMLConstants, Strykti
         xmlRevenueParameter.appendChild(document.createTextNode(Integer.toString(stryktipsSystem.getPlayed().revenue)));
         xml.appendChild(xmlRevenueParameter);
 
-        // add koefficient LOW range parameter
-        Element xmlLowRangeKoefficientParameter = (Element) document.createElement(ROOT_PERCENTAGE_KOEFFICIENT_LOW_PARAMETER);
-        xmlLowRangeKoefficientParameter.appendChild(document.createTextNode(Float.toString(stryktipsSystem.getPlayed().koefficientMin)));
-        xml.appendChild(xmlLowRangeKoefficientParameter);
-
-        // add koefficient HIGH range parameter
-        Element xmlHighRangeKoefficientParameter = (Element) document.createElement(ROOT_PERCENTAGE_KOEFFICIENT_HIGH_PARAMETER);
-        xmlHighRangeKoefficientParameter.appendChild(document.createTextNode(Float.toString(stryktipsSystem.getPlayed().koefficientMax)));
-        xml.appendChild(xmlHighRangeKoefficientParameter);
-
         // Add number of rights LOW range parameter
         Element xmlLowRangeNumberOfRightsParameter = (Element) document.createElement(ROOT_PERCENTAGE_NUMBER_OF_RIGHTS_LOW_PARAMETER);
         xmlLowRangeNumberOfRightsParameter.appendChild(document.createTextNode(Integer.toString(stryktipsSystem.getPlayed().minimumNumberOfPeopleWithFullPot)));
@@ -639,18 +629,6 @@ public class StryktipsSystemRepository implements StryktipsXMLConstants, Strykti
         String tmpRevenueValue = util.getText(revenueValue);
         int revenue = Integer.parseInt(tmpRevenueValue);
         newStryktipsSystem.getPlayed().revenue = revenue;
-
-        // set koefficient low
-        Node lowKoefficient = util.findSubNode(ROOT_PERCENTAGE_KOEFFICIENT_LOW_PARAMETER, percentageSystemNode);
-        String tmpLowKoefficient = util.getText(lowKoefficient);
-        float koefficientMin = Float.parseFloat(tmpLowKoefficient);
-        newStryktipsSystem.getPlayed().koefficientMin = koefficientMin;
-
-        // set koefficient high
-        Node highKoefficient = util.findSubNode(ROOT_PERCENTAGE_KOEFFICIENT_HIGH_PARAMETER, percentageSystemNode);
-        String tmpHighKoefficient = util.getText(highKoefficient);
-        float koefficientMax = Float.parseFloat(tmpHighKoefficient);
-        newStryktipsSystem.getPlayed().koefficientMax = koefficientMax;
 
         // Set number of rights low.
         Node numberOfRightsLow = util.findSubNode(ROOT_PERCENTAGE_NUMBER_OF_RIGHTS_LOW_PARAMETER, percentageSystemNode);

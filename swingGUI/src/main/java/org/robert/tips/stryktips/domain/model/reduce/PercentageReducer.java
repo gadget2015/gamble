@@ -47,8 +47,6 @@ public class PercentageReducer implements StryktipsErrorMessages,
         ArrayList currentRows = stryktipsSystem.getReducedSystem();
         int minimumNumberOfPeopleWithFullPot = stryktipsSystem.getPlayed().minimumNumberOfPeopleWithFullPot;
         int maxiumumNumberOfPeopleWithFullPot = stryktipsSystem.getPlayed().maxiumumNumberOfPeopleWithFullPot;
-        float koefficientMin = stryktipsSystem.getPlayed().koefficientMin;
-        float koefficientMax = stryktipsSystem.getPlayed().koefficientMax;
         int revenue = stryktipsSystem.getPlayed().revenue;
 
         ArrayList newReducedRows = new ArrayList();
@@ -76,24 +74,23 @@ public class PercentageReducer implements StryktipsErrorMessages,
             }
 
             // Execute the formula with min and max for the given koefficient.
-            long numberOfEqualRowsMin = Math.round(P*koefficientMin*revenue);
-            long numberOfEqualRowsMax = Math.round(P*koefficientMax*revenue);
 
             // Debug analys
             String pattern = "#.##############";
             DecimalFormat decimalFormat = new DecimalFormat(pattern);
             String pString = decimalFormat.format(P);
             //int nCalculated= (int) ((0.798580855d*P + 0.000000165169d) * revenue); vecka 14
-            int nCalculated= (int) ((0.73981155d*P + 0.000000197632d) * revenue);
+            //int nCalculated= (int) ((0.73981155d*P + 0.000000197632d) * revenue);
+            //int nCalculated= (int) ((0.536244842d*P + 0.000000285896d) * revenue);
+            int nCalculated= (int) ((0.719002656d*P + 0.000000141589d) * revenue);  // vecka 17
 
-            String statistics = pString + ";" + numberOfEqualRowsMin + ";" + numberOfEqualRowsMax + ";" + minimumNumberOfPeopleWithFullPot + ";" + maxiumumNumberOfPeopleWithFullPot +";" + nCalculated +";END";
+            String statistics = pString + ";" + minimumNumberOfPeopleWithFullPot + ";" + maxiumumNumberOfPeopleWithFullPot +";" + nCalculated +";END";
 
 
             // Decide if the row should be saved in the new reduced system.
             // 1. Check the low value of number of people that will get full pot.
             // 2. Check the high value of number of people that will get full pot.
-            if ((numberOfEqualRowsMin >= minimumNumberOfPeopleWithFullPot && numberOfEqualRowsMin <= maxiumumNumberOfPeopleWithFullPot) ||
-                    (numberOfEqualRowsMax >= minimumNumberOfPeopleWithFullPot && numberOfEqualRowsMax <= maxiumumNumberOfPeopleWithFullPot)) {
+            if (nCalculated >= minimumNumberOfPeopleWithFullPot && nCalculated <= maxiumumNumberOfPeopleWithFullPot) {
                 // This row is OK, and should be saved/stored/used.
                 newReducedRows.add(game);
                 statistics += ",OK";

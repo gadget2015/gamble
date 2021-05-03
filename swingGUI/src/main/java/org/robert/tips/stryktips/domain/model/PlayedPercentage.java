@@ -42,10 +42,6 @@ public class PlayedPercentage {
      */
     public int revenue;
 
-
-    public float koefficientMin;
-    public float koefficientMax;
-
     public PlayedPercentage(StryktipsSystem strykyipsSystem) {
         this.stryktipsSystem = strykyipsSystem;
     }
@@ -97,15 +93,6 @@ public class PlayedPercentage {
             throw new ReducingParametersNotSetException("Missing revenue parameter.");
         }
 
-        if (koefficientMin < 0 ) {
-            throw new ReducingParametersNotSetException("Missing lower koefficeint.");
-        }
-
-        if (koefficientMax < koefficientMin) {
-            throw new ReducingParametersNotSetException("The  koefficient Max must be more than Min value.");
-        }
-
-System.out.println("Reducerar med parametrar:" + revenue + ", kmin=" + koefficientMin + ", kMax=" + koefficientMax + ", antalMin=" + minimumNumberOfPeopleWithFullPot +", antalMax=" + maxiumumNumberOfPeopleWithFullPot);
         // Reduce
         ReducerIF reducer = new PercentageReducer(stryktipsSystem);
         reducer.reduce();
