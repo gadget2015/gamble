@@ -80,9 +80,10 @@ public class PercentageReducer implements StryktipsErrorMessages,
             DecimalFormat decimalFormat = new DecimalFormat(pattern);
             String pString = decimalFormat.format(P);
             //int nCalculated= (int) ((0.798580855d*P + 0.000000165169d) * revenue); vecka 14
-            //int nCalculated= (int) ((0.73981155d*P + 0.000000197632d) * revenue);
+            //int nCalculated= (int) ((0.739811550d*P + 0.000000197632d) * revenue);
             //int nCalculated= (int) ((0.536244842d*P + 0.000000285896d) * revenue);
-            int nCalculated= (int) ((0.719002656d*P + 0.000000141589d) * revenue);  // vecka 17
+            //int nCalculated= (int) ((0.719002656d*P + 0.000000141589d) * revenue);  // vecka 17
+            int nCalculated= (int) ((0.677397676d*P + 0.000000159342d) * revenue);  // vecka 18
 
             String statistics = pString + ";" + minimumNumberOfPeopleWithFullPot + ";" + maxiumumNumberOfPeopleWithFullPot +";" + nCalculated +";END";
 
