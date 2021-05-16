@@ -83,7 +83,8 @@ public class PercentageReducer implements StryktipsErrorMessages,
             //int nCalculated= (int) ((0.739811550d*P + 0.000000197632d) * revenue);
             //int nCalculated= (int) ((0.536244842d*P + 0.000000285896d) * revenue);
             //int nCalculated= (int) ((0.719002656d*P + 0.000000141589d) * revenue);  // vecka 17
-            int nCalculated= (int) ((0.677397676d*P + 0.000000159342d) * revenue);  // vecka 18
+            //int nCalculated= (int) ((0.677397676d*P + 0.000000159342d) * revenue);  // vecka 18
+            int nCalculated= (int) ((0.595368862d*P + 0.00000018572d) * revenue);  // vecka 19
 
             String statistics = pString + ";" + minimumNumberOfPeopleWithFullPot + ";" + maxiumumNumberOfPeopleWithFullPot +";" + nCalculated +";END";
 
