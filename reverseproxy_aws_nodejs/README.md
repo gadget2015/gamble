@@ -8,6 +8,9 @@ Hanterar:
 # Bygga
 Behövs inte eftersom det en en node.js applikation.
 
+# Generera ett cetifikat för att kunna köra servern med https/TLS.
+https://github.com/sagardere/set-up-SSL-in-nodejs
+
 # Starta
 > node src\httpserver.js
 

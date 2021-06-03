@@ -5,6 +5,8 @@ var winston = require('winston');
 var httpProxy = require('http-proxy');
 var logform = require('logform');
 const process = require('process');
+const https = require('https');
+const fs = require('fs');
 
 // globala deklarationer
 var apiProxy = httpProxy.createProxyServer();
@@ -116,4 +118,19 @@ app.listen(port, err => {
     }
 
     logger.info('HTTP server is listening on ' + port + '.');
+});
+
+// HTTPS server
+var key = fs.readFileSync(__dirname + '/selfsigned.key');
+var cert = fs.readFileSync(__dirname + '/selfsigned.crt');
+const httpsPort = 443;
+
+var credentials = {
+  key: key,
+  cert: cert
+};
+
+var httpsServer = https.createServer(credentials, app);
+httpsServer.listen(httpsPort, () => {
+  logger.info("HTTPS server listing on port : " + httpsPort)
 });
