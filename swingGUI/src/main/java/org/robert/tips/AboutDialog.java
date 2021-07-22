@@ -13,7 +13,7 @@ public class AboutDialog extends JPanel
   
   public AboutDialog() 
   {
-    JLabel jLabel1 = new JLabel( "Gamble Application, version 2.0 (2021-05-03)" );
+    JLabel jLabel1 = new JLabel( "Gamble Application, version 2.1 (2021-07-22)" );
     JLabel jLabel2 = new JLabel( "Robert Georen Siwerz" );
     JLabel jLabel3 = new JLabel( "Copyright (c), 2003" );
     setLayout( new GridLayout( 3,1 ) );

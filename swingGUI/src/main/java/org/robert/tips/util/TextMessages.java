@@ -1,12 +1,10 @@
 package org.robert.tips.util;
 
+import java.io.*;
 import java.util.PropertyResourceBundle;
 import java.util.Locale;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URL;
-import java.io.InputStream;
+
 import org.robert.tips.exceptions.GeneralApplicationException;
 
 /** 
@@ -27,15 +25,15 @@ public class TextMessages {
 
         return textMessages;
     }
-
-    public static TextMessages getInstance(String urlResource) throws GeneralApplicationException {
+/*
+    public static TextMessages getInstancesdsd(String urlResource) throws GeneralApplicationException {
         if (textMessages == null) {
             textMessages = new TextMessages(urlResource);
         }
 
         return textMessages;
     }
-
+*/
     /**
      * Create the only instance of text message retreival.
      */
@@ -69,8 +67,22 @@ public class TextMessages {
             resourceBoundle = new PropertyResourceBundle(is);
         } catch (NullPointerException e) {
             throw new GeneralApplicationException("Resource not found: " + resource, e);
+        } catch(FileNotFoundException e) {
+            System.out.println("Text resource not found for " + resource + ". Revert to default language English.");
+
+            try {
+                ClassLoader cl = this.getClass().getClassLoader();
+
+                resource = RESOURCE_FILENAME + SUFIX;
+                URL resourceURL = cl.getResource(resource);
+                InputStream is = resourceURL.openStream();
+
+                resourceBoundle = new PropertyResourceBundle(is);
+            } catch(IOException err) {
+                throw new GeneralApplicationException("Major error while loading default text messages.", err);
+            }
         } catch (IOException e) {
-            throw new GeneralApplicationException("Resource not found: " + resource, e);
+            throw new GeneralApplicationException("IO error while loading resource with name: " + resource, e);
         }
     }
 
