@@ -35,7 +35,7 @@ MySQL Workbench 8.0 används som GUI mot databasen.
 
 Skapa en databas som heter noterepo.
 
-Tjänsten består av två tabeller, note och sequence.  
+Tjänsten består av en tabell, note.  
 <pre>
   CREATE TABLE `note` (  
   `ID` bigint(20) NOT NULL,  
