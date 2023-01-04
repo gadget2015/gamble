@@ -43,7 +43,7 @@ class BFF {
     * or production.
     */
     getServerHost() {
-        console.log('Call BFF, href=' + window.location.href);
+
         return window.location.href;
     }
 
@@ -53,6 +53,7 @@ class BFF {
     createFetchDataPromise(bffEndpoint) {
         const fetchDataPromise = new Promise((resolve, reject) => {
             const urlToBFF = this.getServerHost() + bffEndpoint;
+            console.log('Call BFF, href=' + urlToBFF);
 
             fetch(urlToBFF, {credentials: "same-origin"})
                 .then(async response => {

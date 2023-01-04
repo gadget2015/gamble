@@ -19,7 +19,7 @@ function Intro() {
         <div className="column">
             <img src="./intro_bild.png" alt="Så glada blir vi!"/>
         </div>
-        <i>version 1.0 (2020)</i>
+        <i>version 1.1 (2023)</i>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import {useState} from 'react';
 import {useEffect} from 'react';
-import { Menu } from '@material-ui/core';
-import { MenuItem } from '@material-ui/core';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import './MyMenu.css';
 import { OAuth2ImplicitFlow } from './OAuth2ImplicitFlow';
 
