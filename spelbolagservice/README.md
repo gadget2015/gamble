@@ -48,6 +48,7 @@ Vid utveckling så startas tjänsten i development mode med hotreload/watch.
 Starta testning med .
 > npm test
 
+Första gången failar ett test, men kör en gång till så fungerar det.
 Prestandatest:
 for ((i=1;i<=100;i++)); do   curl http://localhost:4002/bff/v1/transaktioner/234; done
 

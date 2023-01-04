@@ -5,7 +5,7 @@ import {Logger} from 'winston';
 
 /**
  * The Spelbolag service, that handles CRUD operations.
- *
+ * by Robert
  */
 export class Spelbolagservice {
     logger: Logger;
