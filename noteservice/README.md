@@ -14,8 +14,9 @@ http://localhost:4000/api/v1/notes/5
 * Använder Jest, https://basarat.gitbooks.io/typescript/content/docs/testing/jest.html
 * Mockar Request och Response med https://www.npmjs.com/package/node-mocks-http.
 * npm i jest @types/jest ts-jest -D
-* Utför tester med en uppstartad MySQL databas, Förutsätter att det finns en Note/TODO med Id: 5.
-`INSERT INTO noterepo.note (ID, ADMINUSERID, PRIVATEACCESS, TEXT, LASTSAVED) VALUES (67,'robert.georen@gmail.com',1,'TODO',CURRENT_TIMESTAMP);`
+* Utför tester med en uppstartad MySQL databas, Förutsätter att det finns en Note/TODO med Id: 5 och 6.
+`INSERT INTO noterepo.note (ID, ADMINUSERID, PRIVATEACCESS, TEXT, LASTSAVED) VALUES (5,'robert.georen@gmail.com',1,'TODO',CURRENT_TIMESTAMP); 
+INSERT INTO noterepo.note (ID, ADMINUSERID, PRIVATEACCESS, TEXT, LASTSAVED) VALUES (6,'robert.georen@gmail.com',1,'TODO',CURRENT_TIMESTAMP);`
 
 Starta testning med .
 > npm test
