@@ -1,5 +1,0 @@
-Göra en backup till filen src\test\resources\database_backup.xml
->mvn dbunit:export
-
-Restore:
->mvn dbunit:operation
