@@ -6,13 +6,12 @@ Använder spelbolagservice.
 
 Använder UI komponenter ifrån https://material-ui.com/.
 
-Verifiera id_token med tjänsten:
-https://oauth2.googleapis.com/tokeninfo?id_token=eyJhbGci
-
-Se dokumentation: https://developers.google.com/identity/sign-in/web/reference#gapiauth2authresponse
+Hur inloggningen fungerar https://developers.google.com/identity/gsi/web/guides/migration#popup-mode
 
 Google Developer console - ställ in Oauth2:
 https://console.developers.google.com/apis/dashboard?project=react-ui-spelbolagtest&hl=sv
+
+JWT hantering https://www.npmjs.com/package/jsonwebtoken
 
 ### `npm start`
 

@@ -1,19 +1,17 @@
 import React from 'react';
 import {useState} from 'react';
-import {useEffect} from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import './MyMenu.css';
-import { OAuth2ImplicitFlow } from './OAuth2ImplicitFlow';
+import jwt from 'jsonwebtoken';
+import { setCookie, deleteCookie, getCookie } from './../cookieUtil';
+
+var username;
+var loggedInDone = false;   // Used to make sure that after login the dispatch to the tipssaldo page is only performed once.
 
 function MyMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [inloggad, setInloggad] = useState(false);
-  const [username, setUsername] = useState('');
-  //const [access_token_by_robert, setAccess_token_by_robert] = useState();
-
-  const loginService = new OAuth2ImplicitFlow(setInloggad, setUsername);
-  loginService.handleClientLoad();  // Förbereder inloggning mot Google med Oauth2 Implicit Flow.
+  const [eventAttached, setEventAttached] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -23,14 +21,9 @@ function MyMenu(props) {
     resetMenuChooice();
   };
 
-  const handleLogin = () => {
-    resetMenuChooice();
-    loginService.login();
-  };
-
   const handleLogout = () => {
-    resetMenuChooice();
-    loginService.logout();
+    deleteCookie('access_token_by_robert');
+    handleHemClick();
   }
 
   const handleTipsprogramClick = () => {
@@ -48,11 +41,32 @@ function MyMenu(props) {
         props.setShowIntro(true);
   }
 
+    const dispatchLogin = function(e){
+        console.log('Fångar login event i React applikationen.');
+
+        if (loggedInDone === false) {
+            loggedInDone = true;
+            handleVisaTipssaldo();
+        }
+    };
+
+    // Only attach event listener once.
+    if(eventAttached !== true) {
+        console.log('add event listener');
+        setEventAttached(true);
+        window.addEventListener('loggedin', dispatchLogin);
+    }
+
     // Hanterar menyvalet login & logout.
     let authenticationContent;
+    var access_token = getCookie('access_token_by_robert');
+    var inloggad = false;
+    if (access_token !== '') {
+        inloggad = true;
+    }
 
     if (inloggad === false) {
-        authenticationContent = (<MenuItem onClick={handleLogin}>Login</MenuItem>);
+        authenticationContent = (<div className="g_id_signin" data-type="standard"></div>);
     } else {
         authenticationContent = (<MenuItem onClick={handleLogout}>Logout</MenuItem>);
     }
@@ -78,36 +92,6 @@ function MyMenu(props) {
     props.setShowAdministration(false);
   }
 
-    // Visar mitt tipssaldo efter lyckad inloggning, vilket triggas genom att username sätts.
-    useEffect( () => {
-       const getCookie = function (cname) {
-          var name = cname + "=";
-          var decodedCookie = decodeURIComponent(document.cookie);
-          var ca = decodedCookie.split(';');
-          for(var i = 0; i <ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) === ' ') {
-              c = c.substring(1);
-            }
-            if (c.indexOf(name) === 0) {
-              return c.substring(name.length, c.length);
-            }
-          }
-          return "";
-        }
-
-        console.log('useEffect[username]: username = ' + username + '.');
-        console.log('useEffect[username]: access_token_by_robert = ' + getCookie('access_token_by_robert'));
-
-        if (username !== '') {
-            // Visar mittsaldo sidan om man är inloggad och har fått tillbaka username ifrån Google.
-            console.log('useEffect[username]: visar mittsaldo sidan.');
-            handleVisaTipssaldo();
-        } else {
-            console.log('useEffect[username]: usename är tomt.');
-        }
-    }, [username]);
-
   return (
     <div className="MenuStyle row">
      <div className="column-header1">
@@ -129,4 +113,22 @@ function MyMenu(props) {
   );
 }
 
-export { MyMenu };
+/**
+* Anropas ifrån html-sidan direkt.
+*/
+function loginCredentialResponse(jwtn) {
+        var data = jwt.decode(jwtn.credential);
+        //console.log(JSON.stringify(jwtn));
+        console.log('Inloggning performed well.');
+        username = data.email;
+
+        // Set cookie with access_token that the REST API should use to authenticate users request.
+        setCookie('access_token_by_robert', jwtn.credential, 1);
+        console.log('JWT cookie username =' + jwt.decode(getCookie('access_token_by_robert')).email);
+
+        // Trigger event so that React application can update UI.
+        const event = new Event('loggedin');
+        window.dispatchEvent(event);
+}
+
+export { MyMenu, loginCredentialResponse };

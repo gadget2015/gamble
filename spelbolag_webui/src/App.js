@@ -2,11 +2,14 @@ import React from 'react';
 import {useState} from 'react';
 import './App.css';
 import {Intro} from './components/Intro';
-import {MyMenu} from './components/MyMenu';
+import {MyMenu, loginCredentialResponse} from './components/MyMenu';
 import {Tipsprogram} from './components/Tipsprogram';
 import {Tipsbolag} from './components/Tipsbolag';
 import {Tipssaldo} from './components/Tipssaldo';
 import {Administration} from './components/Administration';
+
+// Make function available outside react application, used by authentication.
+window.loginCredentialResponse = loginCredentialResponse;
 
 function App() {
     const [showIntro, setShowIntro] = useState(true);

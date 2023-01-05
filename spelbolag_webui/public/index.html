@@ -25,11 +25,18 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Stryktipsbolag</title>
-    <script src="https://apis.google.com/js/api.js"></script>
     <base href="%PUBLIC_URL%/">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <div id="g_id_onload"
+         data-client_id="232397828773-bd9lq6qeukt33pb6f9aql166hlqpnfcj.apps.googleusercontent.com"
+         data-callback="loginCredentialResponse">
+    </div>
+
+
     <div id="root"></div>
     <!--
       This HTML file is a template.
