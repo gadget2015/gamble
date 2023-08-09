@@ -62,7 +62,7 @@ Logga in i databasen.
 > mysql -u root -p  
 
 Skape en användare för enhetstesterna.
- mysqld --console --authentication-policy=mysql_native_password
+
 > use MYSQL;
 > CREATE USER 'rob4'@'localhost' IDENTIFIED BY 'password';
 > GRANT All ON *.* TO 'rob4'@'localhost';
