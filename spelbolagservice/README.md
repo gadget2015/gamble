@@ -54,14 +54,21 @@ for ((i=1;i<=100;i++)); do   curl http://localhost:4002/bff/v1/transaktioner/234
 
 
 # Databas
-MySQL 5.7.26 används.  
+MySQL 5.7.26 används i prod, i utv används 8.0.33.
 Den startas med
-> mysqld --console.  
+> mysqld --console --authentication-policy=mysql_native_password
 
 Logga in i databasen.
 > mysql -u root -p  
 
-MySQL Workbench 8.0 används som GUI mot databasen. 
+Skape en användare för enhetstesterna.
+ mysqld --console --authentication-policy=mysql_native_password
+> use MYSQL;
+> CREATE USER 'rob4'@'localhost' IDENTIFIED BY 'password';
+> GRANT All ON *.* TO 'rob4'@'localhost';
+
+See: https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_default_authentication_plugin
+
 
 Skapa en databas som heter spelbolag.
 

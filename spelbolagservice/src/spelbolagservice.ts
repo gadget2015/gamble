@@ -235,12 +235,13 @@ export class Spelbolagservice {
      * Skapar ett Promise som exekverar ett SQL statement.
      */
      createSQLPromise(sql) {
+        const innerLogger = this.logger;    // definieras lokalt för funktionen så att promise kan komma åt variabeln.
         let sqlpromise = new Promise((resolve, reject) => {
              const con = this.connectToDb();
              con.query(sql, function (err, result) {
-                 if (err) {
-                     this.logger.error('Connection.Error: ' + err);
-                     this.logger.error('Connection.Error.SQL query: ' + sql);
+                 if (err) {                 
+                     innerLogger.error('Connection.Error: ' + err);
+                     innerLogger.error('Connection.Error.SQL query: ' + sql);
                      con.end();
                      reject('SQLerror' + JSON.stringify(err));
                  } else {
