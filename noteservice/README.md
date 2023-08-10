@@ -32,7 +32,7 @@ Den startas med
 > mysqld --console.  
 > mysql -u root -p  
 
-MySQL Workbench 8.0 används som GUI mot databasen. 
+SQLDeveloper används som GUI mot databasen. 
 
 Skapa en databas som heter noterepo.
 
@@ -56,7 +56,6 @@ Tjänsten består av en tabell, note.
 
 ``tar -xvf noteservice.tgz``
 
-``node dist/app.js``
 
 
 Loggfil: /var/local/noteservice/noteservice.log

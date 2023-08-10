@@ -108,10 +108,7 @@ app.put('/api/v1/note', (req, res) => {
          });;
 });
 
-app.listen(port, err => {
-    if (err) {
-        return console.error(err);
+app.listen(port, function() {
+        logger.info(`Server is listening on ${port}.`);
     }
-
-    logger.info(`Server is listening on ${port}.`);
-});
+);
